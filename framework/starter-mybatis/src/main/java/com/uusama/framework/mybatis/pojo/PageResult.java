@@ -1,4 +1,4 @@
-package com.uusama.framework.pojo;
+package com.uusama.framework.mybatis.pojo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 分页结果
+ *
  * @author uusama
  */
 @Data

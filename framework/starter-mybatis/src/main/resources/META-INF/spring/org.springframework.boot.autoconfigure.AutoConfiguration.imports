@@ -1,0 +1,2 @@
+com.uusama.framework.mybatis.config.DataSourceAutoConfiguration
+com.uusama.framework.mybatis.config.MybatisAutoConfiguration

@@ -15,11 +15,14 @@
         <module>common</module>
         <module>framework/starter-web</module>
         <module>module-system</module>
+        <module>framework/starter-redis</module>
+        <module>framework/starter-security</module>
+        <module>framework/starter-mybatis</module>
     </modules>
 
     <name>${project.artifactId}</name>
     <description>a life system for uusama</description>
-    <url>https://github.com/youyouzh/ULife</url>
+    <url>https://github.com/youyouzh/ulife</url>
 
     <properties>
         <revision>1.0.0-snapshot</revision>
