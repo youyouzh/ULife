@@ -1,6 +1,6 @@
-package com.uusama.framework.filter;
+package com.uusama.framework.web.filter;
 
-import com.uusama.framework.util.ServletUtils;
+import com.uusama.framework.web.util.ServletUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;

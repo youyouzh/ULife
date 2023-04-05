@@ -1,6 +1,6 @@
-package com.uusama.framework.constant;
+package com.uusama.framework.web.constant;
 
-import com.uusama.framework.pojo.ErrorCode;
+import com.uusama.framework.web.pojo.ErrorCode;
 
 /**
  * 全局错误码枚举

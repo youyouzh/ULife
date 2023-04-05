@@ -1,7 +1,7 @@
-package com.uusama.framework.filter;
+package com.uusama.framework.web.filter;
 
 import com.uusama.common.util.StrUtil;
-import com.uusama.framework.properties.WebProperties;
+import com.uusama.framework.web.properties.WebProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.filter.OncePerRequestFilter;
 

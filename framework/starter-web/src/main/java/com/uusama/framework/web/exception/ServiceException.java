@@ -1,21 +1,21 @@
-package com.uusama.framework.exception;
+package com.uusama.framework.web.exception;
 
-import com.uusama.framework.constant.GlobalErrorCodeConstants;
-import com.uusama.framework.pojo.ErrorCode;
+import com.uusama.framework.web.constant.ServiceErrorCodeRange;
+import com.uusama.framework.web.pojo.ErrorCode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 服务器异常 Exception
+ * 业务逻辑异常 Exception
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public final class ServerException extends RuntimeException {
+public final class ServiceException extends RuntimeException {
 
     /**
-     * 全局错误码
+     * 业务错误码
      *
-     * @see GlobalErrorCodeConstants
+     * @see ServiceErrorCodeRange
      */
     private Integer code;
     /**
@@ -26,15 +26,15 @@ public final class ServerException extends RuntimeException {
     /**
      * 空构造方法，避免反序列化问题
      */
-    public ServerException() {
+    public ServiceException() {
     }
 
-    public ServerException(ErrorCode errorCode) {
+    public ServiceException(ErrorCode errorCode) {
         this.code = errorCode.getCode();
         this.message = errorCode.getMsg();
     }
 
-    public ServerException(Integer code, String message) {
+    public ServiceException(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -43,7 +43,7 @@ public final class ServerException extends RuntimeException {
         return code;
     }
 
-    public ServerException setCode(Integer code) {
+    public ServiceException setCode(Integer code) {
         this.code = code;
         return this;
     }
@@ -53,7 +53,7 @@ public final class ServerException extends RuntimeException {
         return message;
     }
 
-    public ServerException setMessage(String message) {
+    public ServiceException setMessage(String message) {
         this.message = message;
         return this;
     }

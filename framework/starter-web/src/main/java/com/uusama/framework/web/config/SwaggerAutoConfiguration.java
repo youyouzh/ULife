@@ -1,6 +1,6 @@
-package com.uusama.framework.config;
+package com.uusama.framework.web.config;
 
-import com.uusama.framework.properties.SwaggerProperties;
+import com.uusama.framework.web.properties.SwaggerProperties;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

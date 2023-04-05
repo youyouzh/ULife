@@ -1,4 +1,4 @@
-package com.uusama.framework.properties;
+package com.uusama.framework.web.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

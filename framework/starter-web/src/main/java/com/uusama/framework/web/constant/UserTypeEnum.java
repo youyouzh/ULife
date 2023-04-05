@@ -1,4 +1,4 @@
-package com.uusama.framework.constant;
+package com.uusama.framework.web.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

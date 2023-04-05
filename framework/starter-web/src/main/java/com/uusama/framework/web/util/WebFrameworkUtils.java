@@ -1,9 +1,9 @@
-package com.uusama.framework.util;
+package com.uusama.framework.web.util;
 
 import com.uusama.common.util.StrUtil;
-import com.uusama.framework.constant.UserTypeEnum;
-import com.uusama.framework.pojo.CommonResult;
-import com.uusama.framework.properties.WebProperties;
+import com.uusama.framework.web.constant.UserTypeEnum;
+import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.web.properties.WebProperties;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

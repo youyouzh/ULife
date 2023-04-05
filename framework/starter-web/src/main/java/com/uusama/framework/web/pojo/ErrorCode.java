@@ -1,7 +1,7 @@
-package com.uusama.framework.pojo;
+package com.uusama.framework.web.pojo;
 
-import com.uusama.framework.constant.GlobalErrorCodeConstants;
-import com.uusama.framework.constant.ServiceErrorCodeRange;
+import com.uusama.framework.web.constant.GlobalErrorCodeConstants;
+import com.uusama.framework.web.constant.ServiceErrorCodeRange;
 import lombok.Data;
 
 /**

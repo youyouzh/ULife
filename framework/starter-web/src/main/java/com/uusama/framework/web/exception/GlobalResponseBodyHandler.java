@@ -1,8 +1,8 @@
-package com.uusama.framework.exception;
+package com.uusama.framework.web.exception;
 
 
-import com.uusama.framework.pojo.CommonResult;
-import com.uusama.framework.util.WebFrameworkUtils;
+import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.web.util.WebFrameworkUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;

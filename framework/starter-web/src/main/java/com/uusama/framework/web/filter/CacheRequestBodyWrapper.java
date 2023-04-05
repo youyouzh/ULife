@@ -1,4 +1,4 @@
-package com.uusama.framework.filter;
+package com.uusama.framework.web.filter;
 
 import com.uusama.common.io.IoUtil;
 import lombok.SneakyThrows;

@@ -1,11 +1,11 @@
-package com.uusama.framework.config;
+package com.uusama.framework.web.config;
 
-import com.uusama.framework.constant.WebFilterOrderEnum;
-import com.uusama.framework.exception.GlobalExceptionHandler;
-import com.uusama.framework.exception.GlobalResponseBodyHandler;
-import com.uusama.framework.filter.CacheRequestBodyFilter;
-import com.uusama.framework.properties.WebProperties;
-import com.uusama.framework.util.WebFrameworkUtils;
+import com.uusama.framework.web.constant.WebFilterOrderEnum;
+import com.uusama.framework.web.exception.GlobalExceptionHandler;
+import com.uusama.framework.web.exception.GlobalResponseBodyHandler;
+import com.uusama.framework.web.filter.CacheRequestBodyFilter;
+import com.uusama.framework.web.properties.WebProperties;
+import com.uusama.framework.web.util.WebFrameworkUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;

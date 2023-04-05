@@ -1,4 +1,4 @@
-package com.uusama.framework.util;
+package com.uusama.framework.web.util;
 
 import com.uusama.common.io.IoUtil;
 import com.uusama.common.net.NetUtil;

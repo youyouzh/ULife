@@ -1,4 +1,4 @@
-package com.uusama.framework.util;
+package com.uusama.framework.web.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;

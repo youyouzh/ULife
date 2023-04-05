@@ -1,4 +1,4 @@
-package com.uusama.framework.config;
+package com.uusama.framework.web.config;
 
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.uusama.framework.util.JsonUtils;
+import com.uusama.framework.web.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

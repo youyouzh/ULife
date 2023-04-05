@@ -1,6 +1,6 @@
-package com.uusama.framework.properties;
+package com.uusama.framework.web.properties;
 
-import com.uusama.framework.config.WebAutoConfiguration;
+import com.uusama.framework.web.config.WebAutoConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

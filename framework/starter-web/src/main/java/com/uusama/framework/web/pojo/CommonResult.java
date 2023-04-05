@@ -1,9 +1,9 @@
-package com.uusama.framework.pojo;
+package com.uusama.framework.web.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.uusama.framework.constant.GlobalErrorCodeConstants;
-import com.uusama.framework.exception.ServerException;
-import com.uusama.framework.exception.ServiceException;
+import com.uusama.framework.web.constant.GlobalErrorCodeConstants;
+import com.uusama.framework.web.exception.ServerException;
+import com.uusama.framework.web.exception.ServiceException;
 import lombok.Data;
 import org.springframework.util.Assert;
 
