@@ -12,6 +12,9 @@
         <module>dependencies</module>
         <module>server</module>
         <module>framework</module>
+        <module>common</module>
+        <module>framework/starter-web</module>
+        <module>module-system</module>
     </modules>
 
     <name>${project.artifactId}</name>
