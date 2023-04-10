@@ -22,6 +22,7 @@
         <druid.version>1.2.15</druid.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
+        <mybatis-plus-join-boot-starter.version>1.4.3.1</mybatis-plus-join-boot-starter.version>
         <dynamic-datasource.version>3.6.1</dynamic-datasource.version>
         <redisson.version>3.18.0</redisson.version>
 
@@ -35,8 +36,8 @@
         <mockito-inline.version>4.11.0</mockito-inline.version>
 
         <!-- spring doc 文档相关 -->
-        <springdoc.version>1.6.14</springdoc.version>
-        <knife4j.version>4.0.0</knife4j.version>
+        <springdoc.version>1.6.9</springdoc.version>
+        <knife4j.version>4.1.0</knife4j.version>
 
         <!-- 工具类相关 -->
         <lombok.version>1.18.24</lombok.version>
@@ -45,7 +46,7 @@
         <ip2region.version>2.6.6</ip2region.version>
         <hutool.version>5.8.11</hutool.version>
         <commons-io.version>2.11.0</commons-io.version>
-        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-collections.version>4.4</commons-collections.version>
     </properties>
 
@@ -59,12 +60,52 @@
             </dependency>
             <dependency>
                 <groupId>com.uusama</groupId>
+                <artifactId>web-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.uusama</groupId>
+                <artifactId>starter-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.uusama</groupId>
                 <artifactId>starter-web</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.uusama</groupId>
+                <artifactId>starter-mybatis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.uusama</groupId>
+                <artifactId>starter-security</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.uusama</groupId>
+                <artifactId>starter-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.uusama</groupId>
+                <artifactId>module-system-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.uusama</groupId>
                 <artifactId>module-system-biz</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.uusama</groupId>
+                <artifactId>module-infra-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.uusama</groupId>
+                <artifactId>module-infra-biz</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -102,6 +143,8 @@
                 <version>${knife4j.version}</version>
             </dependency>
 
+            <!-- 监控相关，链路追踪 -->
+
             <!-- DB 相关 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -117,6 +160,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId> <!-- 代码生成器，使用它解析表结构 -->
                 <version>${mybatis-plus-generator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.yulichang</groupId>
+                <artifactId>mybatis-plus-join-boot-starter</artifactId>
+                <version>${mybatis-plus-join-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -221,6 +269,21 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-core</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

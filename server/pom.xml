@@ -24,6 +24,11 @@
             <groupId>com.uusama</groupId>
             <artifactId>module-system-biz</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.uusama</groupId>
+            <artifactId>module-infra-biz</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

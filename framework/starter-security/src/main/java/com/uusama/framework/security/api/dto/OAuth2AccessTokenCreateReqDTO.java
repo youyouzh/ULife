@@ -1,7 +1,5 @@
 package com.uusama.framework.security.api.dto;
 
-import cn.iocoder.yudao.framework.common.enums.UserTypeEnum;
-import cn.iocoder.yudao.framework.common.validation.InEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +9,7 @@ import java.util.List;
 /**
  * OAuth2.0 访问令牌创建 Request DTO
  *
- * @author 芋道源码
+ * @author uusama
  */
 @Data
 public class OAuth2AccessTokenCreateReqDTO implements Serializable {
@@ -25,7 +23,6 @@ public class OAuth2AccessTokenCreateReqDTO implements Serializable {
      * 用户类型
      */
     @NotNull(message = "用户类型不能为空")
-    @InEnum(value = UserTypeEnum.class, message = "用户类型必须是 {value}")
     private Integer userType;
     /**
      * 客户端编号

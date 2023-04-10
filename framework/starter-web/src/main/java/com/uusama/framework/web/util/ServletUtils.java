@@ -2,9 +2,9 @@ package com.uusama.framework.web.util;
 
 import com.uusama.common.io.IoUtil;
 import com.uusama.common.net.NetUtil;
-import com.uusama.common.util.ArrayUtil;
-import com.uusama.common.util.StrUtil;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 客户端工具类
  *
- * @author 芋道源码
+ * @author uusama
  */
 public class ServletUtils {
 
@@ -56,7 +56,7 @@ public class ServletUtils {
      */
     public static void writeAttachment(HttpServletResponse response, String filename, byte[] content) throws IOException {
         // 设置 header 和 contentType
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, StandardCharsets.UTF_8));
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, StandardCharsets.UTF_8.name()));
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         // 输出附件
         IoUtil.write(response.getOutputStream(), false, content);
@@ -101,7 +101,7 @@ public class ServletUtils {
     }
 
     public static boolean isJsonRequest(ServletRequest request) {
-        return StrUtil.startWithIgnoreCase(request.getContentType(), MediaType.APPLICATION_JSON_VALUE);
+        return StringUtils.startsWithIgnoreCase(request.getContentType(), MediaType.APPLICATION_JSON_VALUE);
     }
 
     /**
@@ -128,8 +128,8 @@ public class ServletUtils {
      */
     public static String getClientIP(HttpServletRequest request, String... otherHeaderNames) {
         String[] headers = {"X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"};
-        if (ArrayUtil.isNotEmpty(otherHeaderNames)) {
-            headers = ArrayUtil.addAll(headers, otherHeaderNames);
+        if (ArrayUtils.isNotEmpty(otherHeaderNames)) {
+            headers = ArrayUtils.addAll(headers, otherHeaderNames);
         }
 
         return getClientIPByHeader(request, headers);

@@ -3,7 +3,7 @@ package com.uusama.framework.mybatis.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.uusama.framework.mybatis.entity.BaseDO;
-import com.uusama.framework.mybatis.entity.BaseExDO;
+import com.uusama.framework.mybatis.entity.BaseConfigDO;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.time.LocalDateTime;
@@ -43,16 +43,16 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
     }
 
     private void fillLoginUser(MetaObject metaObject) {
-        if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseExDO) {
-            BaseExDO baseExDO = (BaseExDO) metaObject.getOriginalObject();
+        if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseConfigDO) {
+            BaseConfigDO baseConfigDO = (BaseConfigDO) metaObject.getOriginalObject();
             Long userId = getLoginUserId();
             // 当前登录用户不为空，创建人为空，则当前登录用户为创建人
-            if (Objects.nonNull(userId) && Objects.isNull(baseExDO.getCreator())) {
-                baseExDO.setCreator(userId.toString());
+            if (Objects.nonNull(userId) && Objects.isNull(baseConfigDO.getCreator())) {
+                baseConfigDO.setCreator(userId.toString());
             }
             // 当前登录用户不为空，更新人为空，则当前登录用户为更新人
-            if (Objects.nonNull(userId) && Objects.isNull(baseExDO.getUpdater())) {
-                baseExDO.setUpdater(userId.toString());
+            if (Objects.nonNull(userId) && Objects.isNull(baseConfigDO.getUpdater())) {
+                baseConfigDO.setUpdater(userId.toString());
             }
         }
     }

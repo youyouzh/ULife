@@ -347,7 +347,7 @@ public class IoUtil extends NioUtil {
      * @throws IOException IO异常
      */
     public static String read(Reader reader, boolean isClose) throws IOException {
-        final StringBuilder builder = StrUtil.builder();
+        final StringBuilder builder = new StringBuilder();
         final CharBuffer buffer = CharBuffer.allocate(DEFAULT_BUFFER_SIZE);
         try {
             while (-1 != reader.read(buffer)) {

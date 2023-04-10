@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.uusama.common.util.ArrayUtil;
-import com.uusama.common.util.StrUtil;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * JSON 工具类
  *
- * @author 芋道源码
+ * @author uusama
  */
 @UtilityClass
 @Slf4j
@@ -59,7 +59,7 @@ public class JsonUtils {
     }
 
     public static <T> T deserialize(String text, Class<T> clazz) {
-        if (StrUtil.isEmpty(text)) {
+        if (StringUtils.isEmpty(text)) {
             return null;
         }
         try {
@@ -71,7 +71,7 @@ public class JsonUtils {
     }
 
     public static <T> T deserialize(byte[] bytes, Class<T> clazz) {
-        if (ArrayUtil.isEmpty(bytes)) {
+        if (ArrayUtils.isEmpty(bytes)) {
             return null;
         }
         try {
@@ -100,7 +100,7 @@ public class JsonUtils {
     }
 
     public static <T> List<T> parseArray(String text, Class<T> clazz) {
-        if (StrUtil.isEmpty(text)) {
+        if (StringUtils.isEmpty(text)) {
             return new ArrayList<>();
         }
         try {
@@ -126,6 +126,15 @@ public class JsonUtils {
         } catch (IOException e) {
             log.error("json parse err,json:{}", text, e);
             throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean isJson(String content) {
+        try {
+            objectMapper.readValue(content, Object.class);
+            return true;
+        } catch (Exception exception) {
+            return false;
         }
     }
 }

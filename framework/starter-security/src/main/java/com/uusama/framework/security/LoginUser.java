@@ -1,7 +1,7 @@
 package com.uusama.framework.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.uusama.framework.web.constant.UserTypeEnum;
+import com.uusama.framework.web.enums.UserTypeEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 登录用户信息
  *
- * @author 芋道源码
+ * @author uusama
  */
 @Data
 @Accessors(chain = true)

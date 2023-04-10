@@ -1,0 +1,3 @@
+com.uusama.framework.security.config.SecurityAutoConfiguration
+com.uusama.framework.security.config.DefaultAuthorizeRequestsCustomizer
+com.uusama.framework.security.config.WebSecurityConfigurerAdapter

@@ -1,9 +1,9 @@
 package com.uusama.framework.web.util;
 
-import com.uusama.common.util.StrUtil;
-import com.uusama.framework.web.constant.UserTypeEnum;
+import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.framework.web.pojo.CommonResult;
 import com.uusama.framework.web.properties.WebProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 专属于 web 包的工具类
  *
- * @author 芋道源码
+ * @author uusama
  */
 public class WebFrameworkUtils {
 
@@ -40,7 +40,7 @@ public class WebFrameworkUtils {
      */
     public static Long getTenantId(HttpServletRequest request) {
         String tenantId = request.getHeader(HEADER_TENANT_ID);
-        return StrUtil.isNotEmpty(tenantId) ? Long.valueOf(tenantId) : null;
+        return StringUtils.isNotEmpty(tenantId) ? Long.valueOf(tenantId) : null;
     }
 
     public static void setLoginUserId(ServletRequest request, Long userId) {

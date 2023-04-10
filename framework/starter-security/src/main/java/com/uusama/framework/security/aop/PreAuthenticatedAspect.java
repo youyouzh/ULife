@@ -7,7 +7,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
-import static com.uusama.framework.web.constant.GlobalErrorCodeConstants.UNAUTHORIZED;
+import static com.uusama.framework.api.constants.GlobalErrorCodeConstants.UNAUTHORIZED;
 import static com.uusama.framework.web.exception.ServiceExceptionUtil.exception;
 
 /**

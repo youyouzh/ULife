@@ -1,6 +1,6 @@
 package com.uusama.framework.web.config;
 
-import com.uusama.framework.web.constant.WebFilterOrderEnum;
+import com.uusama.framework.web.enums.WebFilterOrderEnum;
 import com.uusama.framework.web.exception.GlobalExceptionHandler;
 import com.uusama.framework.web.exception.GlobalResponseBodyHandler;
 import com.uusama.framework.web.filter.CacheRequestBodyFilter;

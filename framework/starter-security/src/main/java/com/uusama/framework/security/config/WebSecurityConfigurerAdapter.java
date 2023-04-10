@@ -1,10 +1,10 @@
 package com.uusama.framework.security.config;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import com.uusama.framework.security.filter.TokenAuthenticationFilter;
 import com.uusama.framework.web.properties.WebProperties;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -57,7 +57,7 @@ public class WebSecurityConfigurerAdapter {
     private TokenAuthenticationFilter authenticationTokenFilter;
 
     /**
-     * 自定义的权限映射 Bean 们
+     * 自定义的权限映射 Bean 列表
      *
      * @see HttpSecurity
      */
@@ -110,7 +110,7 @@ public class WebSecurityConfigurerAdapter {
         // 登录、登录暂时不使用 Spring Security 的拓展点，主要考虑一方面拓展多用户、多种登录方式相对复杂，一方面用户的学习成本较高
 
         // 获得 @PermitAll 带来的 URL 列表，免登录
-        Multimap<HttpMethod, String> permitAllUrls = getPermitAllUrlsFromAnnotations();
+        MultiValuedMap<HttpMethod, String> permitAllUrls = getPermitAllUrlsFromAnnotations();
         // 设置每个请求的权限
         httpSecurity
             // ①：全局共享规则
@@ -122,7 +122,7 @@ public class WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.POST, permitAllUrls.get(HttpMethod.POST).toArray(new String[0])).permitAll()
             .antMatchers(HttpMethod.PUT, permitAllUrls.get(HttpMethod.PUT).toArray(new String[0])).permitAll()
             .antMatchers(HttpMethod.DELETE, permitAllUrls.get(HttpMethod.DELETE).toArray(new String[0])).permitAll()
-            // 1.3 基于 yudao.security.permit-all-urls 无需认证
+            // 1.3 基于 uusama.security.permit-all-urls 无需认证
             .antMatchers(securityProperties.getPermitAllUrls().toArray(new String[0])).permitAll()
             // 1.4 设置 App API 无需认证
             .antMatchers(buildAppApi("/**")).permitAll()
@@ -147,8 +147,8 @@ public class WebSecurityConfigurerAdapter {
         return webProperties.getAppApi().getPrefix() + url;
     }
 
-    private Multimap<HttpMethod, String> getPermitAllUrlsFromAnnotations() {
-        Multimap<HttpMethod, String> result = HashMultimap.create();
+    private MultiValuedMap<HttpMethod, String> getPermitAllUrlsFromAnnotations() {
+        MultiValuedMap<HttpMethod, String> result = new HashSetValuedHashMap<>();
         // 获得接口对应的 HandlerMethod 集合
         RequestMappingHandlerMapping requestMappingHandlerMapping = (RequestMappingHandlerMapping)
             applicationContext.getBean("requestMappingHandlerMapping");

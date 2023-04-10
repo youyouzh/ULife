@@ -1,23 +1,21 @@
 package com.uusama.common.util;
 
 import com.uusama.common.io.CharsetUtil;
-import com.uusama.common.text.CharSequenceUtil;
 import com.uusama.common.text.StrFormatter;
-import com.uusama.common.text.StrPool;
-import com.uusama.common.text.TextSimilarity;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 
 /**
  * @author uusama
  */
-public class StrUtil extends CharSequenceUtil implements StrPool {
+public class StrUtil extends StringUtils {
 
     // ------------------------------------------------------------------------ Blank
 
@@ -226,6 +224,10 @@ public class StrUtil extends CharSequenceUtil implements StrPool {
         return str(data, CharsetUtil.charset(charset));
     }
 
+    public static boolean notEqual(CharSequence cs1, CharSequence cs2) {
+        return !equals(cs1, cs2);
+    }
+
     /**
      * 将编码的byteBuffer数据转换为字符串
      *
@@ -238,145 +240,6 @@ public class StrUtil extends CharSequenceUtil implements StrPool {
             charset = Charset.defaultCharset();
         }
         return charset.decode(data).toString();
-    }
-
-    /**
-     * 调用对象的toString方法，null会返回“null”
-     *
-     * @param obj 对象
-     * @return 字符串
-     * @see String#valueOf(Object)
-     * @since 4.1.3
-     */
-    public static String toString(Object obj) {
-        return String.valueOf(obj);
-    }
-
-    /**
-     * 调用对象的toString方法，null会返回{@code null}
-     *
-     * @param obj 对象
-     * @return 字符串 or {@code null}
-     * @since 5.7.17
-     */
-    public static String toStringOrNull(Object obj) {
-        return null == obj ? null : obj.toString();
-    }
-
-    /**
-     * 创建StringBuilder对象
-     *
-     * @return StringBuilder对象
-     */
-    public static StringBuilder builder() {
-        return new StringBuilder();
-    }
-
-    /**
-     * 创建StringBuilder对象
-     *
-     * @param capacity 初始大小
-     * @return StringBuilder对象
-     */
-    public static StringBuilder builder(int capacity) {
-        return new StringBuilder(capacity);
-    }
-
-    /**
-     * 获得StringReader
-     *
-     * @param str 字符串
-     * @return StringReader
-     */
-    public static StringReader getReader(CharSequence str) {
-        if (null == str) {
-            return null;
-        }
-        return new StringReader(str.toString());
-    }
-
-    /**
-     * 获得StringWriter
-     *
-     * @return StringWriter
-     */
-    public static StringWriter getWriter() {
-        return new StringWriter();
-    }
-
-    // ------------------------------------------------------------------------ fill
-
-    /**
-     * 将已有字符串填充为规定长度，如果已有字符串超过这个长度则返回这个字符串<br>
-     * 字符填充于字符串前
-     *
-     * @param str        被填充的字符串
-     * @param filledChar 填充的字符
-     * @param len        填充长度
-     * @return 填充后的字符串
-     * @since 3.1.2
-     */
-    public static String fillBefore(String str, char filledChar, int len) {
-        return fill(str, filledChar, len, true);
-    }
-
-    /**
-     * 将已有字符串填充为规定长度，如果已有字符串超过这个长度则返回这个字符串<br>
-     * 字符填充于字符串后
-     *
-     * @param str        被填充的字符串
-     * @param filledChar 填充的字符
-     * @param len        填充长度
-     * @return 填充后的字符串
-     * @since 3.1.2
-     */
-    public static String fillAfter(String str, char filledChar, int len) {
-        return fill(str, filledChar, len, false);
-    }
-
-    /**
-     * 将已有字符串填充为规定长度，如果已有字符串超过这个长度则返回这个字符串
-     *
-     * @param str        被填充的字符串
-     * @param filledChar 填充的字符
-     * @param len        填充长度
-     * @param isPre      是否填充在前
-     * @return 填充后的字符串
-     * @since 3.1.2
-     */
-    public static String fill(String str, char filledChar, int len, boolean isPre) {
-        final int strLen = str.length();
-        if (strLen > len) {
-            return str;
-        }
-
-        String filledStr = StrUtil.repeat(filledChar, len - strLen);
-        return isPre ? filledStr.concat(str) : str.concat(filledStr);
-    }
-
-    /**
-     * 计算两个字符串的相似度
-     *
-     * @param str1 字符串1
-     * @param str2 字符串2
-     * @return 相似度
-     * @since 3.2.3
-     */
-    public static double similar(String str1, String str2) {
-        return TextSimilarity.similar(str1, str2);
-    }
-
-    /**
-     * 计算两个字符串的相似度百分比
-     *
-     * @param str1  字符串1
-     * @param str2  字符串2
-     * @param scale 相似度
-     * @return 相似度百分比
-     * @since 3.2.3
-     */
-    public static String similar(String str1, String str2, int scale) {
-        return TextSimilarity.similar(str1, str2, scale);
     }
 
     // ------------------------------------------------------------------------ format
@@ -396,7 +259,7 @@ public class StrUtil extends CharSequenceUtil implements StrPool {
      */
     public static String format(CharSequence template, Object... params) {
         if (null == template) {
-            return NULL;
+            return null;
         }
         if (ArrayUtil.isEmpty(params) || isBlank(template)) {
             return template.toString();
@@ -442,4 +305,24 @@ public class StrUtil extends CharSequenceUtil implements StrPool {
         return StrFormatter.format(template, map, ignoreNull);
     }
 
+    /**
+     * 给定字符串是否以任何一个字符串开始
+     * 给定字符串和数组为空都返回 false
+     *
+     * @param str      给定字符串
+     * @param prefixes 需要检测的开始字符串
+     * @since 3.0.6
+     */
+    public static boolean startWithAny(String str, Collection<String> prefixes) {
+        if (StrUtil.isEmpty(str) || CollectionUtils.isEmpty(prefixes)) {
+            return false;
+        }
+
+        for (CharSequence suffix : prefixes) {
+            if (startsWithAny(str, suffix)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

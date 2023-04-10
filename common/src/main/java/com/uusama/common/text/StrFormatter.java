@@ -26,7 +26,7 @@ public class StrFormatter {
      * @return 结果
      */
     public static String format(String strPattern, Object... argArray) {
-        return formatWith(strPattern, StrUtil.EMPTY_JSON, argArray);
+        return formatWith(strPattern, "{}", argArray);
     }
 
     /**

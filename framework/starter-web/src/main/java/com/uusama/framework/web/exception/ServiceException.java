@@ -1,7 +1,7 @@
 package com.uusama.framework.web.exception;
 
-import com.uusama.framework.web.constant.ServiceErrorCodeRange;
-import com.uusama.framework.web.pojo.ErrorCode;
+import com.uusama.framework.api.constants.ServiceErrorCodeRange;
+import com.uusama.framework.api.pojo.ErrorCode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

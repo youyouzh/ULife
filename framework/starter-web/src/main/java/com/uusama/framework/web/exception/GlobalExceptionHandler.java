@@ -20,16 +20,16 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import java.nio.file.AccessDeniedException;
 
-import static com.uusama.framework.web.constant.GlobalErrorCodeConstants.BAD_REQUEST;
-import static com.uusama.framework.web.constant.GlobalErrorCodeConstants.FORBIDDEN;
-import static com.uusama.framework.web.constant.GlobalErrorCodeConstants.INTERNAL_SERVER_ERROR;
-import static com.uusama.framework.web.constant.GlobalErrorCodeConstants.METHOD_NOT_ALLOWED;
-import static com.uusama.framework.web.constant.GlobalErrorCodeConstants.NOT_FOUND;
+import static com.uusama.framework.api.constants.GlobalErrorCodeConstants.BAD_REQUEST;
+import static com.uusama.framework.api.constants.GlobalErrorCodeConstants.FORBIDDEN;
+import static com.uusama.framework.api.constants.GlobalErrorCodeConstants.INTERNAL_SERVER_ERROR;
+import static com.uusama.framework.api.constants.GlobalErrorCodeConstants.METHOD_NOT_ALLOWED;
+import static com.uusama.framework.api.constants.GlobalErrorCodeConstants.NOT_FOUND;
 
 /**
  * 全局异常处理器，将 Exception 翻译成 CommonResult + 对应的异常编号
  *
- * @author 芋道源码
+ * @author uusama
  */
 @RestControllerAdvice
 @AllArgsConstructor

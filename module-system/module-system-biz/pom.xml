@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>module-system</artifactId>
         <groupId>com.uusama</groupId>
-        <version>1.0.0-snapshot</version>
+        <artifactId>module-system</artifactId>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -22,6 +22,26 @@
         <dependency>
             <groupId>com.uusama</groupId>
             <artifactId>starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.uusama</groupId>
+            <artifactId>starter-mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.uusama</groupId>
+            <artifactId>starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.uusama</groupId>
+            <artifactId>starter-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.uusama</groupId>
+            <artifactId>module-system-api</artifactId>
         </dependency>
     </dependencies>
 

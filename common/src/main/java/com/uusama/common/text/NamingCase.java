@@ -1,6 +1,7 @@
 package com.uusama.common.text;
 
 import com.uusama.common.util.StrUtil;
+import org.apache.commons.lang3.CharUtils;
 
 /**
  * 命名规则封装，主要是针对驼峰风格命名、连接符命名等的封装
@@ -29,7 +30,7 @@ public class NamingCase {
      * @return 转换后下划线方式命名的字符串
      */
     public static String toUnderlineCase(CharSequence str) {
-        return toSymbolCase(str, CharUtil.UNDERLINE);
+        return toSymbolCase(str, CharPool.UNDERLINE);
     }
 
     /**
@@ -52,7 +53,7 @@ public class NamingCase {
      * @return 转换后下划线方式命名的字符串
      */
     public static String toKebabCase(CharSequence str) {
-        return toSymbolCase(str, CharUtil.DASHED);
+        return toSymbolCase(str, CharPool.DASHED);
     }
 
     /**
@@ -88,7 +89,7 @@ public class NamingCase {
                     } else if (Character.isLowerCase(preChar)) {
                         // 前一个为小写
                         sb.append(symbol);
-                        if (null == nextChar || Character.isLowerCase(nextChar) || CharUtil.isNumber(nextChar)) {
+                        if (null == nextChar || Character.isLowerCase(nextChar) || CharUtils.isAsciiNumeric(nextChar)) {
                             //普通首字母大写，如aBcc -> a_bcc
                             c = Character.toLowerCase(c);
                         }
@@ -131,7 +132,16 @@ public class NamingCase {
      * @return 转换后的驼峰式命名的字符串
      */
     public static String toPascalCase(CharSequence name) {
-        return StrUtil.upperFirst(toCamelCase(name));
+        if (null == name) {
+            return null;
+        }
+        if (name.length() > 0) {
+            char firstChar = name.charAt(0);
+            if (Character.isLowerCase(firstChar)) {
+                return Character.toUpperCase(firstChar) + name.subSequence(0, 1).toString();
+            }
+        }
+        return name.toString();
     }
 
     /**

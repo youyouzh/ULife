@@ -1,7 +1,7 @@
 package com.uusama.framework.web.exception;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.uusama.framework.web.pojo.ErrorCode;
+import com.uusama.framework.api.pojo.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;

@@ -18,6 +18,11 @@
         <module>framework/starter-redis</module>
         <module>framework/starter-security</module>
         <module>framework/starter-mybatis</module>
+        <module>module-infra</module>
+        <module>module-infra/module-infra-biz</module>
+        <module>module-infra/module-infra-api</module>
+        <module>framework/web-common</module>
+        <module>framework/starter-api</module>
     </modules>
 
     <name>${project.artifactId}</name>
@@ -27,7 +32,7 @@
     <properties>
         <revision>1.0.0-snapshot</revision>
         <!-- Maven 相关 -->
-        <java.version>11</java.version>
+        <java.version>8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>

@@ -1,7 +1,8 @@
 package com.uusama.framework.web.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.uusama.framework.web.constant.GlobalErrorCodeConstants;
+import com.uusama.framework.api.constants.GlobalErrorCodeConstants;
+import com.uusama.framework.api.pojo.ErrorCode;
 import com.uusama.framework.web.exception.ServerException;
 import com.uusama.framework.web.exception.ServiceException;
 import lombok.Data;
@@ -65,7 +66,7 @@ public class CommonResult<T> implements Serializable {
         CommonResult<T> result = new CommonResult<>();
         result.code = GlobalErrorCodeConstants.SUCCESS.getCode();
         result.data = data;
-        result.msg = "";
+        result.msg = "success";
         return result;
     }
 
