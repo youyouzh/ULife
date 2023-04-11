@@ -23,6 +23,20 @@ import java.time.temporal.TemporalField;
 public class DateTimeUtil {
 
     /**
+     * 时区 - 默认
+     */
+    public static final String TIME_ZONE_DEFAULT = "GMT+8";
+
+    /**
+     * 秒转换成毫秒
+     */
+    public static final long SECOND_MILLIS = 1000;
+
+    public static final String FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND = "yyyy-MM-dd HH:mm:ss";
+
+    public static final String FORMAT_HOUR_MINUTE_SECOND = "HH:mm:ss";
+
+    /**
      * 获取两个日期的差，如果结束时间早于开始时间，获取结果为负。
      * <p>
      * 返回结果为时间差的long值

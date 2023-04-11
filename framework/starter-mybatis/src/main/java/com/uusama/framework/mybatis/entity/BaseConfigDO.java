@@ -3,8 +3,10 @@ package com.uusama.framework.mybatis.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.apache.ibatis.type.JdbcType;
@@ -15,9 +17,11 @@ import org.apache.ibatis.type.JdbcType;
  * @author uusama
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 @SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class BaseConfigDO extends BaseDO {
 
     /**

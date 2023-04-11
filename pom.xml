@@ -13,16 +13,8 @@
         <module>server</module>
         <module>framework</module>
         <module>common</module>
-        <module>framework/starter-web</module>
         <module>module-system</module>
-        <module>framework/starter-redis</module>
-        <module>framework/starter-security</module>
-        <module>framework/starter-mybatis</module>
         <module>module-infra</module>
-        <module>module-infra/module-infra-biz</module>
-        <module>module-infra/module-infra-api</module>
-        <module>framework/web-common</module>
-        <module>framework/starter-api</module>
     </modules>
 
     <name>${project.artifactId}</name>

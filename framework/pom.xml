@@ -21,4 +21,12 @@
         如果是业务组件，Maven 名字会包含 biz
     </description>
 
+    <modules>
+        <module>starter-api</module>
+        <module>starter-web</module>
+        <module>starter-redis</module>
+        <module>starter-security</module>
+        <module>starter-mybatis</module>
+    </modules>
+
 </project>
