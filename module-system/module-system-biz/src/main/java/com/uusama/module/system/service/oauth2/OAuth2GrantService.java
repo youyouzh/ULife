@@ -1,5 +1,6 @@
 package com.uusama.module.system.service.oauth2;
 
+import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.module.system.entity.oauth2.OAuth2AccessTokenDO;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public interface OAuth2GrantService {
      * @param scopes 授权范围
      * @return 访问令牌
      */
-    OAuth2AccessTokenDO grantImplicit(Long userId, Integer userType,
+    OAuth2AccessTokenDO grantImplicit(Long userId, UserTypeEnum userType,
                                       String clientId, List<String> scopes);
 
     /**
@@ -45,7 +46,7 @@ public interface OAuth2GrantService {
      * @param state 状态
      * @return 授权码
      */
-    String grantAuthorizationCodeForCode(Long userId, Integer userType,
+    String grantAuthorizationCodeForCode(Long userId, UserTypeEnum userType,
                                          String clientId, List<String> scopes,
                                          String redirectUri, String state);
 

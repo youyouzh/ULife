@@ -1,23 +1,10 @@
 package com.uusama.framework.security.api;
 
-import com.uusama.framework.security.api.dto.DeptDataPermissionRespDTO;
-
-import java.util.Collection;
-import java.util.Set;
-
 /**
  * 权限 API 接口
  * @author uusama
  */
 public interface PermissionApi {
-
-    /**
-     * 获得拥有多个角色的用户编号集合
-     *
-     * @param roleIds 角色编号集合
-     * @return 用户编号集合
-     */
-    Set<Long> getUserRoleIdListByRoleIds(Collection<Long> roleIds);
 
     /**
      * 判断是否有权限，任一一个即可
@@ -36,12 +23,4 @@ public interface PermissionApi {
      * @return 是否
      */
     boolean hasAnyRoles(Long userId, String... roles);
-
-    /**
-     * 获得登陆用户的部门数据权限
-     *
-     * @param userId 用户编号
-     * @return 部门数据权限
-     */
-    DeptDataPermissionRespDTO getDeptDataPermission(Long userId);
 }

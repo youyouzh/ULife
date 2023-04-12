@@ -2,7 +2,6 @@ package com.uusama.framework.security.util;
 
 import com.uusama.framework.security.LoginUser;
 import com.uusama.framework.web.util.WebFrameworkUtils;
-import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -12,6 +11,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
+import java.util.Optional;
 
 /**
  * 安全服务工具类
@@ -31,30 +31,17 @@ public class SecurityFrameworkUtils {
      * @param header 认证 Token 对应的 Header 名字
      * @return 认证 Token
      */
-    public static String obtainAuthorization(HttpServletRequest request, String header) {
+    public static Optional<String> obtainAuthorization(HttpServletRequest request, String header) {
         String authorization = request.getHeader(header);
         if (!StringUtils.hasText(authorization)) {
-            return null;
+            return Optional.empty();
         }
         int index = authorization.indexOf(AUTHORIZATION_BEARER + " ");
         if (index == -1) {
             // 未找到
-            return null;
+            return Optional.empty();
         }
-        return authorization.substring(index + 7).trim();
-    }
-
-    /**
-     * 获得当前认证信息
-     *
-     * @return 认证信息
-     */
-    public static Authentication getAuthentication() {
-        SecurityContext context = SecurityContextHolder.getContext();
-        if (context == null) {
-            return null;
-        }
-        return context.getAuthentication();
+        return Optional.of(authorization.substring(index + 7).trim());
     }
 
     /**
@@ -62,13 +49,11 @@ public class SecurityFrameworkUtils {
      *
      * @return 当前用户
      */
-    @Nullable
-    public static LoginUser getLoginUser() {
-        Authentication authentication = getAuthentication();
-        if (authentication == null) {
-            return null;
-        }
-        return authentication.getPrincipal() instanceof LoginUser ? (LoginUser) authentication.getPrincipal() : null;
+    public static Optional<LoginUser> getLoginUser() {
+        return Optional.ofNullable(SecurityContextHolder.getContext())
+            .map(SecurityContext::getAuthentication)
+            .filter(v -> v.getPrincipal() instanceof LoginUser)
+            .map(v -> (LoginUser) v.getPrincipal());
     }
 
     /**
@@ -76,10 +61,8 @@ public class SecurityFrameworkUtils {
      *
      * @return 用户编号
      */
-    @Nullable
-    public static Long getLoginUserId() {
-        LoginUser loginUser = getLoginUser();
-        return loginUser != null ? loginUser.getId() : null;
+    public static Optional<Long> getLoginUserId() {
+        return getLoginUser().map(LoginUser::getId);
     }
 
     /**

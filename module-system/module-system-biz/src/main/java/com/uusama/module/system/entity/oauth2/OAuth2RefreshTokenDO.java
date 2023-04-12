@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.uusama.module.system.entity.user.BaseUserDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,10 +31,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class OAuth2RefreshTokenDO extends BaseUserDO {
 
-    /**
-     * 编号，数据库字典
-     */
-    private Long id;
     /**
      * 刷新令牌
      */

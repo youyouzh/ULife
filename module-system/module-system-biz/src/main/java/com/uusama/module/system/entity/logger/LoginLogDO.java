@@ -1,0 +1,67 @@
+package com.uusama.module.system.entity.logger;
+
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.uusama.module.system.entity.user.BaseUserDO;
+import com.uusama.module.system.logger.LoginLogTypeEnum;
+import com.uusama.module.system.logger.LoginResultEnum;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+/**
+ * 登录日志表
+ *
+ * 注意，包括登录和登出两种行为
+ *
+ * @author 芋道源码
+ */
+@TableName("system_login_log")
+@KeySequence("system_login_log_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class LoginLogDO extends BaseUserDO {
+
+    /**
+     * 日志主键
+     */
+    private Long id;
+    /**
+     * 日志类型
+     *
+     * 枚举 {@link LoginLogTypeEnum}
+     */
+    private Integer logType;
+    /**
+     * 链路追踪编号
+     */
+    private String traceId;
+    /**
+     * 用户账号
+     *
+     * 冗余，因为账号可以变更
+     */
+    private String username;
+    /**
+     * 登录结果
+     *
+     * 枚举 {@link LoginResultEnum}
+     */
+    private Integer result;
+    /**
+     * 用户 IP
+     */
+    private String userIp;
+    /**
+     * 浏览器 UA
+     */
+    private String userAgent;
+
+}

@@ -53,7 +53,7 @@ public class WebFrameworkUtils {
      * @param request  请求
      * @param userType 用户类型
      */
-    public static void setLoginUserType(ServletRequest request, Integer userType) {
+    public static void setLoginUserType(ServletRequest request, UserTypeEnum userType) {
         request.setAttribute(REQUEST_ATTRIBUTE_LOGIN_USER_TYPE, userType);
     }
 
@@ -78,28 +78,23 @@ public class WebFrameworkUtils {
      * @param request 请求
      * @return 用户编号
      */
-    public static Integer getLoginUserType(HttpServletRequest request) {
+    public static UserTypeEnum getLoginUserType(HttpServletRequest request) {
         if (request == null) {
             return null;
         }
         // 1. 优先，从 Attribute 中获取
-        Integer userType = (Integer) request.getAttribute(REQUEST_ATTRIBUTE_LOGIN_USER_TYPE);
+        UserTypeEnum userType = (UserTypeEnum) request.getAttribute(REQUEST_ATTRIBUTE_LOGIN_USER_TYPE);
         if (userType != null) {
             return userType;
         }
         // 2. 其次，基于 URL 前缀的约定
         if (request.getRequestURI().startsWith(properties.getAdminApi().getPrefix())) {
-            return UserTypeEnum.ADMIN.getValue();
+            return UserTypeEnum.ADMIN;
         }
         if (request.getRequestURI().startsWith(properties.getAppApi().getPrefix())) {
-            return UserTypeEnum.MEMBER.getValue();
+            return UserTypeEnum.MEMBER;
         }
         return null;
-    }
-
-    public static Integer getLoginUserType() {
-        HttpServletRequest request = getRequest();
-        return getLoginUserType(request);
     }
 
     public static Long getLoginUserId() {

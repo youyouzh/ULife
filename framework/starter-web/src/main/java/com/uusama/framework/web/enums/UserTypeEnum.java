@@ -3,7 +3,7 @@ package com.uusama.framework.web.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -21,8 +21,6 @@ public enum UserTypeEnum {
      */
     ADMIN(2, "管理员");
 
-    public static final int[] ARRAYS = Arrays.stream(values()).mapToInt(UserTypeEnum::getValue).toArray();
-
     /**
      * 类型
      */
@@ -34,5 +32,9 @@ public enum UserTypeEnum {
 
     public static UserTypeEnum of(Integer value) {
         return Stream.of(values()).filter(v -> v.getValue().equals(value)).findFirst().orElse(null);
+    }
+
+    public static Optional<UserTypeEnum> of(String name) {
+        return Stream.of(values()).filter(v -> v.getName().equals(name)).findFirst();
     }
 }

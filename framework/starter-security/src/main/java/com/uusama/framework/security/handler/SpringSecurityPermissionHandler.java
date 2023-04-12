@@ -3,6 +3,7 @@ package com.uusama.framework.security.handler;
 import com.uusama.framework.security.LoginUser;
 import com.uusama.framework.security.api.PermissionApi;
 import com.uusama.framework.security.util.SecurityFrameworkUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
@@ -12,12 +13,9 @@ import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
 /**
  * @author uusama
  */
+@RequiredArgsConstructor
 public class SpringSecurityPermissionHandler {
-    private static PermissionApi permissionApi;
-
-    public static void register(PermissionApi permissionApi) {
-        SpringSecurityPermissionHandler.permissionApi = permissionApi;
-    }
+    private final PermissionApi permissionApi;
 
     /**
      * 判断是否有权限
@@ -77,10 +75,9 @@ public class SpringSecurityPermissionHandler {
      * @return 是否
      */
     public boolean hasAnyScopes(String... scope) {
-        LoginUser user = SecurityFrameworkUtils.getLoginUser();
-        if (user == null) {
-            return false;
-        }
-        return CollectionUtils.containsAny(user.getScopes(), Arrays.asList(scope));
+        return SecurityFrameworkUtils.getLoginUser()
+            .map(LoginUser::getScopes)
+            .filter(v -> CollectionUtils.containsAny(v, Arrays.asList(scope)))
+            .isPresent();
     }
 }

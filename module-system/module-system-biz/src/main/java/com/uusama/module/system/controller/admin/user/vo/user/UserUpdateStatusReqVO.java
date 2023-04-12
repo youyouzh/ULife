@@ -1,6 +1,6 @@
 package com.uusama.module.system.controller.admin.user.vo.user;
 
-import com.uusama.framework.web.enums.CommonStateEnum;
+import com.uusama.framework.web.enums.CommonState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -16,6 +16,6 @@ public class UserUpdateStatusReqVO {
 
     @Schema(description = "状态,见 CommonStatusEnum 枚举", required = true, example = "1")
     @NotNull(message = "状态不能为空")
-    private CommonStateEnum state;
+    private CommonState state;
 
 }

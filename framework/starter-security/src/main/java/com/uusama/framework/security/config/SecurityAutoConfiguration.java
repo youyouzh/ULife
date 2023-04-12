@@ -5,7 +5,10 @@ import com.uusama.framework.security.context.TransmittableThreadLocalSecurityCon
 import com.uusama.framework.security.filter.TokenAuthenticationFilter;
 import com.uusama.framework.security.handler.AuthenticationEntryPointImpl;
 import com.uusama.framework.security.handler.SpringSecurityPermissionHandler;
+import com.uusama.framework.security.api.PermissionApi;
+import com.uusama.framework.security.api.UserTokenApi;
 import com.uusama.framework.web.exception.GlobalExceptionHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -17,8 +20,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 
-import javax.annotation.Resource;
-
 /**
  * Spring Security 自动配置类，主要用于相关组件的配置
  * 注意，不能和 {@link WebSecurityConfigurerAdapter} 用一个，原因是会导致初始化报错。
@@ -28,10 +29,11 @@ import javax.annotation.Resource;
  */
 @AutoConfiguration
 @EnableConfigurationProperties(SecurityProperties.class)
+@RequiredArgsConstructor
 public class SecurityAutoConfiguration {
-
-    @Resource
-    private SecurityProperties securityProperties;
+    private final SecurityProperties securityProperties;
+    private final PermissionApi permissionApi;
+    private final UserTokenApi userTokenApi;
 
     /**
      * 处理用户未登录拦截的切面的 Bean
@@ -73,12 +75,12 @@ public class SecurityAutoConfiguration {
      */
     @Bean
     public TokenAuthenticationFilter authenticationTokenFilter(GlobalExceptionHandler globalExceptionHandler) {
-        return new TokenAuthenticationFilter(securityProperties, globalExceptionHandler);
+        return new TokenAuthenticationFilter(securityProperties, globalExceptionHandler, userTokenApi);
     }
 
     @Bean("ss") // 使用 Spring Security 的缩写，方便使用
     public SpringSecurityPermissionHandler springSecurityPermissionHandler() {
-        return new SpringSecurityPermissionHandler();
+        return new SpringSecurityPermissionHandler(permissionApi);
     }
 
     /**

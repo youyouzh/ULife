@@ -1,7 +1,9 @@
 package com.uusama.framework.mybatis.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,11 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public abstract class BaseDO implements Serializable {
     /**
+     * 编号，数据库递增
+     */
+    @TableId(type= IdType.AUTO)
+    private Long id;
+    /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
@@ -30,6 +37,4 @@ public abstract class BaseDO implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-
-
 }

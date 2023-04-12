@@ -325,4 +325,8 @@ public class StrUtil extends StringUtils {
         }
         return false;
     }
+
+    public static String maxLength(CharSequence str, int maxLength) {
+        return StrUtil.maxLength(str, maxLength - 3); // -3 的原因，是该方法会补充 ... 恰好
+    }
 }

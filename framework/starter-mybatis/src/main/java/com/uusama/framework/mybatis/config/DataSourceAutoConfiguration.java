@@ -17,12 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 数据库配置类
- *
+ * 数据库配置类，启动事务管理
  * @author uusama
  */
 @AutoConfiguration
-@EnableTransactionManagement(proxyTargetClass = true) // 启动事务管理
+@EnableTransactionManagement(proxyTargetClass = true)
 @EnableConfigurationProperties(DruidStatProperties.class)
 public class DataSourceAutoConfiguration {
     /**
@@ -43,7 +42,7 @@ public class DataSourceAutoConfiguration {
         return registrationBean;
     }
     
-    private class DruidAdRemoveFilter extends OncePerRequestFilter {
+    private static class DruidAdRemoveFilter extends OncePerRequestFilter {
 
         /**
          * common.js 的路径

@@ -2,9 +2,9 @@ package com.uusama.module.system.entity.oauth2;
 
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.uusama.module.system.entity.user.BaseUserDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,11 +32,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class OAuth2AccessTokenDO extends BaseUserDO {
-    /**
-     * 编号，数据库递增
-     */
-    @TableId
-    private Long id;
+
     /**
      * 访问令牌
      */

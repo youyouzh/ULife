@@ -1,9 +1,9 @@
 package com.uusama.module.system.controller.admin.user.vo.user;
 
-import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
-import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
-import cn.iocoder.yudao.module.system.enums.DictTypeConstants;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.uusama.framework.web.annotations.DictFormat;
+import com.uusama.framework.web.convert.DictConvert;
+import com.uusama.module.system.constant.DictTypeConstants;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

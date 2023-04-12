@@ -1,9 +1,13 @@
 package com.uusama.module.system.service.oauth2;
 
 import com.uusama.common.util.StrUtil;
+import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.module.system.constant.ErrorCodeConstants;
+import com.uusama.module.system.entity.user.AdminUserDO;
 import com.uusama.module.system.entity.oauth2.OAuth2AccessTokenDO;
 import com.uusama.module.system.entity.oauth2.OAuth2CodeDO;
+import com.uusama.module.system.service.user.AdminAuthService;
+import com.uusama.module.system.service.user.OAuth2TokenService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -28,13 +32,13 @@ public class OAuth2GrantServiceImpl implements OAuth2GrantService {
     private AdminAuthService adminAuthService;
 
     @Override
-    public OAuth2AccessTokenDO grantImplicit(Long userId, Integer userType,
+    public OAuth2AccessTokenDO grantImplicit(Long userId, UserTypeEnum userType,
                                              String clientId, List<String> scopes) {
         return oauth2TokenService.createAccessToken(userId, userType, clientId, scopes);
     }
 
     @Override
-    public String grantAuthorizationCodeForCode(Long userId, Integer userType,
+    public String grantAuthorizationCodeForCode(Long userId, UserTypeEnum userType,
                                                 String clientId, List<String> scopes,
                                                 String redirectUri, String state) {
         return oauth2CodeService.createAuthorizationCode(userId, userType, clientId, scopes,
@@ -72,7 +76,7 @@ public class OAuth2GrantServiceImpl implements OAuth2GrantService {
         Assert.notNull(user, "用户不能为空！"); // 防御性编程
 
         // 创建访问令牌
-        return oauth2TokenService.createAccessToken(user.getId(), UserTypeEnum.ADMIN.getValue(), clientId, scopes);
+        return oauth2TokenService.createAccessToken(user.getId(), UserTypeEnum.ADMIN, clientId, scopes);
     }
 
     @Override

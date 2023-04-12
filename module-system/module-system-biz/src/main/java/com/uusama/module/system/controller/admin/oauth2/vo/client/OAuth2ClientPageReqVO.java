@@ -1,7 +1,7 @@
 package com.uusama.module.system.controller.admin.oauth2.vo.client;
 
 import com.uusama.framework.mybatis.pojo.PageParam;
-import com.uusama.framework.web.enums.CommonStateEnum;
+import com.uusama.framework.web.enums.CommonState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,6 +17,6 @@ public class OAuth2ClientPageReqVO extends PageParam {
     private String name;
 
     @Schema(description = "状态,参见 CommonStatusEnum 枚举", example = "1")
-    private CommonStateEnum state;
+    private CommonState state;
 
 }

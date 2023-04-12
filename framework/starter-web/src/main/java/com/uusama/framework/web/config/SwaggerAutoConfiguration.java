@@ -35,6 +35,7 @@ import java.util.Optional;
  * Swagger 自动配置类，基于 OpenAPI + Springdoc 实现。
  * 1. Springdoc 文档地址：<a href="https://github.com/springdoc/springdoc-openapi">仓库</a>
  * 2. Swagger 规范，于 2015 更名为 OpenAPI 规范，本质是一个东西
+ * 设置为 springdoc.api-docs.enabled=false 时，禁用
  *
  * @author uusama
  */
@@ -42,7 +43,6 @@ import java.util.Optional;
 @ConditionalOnClass({OpenAPI.class})
 @EnableConfigurationProperties(SwaggerProperties.class)
 @ConditionalOnProperty(prefix = "springdoc.api-docs", name = "enabled", havingValue = "true", matchIfMissing = true)
-// 设置为 false 时，禁用
 public class SwaggerAutoConfiguration {
     public static final String HEADER_TENANT_ID = "tenant-id";
 

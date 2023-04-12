@@ -1,8 +1,8 @@
 package com.uusama.module.system.entity.oauth2;
 
 import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.uusama.module.system.entity.user.BaseUserDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,11 +29,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class OAuth2ApproveDO extends BaseUserDO {
 
-    /**
-     * 编号，数据库自增
-     */
-    @TableId
-    private Long id;
     /**
      * 客户端编号
      *

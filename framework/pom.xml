@@ -27,6 +27,7 @@
         <module>starter-redis</module>
         <module>starter-security</module>
         <module>starter-mybatis</module>
+        <module>starter-tool</module>
     </modules>
 
 </project>

@@ -3,11 +3,11 @@ package com.uusama.module.system.entity.oauth2;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.uusama.framework.mybatis.entity.BaseDO;
-import com.uusama.framework.web.enums.CommonStateEnum;
+import com.uusama.framework.web.enums.CommonState;
+import com.uusama.module.system.enums.OAuth2GrantTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,13 +33,6 @@ import java.util.List;
 public class OAuth2ClientDO extends BaseDO {
 
     /**
-     * 编号，数据库自增
-     *
-     * 由于 SQL Server 在存储 String 主键有点问题，所以暂时使用 Long 类型
-     */
-    @TableId
-    private Long id;
-    /**
      * 客户端编号
      */
     private String clientId;
@@ -63,7 +56,7 @@ public class OAuth2ClientDO extends BaseDO {
      * 状态
      */
     @EnumValue
-    private CommonStateEnum state;
+    private CommonState state;
     /**
      * 访问令牌的有效期
      */

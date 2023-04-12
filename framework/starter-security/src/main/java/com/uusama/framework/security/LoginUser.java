@@ -2,7 +2,10 @@ package com.uusama.framework.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uusama.framework.web.enums.UserTypeEnum;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.HashMap;
@@ -15,26 +18,19 @@ import java.util.Map;
  * @author uusama
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Accessors(chain = true)
 public class LoginUser {
 
-    /**
-     * 用户编号
-     */
+    /** 用户编号 */
     private Long id;
-    /**
-     * 用户类型
-     *
-     * 关联 {@link UserTypeEnum}
-     */
-    private Integer userType;
-    /**
-     * 租户编号
-     */
+    /** 用户类型 */
+    private UserTypeEnum userType;
+    /** 租户编号 */
     private Long tenantId;
-    /**
-     * 授权范围
-     */
+    /** 授权范围 */
     private List<String> scopes;
 
     // ========== 上下文 ==========
