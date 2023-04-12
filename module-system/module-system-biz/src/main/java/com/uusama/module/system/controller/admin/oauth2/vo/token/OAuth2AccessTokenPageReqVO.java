@@ -1,6 +1,7 @@
 package com.uusama.module.system.controller.admin.oauth2.vo.token;
 
 import com.uusama.framework.mybatis.pojo.PageParam;
+import com.uusama.framework.web.enums.UserTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,7 +15,7 @@ public class OAuth2AccessTokenPageReqVO extends PageParam {
     private Long userId;
 
     @Schema(description = "用户类型,参见 UserTypeEnum 枚举", required = true, example = "2")
-    private Integer userType;
+    private UserTypeEnum userType;
 
     @Schema(description = "客户端编号", required = true, example = "2")
     private String clientId;

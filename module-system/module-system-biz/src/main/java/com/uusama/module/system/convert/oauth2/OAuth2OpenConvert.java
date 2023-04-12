@@ -39,7 +39,7 @@ public interface OAuth2OpenConvert {
     default OAuth2OpenCheckTokenRespVO convert2(OAuth2AccessTokenDO bean) {
         OAuth2OpenCheckTokenRespVO respVO = convert3(bean);
         respVO.setExp(DateTimeUtil.toEpochMilli(bean.getExpiresTime()) / 1000L);
-        respVO.setUserType(UserTypeEnum.ADMIN.ordinal());
+        respVO.setUserType(UserTypeEnum.ADMIN);
         return respVO;
     }
     OAuth2OpenCheckTokenRespVO convert3(OAuth2AccessTokenDO bean);

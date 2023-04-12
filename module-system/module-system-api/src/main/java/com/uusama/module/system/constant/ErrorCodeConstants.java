@@ -9,6 +9,11 @@ import com.uusama.framework.api.pojo.ErrorCode;
  */
 public interface ErrorCodeConstants {
 
+    // ========= 文件相关 1001003000=================
+    ErrorCode FILE_PATH_EXISTS = new ErrorCode(1001003000, "文件路径已存在");
+    ErrorCode FILE_NOT_EXISTS = new ErrorCode(1001003001, "文件不存在");
+    ErrorCode FILE_IS_EMPTY = new ErrorCode(1001003002, "文件为空");
+
     // ========== AUTH 模块 1002000000 ==========
     ErrorCode AUTH_LOGIN_BAD_CREDENTIALS = new ErrorCode(1002000000, "登录失败，账号密码不正确");
     ErrorCode AUTH_LOGIN_USER_DISABLED = new ErrorCode(1002000001, "登录失败，账号被禁用");

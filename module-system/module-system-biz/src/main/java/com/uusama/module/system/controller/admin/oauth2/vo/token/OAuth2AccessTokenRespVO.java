@@ -1,5 +1,6 @@
 package com.uusama.module.system.controller.admin.oauth2.vo.token;
 
+import com.uusama.framework.web.enums.UserTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class OAuth2AccessTokenRespVO {
     private Long userId;
 
     @Schema(description = "用户类型,参见 UserTypeEnum 枚举", required = true, example = "2")
-    private Integer userType;
+    private UserTypeEnum userType;
 
     @Schema(description = "客户端编号", required = true, example = "2")
     private String clientId;

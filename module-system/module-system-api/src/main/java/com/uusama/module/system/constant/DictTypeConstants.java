@@ -3,7 +3,7 @@ package com.uusama.module.system.constant;
 /**
  * System 字典类型的枚举类
  *
- * @author 芋道源码
+ * @author uusama
  */
 public interface DictTypeConstants {
 

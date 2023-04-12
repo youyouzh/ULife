@@ -1,6 +1,8 @@
 package com.uusama.module.system.logger.dto;
 
 import com.uusama.framework.web.enums.UserTypeEnum;
+import com.uusama.module.system.logger.LoginLogTypeEnum;
+import com.uusama.module.system.logger.LoginResultEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -11,7 +13,7 @@ import javax.validation.constraints.Size;
 /**
  * 登录日志创建 Request DTO
  *
- * @author 芋道源码
+ * @author uusama
  */
 @Data
 public class LoginLogCreateReqDTO {
@@ -20,7 +22,7 @@ public class LoginLogCreateReqDTO {
      * 日志类型
      */
     @NotNull(message = "日志类型不能为空")
-    private Integer logType;
+    private LoginLogTypeEnum logType;
     /**
      * 链路追踪编号
      */
@@ -46,7 +48,7 @@ public class LoginLogCreateReqDTO {
      * 登录结果
      */
     @NotNull(message = "登录结果不能为空")
-    private Integer result;
+    private LoginResultEnum result;
 
     /**
      * 用户 IP

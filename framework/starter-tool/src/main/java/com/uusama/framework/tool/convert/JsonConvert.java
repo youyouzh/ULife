@@ -10,7 +10,7 @@ import com.uusama.framework.web.util.JsonUtils;
 /**
  * Excel Json 转换器
  *
- * @author 芋道源码
+ * @author uusama
  */
 public class JsonConvert implements Converter<Object> {
 

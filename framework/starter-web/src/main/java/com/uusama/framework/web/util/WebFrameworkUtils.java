@@ -97,6 +97,10 @@ public class WebFrameworkUtils {
         return null;
     }
 
+    public static UserTypeEnum getLoginUserType() {
+        return getLoginUserType(getRequest());
+    }
+
     public static Long getLoginUserId() {
         HttpServletRequest request = getRequest();
         return getLoginUserId(request);

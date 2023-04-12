@@ -19,7 +19,7 @@ import static com.baomidou.mybatisplus.core.toolkit.StringPool.COMMA;
 /**
  * List<Long> 的类型转换器实现类，对应数据库的 varchar 类型
  *
- * @author 芋道源码
+ * @author uusama
  */
 @MappedJdbcTypes(JdbcType.VARCHAR)
 @MappedTypes(List.class)

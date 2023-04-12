@@ -18,7 +18,11 @@ public enum CommonState {
      */
     private final String name;
 
-    public static boolean isEnable(CommonState state) {
-        return state == ENABLE;
+    public boolean isEnable() {
+        return this == ENABLE;
+    }
+
+    public boolean isDisable() {
+        return this == DISABLE;
     }
 }

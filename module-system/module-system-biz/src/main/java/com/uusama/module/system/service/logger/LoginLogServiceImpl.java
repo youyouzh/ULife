@@ -1,8 +1,8 @@
 package com.uusama.module.system.service.logger;
 
 import com.uusama.framework.mybatis.pojo.PageResult;
-import com.uusama.module.system.controller.admin.vo.loginlog.LoginLogExportReqVO;
-import com.uusama.module.system.controller.admin.vo.loginlog.LoginLogPageReqVO;
+import com.uusama.module.system.controller.admin.logger.vo.loginlog.LoginLogExportReqVO;
+import com.uusama.module.system.controller.admin.logger.vo.loginlog.LoginLogPageReqVO;
 import com.uusama.module.system.convert.logger.LoginLogConvert;
 import com.uusama.module.system.entity.logger.LoginLogDO;
 import com.uusama.module.system.logger.dto.LoginLogCreateReqDTO;

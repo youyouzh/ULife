@@ -67,7 +67,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private LoginUser buildLoginUserByToken(String token, UserTypeEnum userType) {
         Assert.notNull(userTokenProvider, "请实现并注册OAuth2TokenApi接口进行登录权限判断");
         try {
-            LoginUser loginUser = userTokenProvider.checkAccessToken(token);
+            LoginUser loginUser = userTokenProvider.checkUserToken(token);
             if (loginUser == null) {
                 return null;
             }

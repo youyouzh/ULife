@@ -1,5 +1,6 @@
 package com.uusama.module.system.entity.logger;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.uusama.module.system.entity.user.BaseUserDO;
@@ -17,7 +18,7 @@ import lombok.experimental.SuperBuilder;
  *
  * 注意，包括登录和登出两种行为
  *
- * @author 芋道源码
+ * @author uusama
  */
 @TableName("system_login_log")
 @KeySequence("system_login_log_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
@@ -28,33 +29,25 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class LoginLogDO extends BaseUserDO {
-
-    /**
-     * 日志主键
-     */
-    private Long id;
     /**
      * 日志类型
-     *
-     * 枚举 {@link LoginLogTypeEnum}
      */
-    private Integer logType;
+    @EnumValue
+    private LoginLogTypeEnum logType;
     /**
      * 链路追踪编号
      */
     private String traceId;
     /**
      * 用户账号
-     *
      * 冗余，因为账号可以变更
      */
     private String username;
     /**
      * 登录结果
-     *
-     * 枚举 {@link LoginResultEnum}
      */
-    private Integer result;
+    @EnumValue
+    private LoginResultEnum result;
     /**
      * 用户 IP
      */

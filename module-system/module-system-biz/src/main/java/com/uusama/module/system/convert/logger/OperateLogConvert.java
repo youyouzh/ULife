@@ -2,10 +2,10 @@ package com.uusama.module.system.convert.logger;
 
 import com.uusama.framework.api.constants.GlobalErrorCodeConstants;
 import com.uusama.framework.mybatis.pojo.PageResult;
-import com.uusama.module.system.controller.admin.vo.operatelog.OperateLogExcelVO;
-import com.uusama.module.system.controller.admin.vo.operatelog.OperateLogRespVO;
-import com.uusama.module.system.entity.user.AdminUserDO;
+import com.uusama.module.system.controller.admin.logger.vo.operatelog.OperateLogExcelVO;
+import com.uusama.module.system.controller.admin.logger.vo.operatelog.OperateLogRespVO;
 import com.uusama.module.system.entity.logger.OperateLogDO;
+import com.uusama.module.system.entity.user.AdminUserDO;
 import com.uusama.module.system.logger.dto.OperateLogCreateReqDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -29,7 +29,7 @@ public interface OperateLogConvert {
         return list.stream().map(operateLog -> {
             OperateLogExcelVO excelVO = convert02(operateLog);
             userMap.entrySet().stream().filter(v -> v.getKey().equals(operateLog.getUserId()))
-                    .findFirst().ifPresent(v -> excelVO.setUserNickname(v.getValue().getNickname());
+                    .findFirst().ifPresent(v -> excelVO.setUserNickname(v.getValue().getNickname()));
             excelVO.setSuccessStr(GlobalErrorCodeConstants.SUCCESS.getCode().equals(operateLog.getResultCode()) ? "成功" : "失败");
             return excelVO;
         }).collect(Collectors.toList());

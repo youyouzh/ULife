@@ -28,6 +28,7 @@
         <module>starter-security</module>
         <module>starter-mybatis</module>
         <module>starter-tool</module>
+        <module>starter-recorder</module>
     </modules>
 
 </project>

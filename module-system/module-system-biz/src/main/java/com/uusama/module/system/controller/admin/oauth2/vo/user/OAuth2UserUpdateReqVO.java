@@ -1,5 +1,6 @@
 package com.uusama.module.system.controller.admin.oauth2.vo.user;
 
+import com.uusama.module.system.entity.user.AdminUserDO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,6 @@ public class OAuth2UserUpdateReqVO {
     private String mobile;
 
     @Schema(description = "用户性别,参见 SexEnum 枚举类", example = "1")
-    private Integer sex;
+    private AdminUserDO.SexEnum sex;
 
 }

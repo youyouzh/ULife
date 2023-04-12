@@ -1,8 +1,8 @@
 package com.uusama.module.system.convert.logger;
 
 import com.uusama.framework.mybatis.pojo.PageResult;
-import com.uusama.module.system.controller.admin.vo.loginlog.LoginLogExcelVO;
-import com.uusama.module.system.controller.admin.vo.loginlog.LoginLogRespVO;
+import com.uusama.module.system.controller.admin.logger.vo.loginlog.LoginLogExcelVO;
+import com.uusama.module.system.controller.admin.logger.vo.loginlog.LoginLogRespVO;
 import com.uusama.module.system.entity.logger.LoginLogDO;
 import com.uusama.module.system.logger.dto.LoginLogCreateReqDTO;
 import org.mapstruct.Mapper;

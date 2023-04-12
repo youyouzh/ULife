@@ -1,28 +1,22 @@
 package com.uusama.module.system.enums;
 
-import cn.hutool.core.util.ArrayUtil;
-import cn.iocoder.yudao.framework.common.core.IntArrayValuable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.Arrays;
 
 /**
  * 用户短信验证码发送场景的枚举
  *
- * @author 芋道源码
+ * @author uusama
  */
 @Getter
 @AllArgsConstructor
-public enum SmsSceneEnum implements IntArrayValuable {
+public enum SmsSceneEnum {
 
     MEMBER_LOGIN(1, "user-sms-login", "会员用户 - 手机号登陆"),
     MEMBER_UPDATE_MOBILE(2, "user-sms-reset-password", "会员用户 - 修改手机"),
     MEMBER_FORGET_PASSWORD(3, "user-sms-update-mobile", "会员用户 - 忘记密码"),
 
     ADMIN_MEMBER_LOGIN(21, "admin-sms-login", "后台用户 - 手机号登录");
-
-    public static final int[] ARRAYS = Arrays.stream(values()).mapToInt(SmsSceneEnum::getScene).toArray();
 
     /**
      * 验证场景的编号
@@ -36,15 +30,5 @@ public enum SmsSceneEnum implements IntArrayValuable {
      * 描述
      */
     private final String description;
-
-    @Override
-    public int[] array() {
-        return ARRAYS;
-    }
-
-    public static SmsSceneEnum getCodeByScene(Integer scene) {
-        return ArrayUtil.firstMatch(sceneEnum -> sceneEnum.getScene().equals(scene),
-                values());
-    }
 
 }

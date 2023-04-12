@@ -1,5 +1,6 @@
 package com.uusama.module.system.controller.admin.user.vo.user;
 
+import com.uusama.module.system.entity.user.AdminUserDO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ import java.util.Set;
 @Data
 public class UserBaseVO {
 
-    @Schema(description = "用户账号", required = true, example = "yudao")
+    @Schema(description = "用户账号", required = true, example = "uusama")
     @NotBlank(message = "用户账号不能为空")
     @Pattern(regexp = "^[a-zA-Z0-9]{4,30}$", message = "用户账号由 数字、字母 组成")
     @Size(min = 4, max = 30, message = "用户账号长度为 4-30 个字符")
@@ -35,7 +36,7 @@ public class UserBaseVO {
     @Schema(description = "岗位编号数组", example = "1")
     private Set<Long> postIds;
 
-    @Schema(description = "用户邮箱", example = "yudao@iocoder.cn")
+    @Schema(description = "用户邮箱", example = "uusama@iocoder.cn")
     @Email(message = "邮箱格式不正确")
     @Size(max = 50, message = "邮箱长度不能超过 50 个字符")
     private String email;
@@ -44,7 +45,7 @@ public class UserBaseVO {
     private String mobile;
 
     @Schema(description = "用户性别,参见 SexEnum 枚举类", example = "1")
-    private Integer sex;
+    private AdminUserDO.SexEnum sex;
 
     @Schema(description = "用户头像", example = "https://www.iocoder.cn/xxx.png")
     private String avatar;

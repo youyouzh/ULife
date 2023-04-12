@@ -2,7 +2,7 @@ package com.uusama.module.system.mapper.permission;
 
 import com.uusama.framework.mybatis.mapper.BaseMapperX;
 import com.uusama.framework.mybatis.query.LambdaQueryWrapperX;
-import com.uusama.module.system.controller.admin.vo.menu.MenuListReqVO;
+import com.uusama.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
 import com.uusama.module.system.entity.permission.MenuDO;
 import org.apache.ibatis.annotations.Mapper;
 

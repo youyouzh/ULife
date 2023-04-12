@@ -4,8 +4,8 @@ import com.uusama.framework.api.constants.GlobalErrorCodeConstants;
 import com.uusama.framework.mybatis.mapper.BaseMapperX;
 import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.mybatis.query.LambdaQueryWrapperX;
-import com.uusama.module.system.controller.admin.vo.operatelog.OperateLogExportReqVO;
-import com.uusama.module.system.controller.admin.vo.operatelog.OperateLogPageReqVO;
+import com.uusama.module.system.controller.admin.logger.vo.operatelog.OperateLogExportReqVO;
+import com.uusama.module.system.controller.admin.logger.vo.operatelog.OperateLogPageReqVO;
 import com.uusama.module.system.entity.logger.OperateLogDO;
 import org.apache.ibatis.annotations.Mapper;
 

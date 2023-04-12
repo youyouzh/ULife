@@ -25,7 +25,7 @@
 
 参考现在大牛们做的一些开源管理后台，进行一定整合和学习：
 
-- [ruoyi-vue-pro](https://github.com/YunaiV/ruoyi-vue-pro)芋道基于若依进行重构的版本
+- [ruoyi-vue-pro](https://github.com/YunaiV/ruoyi-vue-pro)uusama基于若依进行重构的版本
 - [ruoyi-vue](https://github.com/yangzongzhuan/RuoYi)若依管理后台
 - [jeecg-boot](https://github.com/jeecgboot/jeecg-boot)非常老牌的Spring Boot通用管理后台框架
 

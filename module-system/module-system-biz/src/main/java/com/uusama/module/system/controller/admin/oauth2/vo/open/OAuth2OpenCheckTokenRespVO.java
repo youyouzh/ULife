@@ -1,6 +1,7 @@
 package com.uusama.module.system.controller.admin.oauth2.vo.open;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.uusama.framework.web.enums.UserTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,11 +21,7 @@ public class OAuth2OpenCheckTokenRespVO {
 
     @Schema(description = "用户类型,参见 UserTypeEnum 枚举", required = true, example = "2")
     @JsonProperty("user_type")
-    private Integer userType;
-
-    @Schema(description = "租户编号", required = true, example = "1024")
-    @JsonProperty("tenant_id")
-    private Long tenantId;
+    private UserTypeEnum userType;
 
     @Schema(description = "客户端编号", required = true, example = "car")
     @JsonProperty("client_id")

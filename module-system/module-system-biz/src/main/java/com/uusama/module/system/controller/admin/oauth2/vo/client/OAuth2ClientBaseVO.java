@@ -1,5 +1,6 @@
 package com.uusama.module.system.controller.admin.oauth2.vo.client;
 
+import com.uusama.framework.web.enums.CommonState;
 import com.uusama.framework.web.util.JsonUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -40,7 +41,7 @@ public class OAuth2ClientBaseVO {
 
     @Schema(description = "状态,参见 CommonStatusEnum 枚举", required = true, example = "1")
     @NotNull(message = "状态不能为空")
-    private Integer status;
+    private CommonState state;
 
     @Schema(description = "访问令牌的有效期", required = true, example = "8640")
     @NotNull(message = "访问令牌的有效期不能为空")

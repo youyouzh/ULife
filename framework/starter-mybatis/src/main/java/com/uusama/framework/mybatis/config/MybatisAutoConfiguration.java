@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.uusama.framework.mybatis.handler.DefaultDBFieldHandler;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Mapper;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.Bean;
  * @author uusama
  */
 @AutoConfiguration
+@MapperScan(value = "${uusama.info.base-package}", annotationClass = Mapper.class, lazyInitialization = "${mybatis.lazy-initialization:false}")
 @RequiredArgsConstructor
 public class MybatisAutoConfiguration {
 

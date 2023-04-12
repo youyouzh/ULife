@@ -1,8 +1,8 @@
 package com.uusama.module.system.service.logger;
 
 import com.uusama.framework.mybatis.pojo.PageResult;
-import com.uusama.module.system.controller.admin.vo.operatelog.OperateLogExportReqVO;
-import com.uusama.module.system.controller.admin.vo.operatelog.OperateLogPageReqVO;
+import com.uusama.module.system.controller.admin.logger.vo.operatelog.OperateLogExportReqVO;
+import com.uusama.module.system.controller.admin.logger.vo.operatelog.OperateLogPageReqVO;
 import com.uusama.module.system.entity.logger.OperateLogDO;
 import com.uusama.module.system.logger.dto.OperateLogCreateReqDTO;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 操作日志 Service 接口
  *
- * @author 芋道源码
+ * @author uusama
  */
 public interface OperateLogService {
 

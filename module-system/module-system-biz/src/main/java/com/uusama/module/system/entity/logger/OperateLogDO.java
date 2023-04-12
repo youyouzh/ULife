@@ -1,12 +1,12 @@
 package com.uusama.module.system.entity.logger;
 
-import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.uusama.framework.recorder.enums.OperateTypeEnum;
+import com.uusama.framework.web.pojo.CommonResult;
 import com.uusama.module.system.entity.user.BaseUserDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * 操作日志表
  *
- * @author 芋道源码
+ * @author uusama
  */
 @TableName(value = "system_operate_log", autoResultMap = true)
 @KeySequence("system_operate_log_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
@@ -44,13 +44,7 @@ public class OperateLogDO extends BaseUserDO {
     public static final Integer RESULT_MAX_LENGTH = 4000;
 
     /**
-     * 日志主键
-     */
-    @TableId
-    private Long id;
-    /**
      * 链路追踪编号
-     *
      * 一般来说，通过链路追踪编号，可以将访问日志，错误日志，链路追踪日志，logger 打印日志等，结合在一起，从而进行排错。
      */
     private String traceId;
@@ -64,13 +58,12 @@ public class OperateLogDO extends BaseUserDO {
     private String name;
     /**
      * 操作分类
-     *
-     * 枚举 {@link OperateTypeEnum}
      */
-    private Integer type;
+    @EnumValue
+    private OperateTypeEnum type;
     /**
      * 操作内容，记录整个操作的明细
-     * 例如说，修改编号为 1 的用户信息，将性别从男改成女，将姓名从芋道改成源码。
+     * 例如说，修改编号为 1 的用户信息，将性别从男改成女，将姓名从uusama改成源码。
      */
     private String content;
     /**

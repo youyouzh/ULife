@@ -6,6 +6,11 @@ package com.uusama.common.text;
  * @author uusama
  */
 public interface StrPool {
+    /**
+     * 字符串常量：{@code "null"} <br>
+     * 注意：{@code "null" != null}
+     */
+    String NULL = "null";
 
     /**
      * 字符串常量：制表符 {@code "\t"}

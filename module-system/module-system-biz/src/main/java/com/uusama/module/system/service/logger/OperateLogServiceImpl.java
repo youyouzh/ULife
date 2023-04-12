@@ -1,18 +1,16 @@
 package com.uusama.module.system.service.logger;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.iocoder.yudao.framework.common.util.string.StrUtils;
-import cn.iocoder.yudao.module.system.dal.dataobject.user.AdminUserDO;
 import com.uusama.common.util.CollUtil;
 import com.uusama.common.util.StrUtil;
 import com.uusama.framework.mybatis.pojo.PageResult;
-import com.uusama.module.system.controller.admin.vo.operatelog.OperateLogExportReqVO;
-import com.uusama.module.system.controller.admin.vo.operatelog.OperateLogPageReqVO;
+import com.uusama.module.system.controller.admin.logger.vo.operatelog.OperateLogExportReqVO;
+import com.uusama.module.system.controller.admin.logger.vo.operatelog.OperateLogPageReqVO;
 import com.uusama.module.system.convert.logger.OperateLogConvert;
 import com.uusama.module.system.entity.logger.OperateLogDO;
+import com.uusama.module.system.entity.user.AdminUserDO;
 import com.uusama.module.system.logger.dto.OperateLogCreateReqDTO;
-import com.uusama.module.system.mapper.auth.AdminUserMapper;
 import com.uusama.module.system.mapper.logger.OperateLogMapper;
+import com.uusama.module.system.mapper.user.AdminUserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,9 +20,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.convertSet;
-import static cn.iocoder.yudao.module.system.dal.dataobject.logger.OperateLogDO.JAVA_METHOD_ARGS_MAX_LENGTH;
-import static cn.iocoder.yudao.module.system.dal.dataobject.logger.OperateLogDO.RESULT_MAX_LENGTH;
 import static com.uusama.module.system.entity.logger.OperateLogDO.JAVA_METHOD_ARGS_MAX_LENGTH;
 import static com.uusama.module.system.entity.logger.OperateLogDO.RESULT_MAX_LENGTH;
 

@@ -1,4 +1,4 @@
-﻿package com.uusama.framework.tool.util;
+package com.uusama.framework.tool.util;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Excel 工具类
  *
- * @author 芋道源码
+ * @author uusama
  */
 public class ExcelUtils {
 

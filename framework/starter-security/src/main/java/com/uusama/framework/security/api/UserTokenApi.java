@@ -7,11 +7,12 @@ import com.uusama.framework.security.LoginUser;
  * @author uusama
  */
 public interface UserTokenApi {
+
     /**
      * 校验访问令牌
      *
      * @param accessToken 访问令牌
      * @return 访问令牌的信息
      */
-    LoginUser checkAccessToken(String accessToken);
+    LoginUser checkUserToken(String accessToken);
 }

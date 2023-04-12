@@ -1,5 +1,7 @@
 package com.uusama.module.system.logger.dto;
 
+import com.uusama.framework.recorder.enums.OperateTypeEnum;
+import com.uusama.framework.web.enums.UserTypeEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -27,7 +29,7 @@ public class OperateLogCreateReqDTO {
      * 用户类型
      */
     @NotNull(message = "用户类型不能为空")
-    private Integer userType;
+    private UserTypeEnum userType;
 
     /**
      * 操作模块
@@ -45,7 +47,7 @@ public class OperateLogCreateReqDTO {
      * 操作分类
      */
     @NotNull(message = "操作分类不能为空")
-    private Integer type;
+    private OperateTypeEnum type;
 
     /**
      * 操作明细

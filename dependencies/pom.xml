@@ -91,6 +91,11 @@
             </dependency>
             <dependency>
                 <groupId>com.uusama</groupId>
+                <artifactId>starter-recorder</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.uusama</groupId>
                 <artifactId>module-system-api</artifactId>
                 <version>${revision}</version>
             </dependency>

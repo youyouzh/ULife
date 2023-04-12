@@ -1,19 +1,18 @@
 package com.uusama.module.system.convert.user;
 
-import cn.iocoder.yudao.framework.common.util.collection.CollectionUtils;
-import cn.iocoder.yudao.module.system.controller.admin.auth.vo.*;
-import cn.iocoder.yudao.module.system.dal.dataobject.permission.MenuDO;
-import cn.iocoder.yudao.module.system.dal.dataobject.permission.RoleDO;
 import com.uusama.common.util.CollUtil;
 import com.uusama.module.system.api.sms.dto.code.SmsCodeSendReqDTO;
 import com.uusama.module.system.api.sms.dto.code.SmsCodeUseReqDTO;
-import com.uusama.module.system.controller.admin.vo.auth.AuthLoginRespVO;
-import com.uusama.module.system.controller.admin.vo.auth.AuthMenuRespVO;
-import com.uusama.module.system.controller.admin.vo.auth.AuthPermissionInfoRespVO;
-import com.uusama.module.system.controller.admin.vo.auth.AuthSmsLoginReqVO;
-import com.uusama.module.system.controller.admin.vo.auth.AuthSmsSendReqVO;
-import com.uusama.module.system.entity.user.AdminUserDO;
+import com.uusama.module.system.controller.admin.auth.vo.AuthLoginRespVO;
+import com.uusama.module.system.controller.admin.auth.vo.AuthMenuRespVO;
+import com.uusama.module.system.controller.admin.auth.vo.AuthPermissionInfoRespVO;
+import com.uusama.module.system.controller.admin.auth.vo.AuthSmsLoginReqVO;
+import com.uusama.module.system.controller.admin.auth.vo.AuthSmsSendReqVO;
 import com.uusama.module.system.entity.oauth2.OAuth2AccessTokenDO;
+import com.uusama.module.system.entity.permission.MenuDO;
+import com.uusama.module.system.entity.permission.RoleDO;
+import com.uusama.module.system.entity.user.AdminUserDO;
+import com.uusama.module.system.enums.SmsSceneEnum;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.LoggerFactory;
@@ -24,8 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.filterList;
-import static cn.iocoder.yudao.module.system.dal.dataobject.permission.MenuDO.ID_ROOT;
+import static com.uusama.module.system.entity.permission.MenuDO.ID_ROOT;
 
 @Mapper
 public interface AuthConvert {
@@ -37,8 +35,8 @@ public interface AuthConvert {
     default AuthPermissionInfoRespVO convert(AdminUserDO user, List<RoleDO> roleList, List<MenuDO> menuList) {
         return AuthPermissionInfoRespVO.builder()
             .user(AuthPermissionInfoRespVO.UserVO.builder().id(user.getId()).nickname(user.getNickname()).avatar(user.getAvatar()).build())
-            .roles(CollectionUtils.convertSet(roleList, RoleDO::getCode))
-            .permissions(CollectionUtils.convertSet(menuList, MenuDO::getPermission))
+            .roles(CollUtil.convertSet(roleList, RoleDO::getCode))
+            .permissions(CollUtil.convertSet(menuList, MenuDO::getPermission))
             .build();
     }
 
@@ -78,6 +76,13 @@ public interface AuthConvert {
 
     SmsCodeSendReqDTO convert(AuthSmsSendReqVO reqVO);
 
-    SmsCodeUseReqDTO convert(AuthSmsLoginReqVO reqVO, Integer scene, String usedIp);
+    default SmsCodeUseReqDTO convert(AuthSmsLoginReqVO reqVO, SmsSceneEnum scene, String usedIp) {
+        return SmsCodeUseReqDTO.builder()
+            .mobile(reqVO.getMobile())
+            .code(reqVO.getCode())
+            .scene(scene)
+            .usedIp(usedIp)
+            .build();
+    }
 
 }

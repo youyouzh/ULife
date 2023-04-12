@@ -3,11 +3,10 @@ package com.uusama.module.system.service.oauth2;
 import com.uusama.common.util.StrUtil;
 import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.module.system.constant.ErrorCodeConstants;
-import com.uusama.module.system.entity.user.AdminUserDO;
 import com.uusama.module.system.entity.oauth2.OAuth2AccessTokenDO;
 import com.uusama.module.system.entity.oauth2.OAuth2CodeDO;
-import com.uusama.module.system.service.user.AdminAuthService;
-import com.uusama.module.system.service.user.OAuth2TokenService;
+import com.uusama.module.system.entity.user.AdminUserDO;
+import com.uusama.module.system.service.auth.AdminAuthService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 

@@ -1,10 +1,10 @@
 package com.uusama.module.system.convert.oauth2;
 
 import com.uusama.framework.mybatis.pojo.PageResult;
-import com.uusama.framework.security.api.dto.OAuth2AccessTokenCheckRespDTO;
-import com.uusama.framework.security.api.dto.OAuth2AccessTokenRespDTO;
 import com.uusama.module.system.controller.admin.oauth2.vo.token.OAuth2AccessTokenRespVO;
 import com.uusama.module.system.entity.oauth2.OAuth2AccessTokenDO;
+import com.uusama.module.system.service.oauth2.dto.OAuth2AccessTokenCheckRespDTO;
+import com.uusama.module.system.service.oauth2.dto.OAuth2AccessTokenRespDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

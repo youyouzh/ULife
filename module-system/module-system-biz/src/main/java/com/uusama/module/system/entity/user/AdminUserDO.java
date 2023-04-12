@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -23,7 +24,7 @@ import java.util.Set;
  * 管理后台的用户 DO
  * 由于 SQL Server 的 system_user 是关键字，所以使用 system_users
  *
- * @author 芋道源码
+ * @author uusama
  */
 @TableName(value = "system_users", autoResultMap = true)
 @KeySequence("system_user_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
@@ -33,6 +34,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public class AdminUserDO extends BaseConfigDO {
 
     /**
@@ -96,7 +98,7 @@ public class AdminUserDO extends BaseConfigDO {
     /**
      * 性别的枚举值
      *
-     * @author 芋道源码
+     * @author uusama
      */
     @Getter
     @AllArgsConstructor

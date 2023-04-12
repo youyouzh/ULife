@@ -1,5 +1,6 @@
 package com.uusama.module.system.controller.admin.user.vo.profile;
 
+import com.uusama.framework.web.enums.CommonState;
 import com.uusama.module.system.controller.admin.user.vo.user.UserBaseVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class UserProfileRespVO extends UserBaseVO {
     private Long id;
 
     @Schema(description = "状态,参见 CommonStatusEnum 枚举类", required = true, example = "1")
-    private Integer status;
+    private CommonState state;
 
     @Schema(description = "最后登录 IP", required = true, example = "192.168.1.1")
     private String loginIp;

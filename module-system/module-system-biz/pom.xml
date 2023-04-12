@@ -46,6 +46,11 @@
 
         <dependency>
             <groupId>com.uusama</groupId>
+            <artifactId>starter-recorder</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.uusama</groupId>
             <artifactId>module-system-api</artifactId>
         </dependency>
     </dependencies>

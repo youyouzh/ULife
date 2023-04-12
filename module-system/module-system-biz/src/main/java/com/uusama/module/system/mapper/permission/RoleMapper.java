@@ -4,8 +4,9 @@ import com.uusama.framework.mybatis.entity.BaseDO;
 import com.uusama.framework.mybatis.mapper.BaseMapperX;
 import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.mybatis.query.LambdaQueryWrapperX;
-import com.uusama.module.system.controller.admin.vo.role.RoleExportReqVO;
-import com.uusama.module.system.controller.admin.vo.role.RolePageReqVO;
+import com.uusama.framework.web.enums.CommonState;
+import com.uusama.module.system.controller.admin.permission.vo.role.RoleExportReqVO;
+import com.uusama.module.system.controller.admin.permission.vo.role.RolePageReqVO;
 import com.uusama.module.system.entity.permission.RoleDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.lang.Nullable;
@@ -41,8 +42,8 @@ public interface RoleMapper extends BaseMapperX<RoleDO> {
         return selectOne(RoleDO::getCode, code);
     }
 
-    default List<RoleDO> selectListByStatus(@Nullable Collection<Integer> statuses) {
-        return selectList(RoleDO::getState, statuses);
+    default List<RoleDO> selectListByStatus(@Nullable Collection<CommonState> states) {
+        return selectList(RoleDO::getState, states);
     }
 
 }

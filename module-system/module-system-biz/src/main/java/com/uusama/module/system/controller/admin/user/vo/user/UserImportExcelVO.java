@@ -1,9 +1,11 @@
 package com.uusama.module.system.controller.admin.user.vo.user;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.uusama.framework.web.annotations.DictFormat;
-import com.uusama.framework.web.convert.DictConvert;
+import com.uusama.framework.tool.annotations.DictFormat;
+import com.uusama.framework.tool.convert.DictConvert;
+import com.uusama.framework.web.enums.CommonState;
 import com.uusama.module.system.constant.DictTypeConstants;
+import com.uusama.module.system.entity.user.AdminUserDO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,10 +39,10 @@ public class UserImportExcelVO {
 
     @ExcelProperty(value = "用户性别", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.USER_SEX)
-    private Integer sex;
+    private AdminUserDO.SexEnum sex;
 
     @ExcelProperty(value = "账号状态", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.COMMON_STATUS)
-    private Integer status;
+    private CommonState state;
 
 }

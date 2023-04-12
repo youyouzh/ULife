@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author uusama
  */
-@SpringBootApplication()
+@SpringBootApplication(scanBasePackages = {"${uusama.info.base-package}.server", "${uusama.info.base-package}.module"})
 public class ServerApplication {
 
     public static void main(String[] args) {
