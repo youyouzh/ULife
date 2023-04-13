@@ -2,6 +2,7 @@ package com.uusama.module.system.controller.admin.permission;
 
 import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.recorder.annotations.OperateLog;
+import com.uusama.framework.recorder.enums.OperateTypeEnum;
 import com.uusama.framework.tool.util.ExcelUtils;
 import com.uusama.framework.web.enums.CommonState;
 import com.uusama.framework.web.pojo.CommonResult;
@@ -37,8 +38,6 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.uusama.framework.recorder.enums.OperateTypeEnum.EXPORT;
-import static com.uusama.framework.web.pojo.CommonResult.success;
 import static java.util.Collections.singleton;
 
 @Tag(name = "管理后台 - 角色")
@@ -54,7 +53,7 @@ public class RoleController {
     @Operation(summary = "创建角色")
     @PreAuthorize("@ss.hasPermission('system:role:create')")
     public CommonResult<Long> createRole(@Valid @RequestBody RoleCreateReqVO reqVO) {
-        return success(roleService.createRole(reqVO, null));
+        return CommonResult.success(roleService.createRole(reqVO, null));
     }
 
     @PutMapping("/update")
@@ -62,7 +61,7 @@ public class RoleController {
     @PreAuthorize("@ss.hasPermission('system:role:update')")
     public CommonResult<Boolean> updateRole(@Valid @RequestBody RoleUpdateReqVO reqVO) {
         roleService.updateRole(reqVO);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @PutMapping("/update-status")
@@ -70,7 +69,7 @@ public class RoleController {
     @PreAuthorize("@ss.hasPermission('system:role:update')")
     public CommonResult<Boolean> updateRoleStatus(@Valid @RequestBody RoleUpdateStatusReqVO reqVO) {
         roleService.updateRoleStatus(reqVO.getId(), reqVO.getState());
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @DeleteMapping("/delete")
@@ -79,7 +78,7 @@ public class RoleController {
     @PreAuthorize("@ss.hasPermission('system:role:delete')")
     public CommonResult<Boolean> deleteRole(@RequestParam("id") Long id) {
         roleService.deleteRole(id);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @GetMapping("/get")
@@ -87,14 +86,14 @@ public class RoleController {
     @PreAuthorize("@ss.hasPermission('system:role:query')")
     public CommonResult<RoleRespVO> getRole(@RequestParam("id") Long id) {
         RoleDO role = roleService.getRole(id);
-        return success(RoleConvert.INSTANCE.convert(role));
+        return CommonResult.success(RoleConvert.INSTANCE.convert(role));
     }
 
     @GetMapping("/page")
     @Operation(summary = "获得角色分页")
     @PreAuthorize("@ss.hasPermission('system:role:query')")
     public CommonResult<PageResult<RoleDO>> getRolePage(RolePageReqVO reqVO) {
-        return success(roleService.getRolePage(reqVO));
+        return CommonResult.success(roleService.getRolePage(reqVO));
     }
 
     @GetMapping("/list-all-simple")
@@ -104,11 +103,11 @@ public class RoleController {
         List<RoleDO> list = roleService.getRoleListByStatus(singleton(CommonState.ENABLE));
         // 排序后，返回给前端
         list.sort(Comparator.comparing(RoleDO::getSort));
-        return success(RoleConvert.INSTANCE.convertList02(list));
+        return CommonResult.success(RoleConvert.INSTANCE.convertList02(list));
     }
 
     @GetMapping("/export")
-    @OperateLog(type = EXPORT)
+    @OperateLog(type = OperateTypeEnum.EXPORT)
     @PreAuthorize("@ss.hasPermission('system:role:export')")
     public void export(HttpServletResponse response, @Validated RoleExportReqVO reqVO) throws IOException {
         List<RoleDO> list = roleService.getRoleList(reqVO);

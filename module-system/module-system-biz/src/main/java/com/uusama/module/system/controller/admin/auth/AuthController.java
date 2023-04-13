@@ -4,6 +4,8 @@ import com.uusama.framework.recorder.annotations.OperateLog;
 import com.uusama.framework.security.config.SecurityProperties;
 import com.uusama.framework.web.enums.CommonState;
 import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.web.util.ParamUtils;
+import com.uusama.module.system.constant.ErrorCodeConstants;
 import com.uusama.module.system.controller.admin.auth.vo.AuthLoginReqVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthLoginRespVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthMenuRespVO;
@@ -22,6 +24,7 @@ import com.uusama.module.system.service.user.AdminUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +34,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -41,7 +43,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import static com.uusama.framework.security.util.SecurityFrameworkUtils.obtainAuthorization;
-import static com.uusama.framework.web.pojo.CommonResult.success;
 import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
 import static java.util.Collections.singleton;
 
@@ -50,25 +51,20 @@ import static java.util.Collections.singleton;
 @RequestMapping("/system/auth")
 @Validated
 @Slf4j
+@RequiredArgsConstructor
 public class AuthController {
-
-    @Resource
-    private AdminAuthService authService;
-    @Resource
-    private AdminUserService userService;
-    @Resource
-    private RoleService roleService;
-    @Resource
-    private PermissionService permissionService;
-    @Resource
-    private SecurityProperties securityProperties;
+    private final AdminAuthService authService;
+    private final AdminUserService userService;
+    private final RoleService roleService;
+    private final PermissionService permissionService;
+    private final SecurityProperties securityProperties;
 
     @PostMapping("/login")
     @PermitAll
     @Operation(summary = "使用账号密码登录")
     @OperateLog(enable = false) // 避免 Post 请求被记录操作日志
     public CommonResult<AuthLoginRespVO> login(@RequestBody @Valid AuthLoginReqVO reqVO) {
-        return success(authService.login(reqVO));
+        return CommonResult.success(authService.login(reqVO));
     }
 
     @PostMapping("/logout")
@@ -78,7 +74,7 @@ public class AuthController {
     public CommonResult<Boolean> logout(HttpServletRequest request) {
         Optional<String> token = obtainAuthorization(request, securityProperties.getTokenHeader());
         token.ifPresent(s -> authService.logout(s, LoginLogTypeEnum.LOGOUT_SELF));
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @PostMapping("/refresh-token")
@@ -87,7 +83,7 @@ public class AuthController {
     @Parameter(name = "refreshToken", description = "刷新令牌", required = true)
     @OperateLog(enable = false) // 避免 Post 请求被记录操作日志
     public CommonResult<AuthLoginRespVO> refreshToken(@RequestParam("refreshToken") String refreshToken) {
-        return success(authService.refreshToken(refreshToken));
+        return CommonResult.success(authService.refreshToken(refreshToken));
     }
 
     @GetMapping("/get-permission-info")
@@ -95,9 +91,7 @@ public class AuthController {
     public CommonResult<AuthPermissionInfoRespVO> getPermissionInfo() {
         // 获得用户信息
         AdminUserDO user = userService.getUser(getLoginUserId());
-        if (user == null) {
-            return null;
-        }
+        ParamUtils.checkNotNull(user, ErrorCodeConstants.USER_NOT_EXISTS);
         // 获得角色列表
         Set<Long> roleIds = permissionService.getUserRoleIdsFromCache(getLoginUserId(), singleton(CommonState.ENABLE));
         List<RoleDO> roleList = roleService.getRoleListFromCache(roleIds);
@@ -106,7 +100,7 @@ public class AuthController {
                                                                            Arrays.asList(MenuTypeEnum.DIR, MenuTypeEnum.MENU, MenuTypeEnum.BUTTON),
                                                                            singleton(CommonState.ENABLE)); // 只要开启的
         // 拼接结果返回
-        return success(AuthConvert.INSTANCE.convert(user, roleList, menuList));
+        return CommonResult.success(AuthConvert.INSTANCE.convert(user, roleList, menuList));
     }
 
     @GetMapping("/list-menus")
@@ -114,12 +108,12 @@ public class AuthController {
     public CommonResult<List<AuthMenuRespVO>> getMenuList() {
         // 获得角色列表
         Set<Long> roleIds = permissionService.getUserRoleIdsFromCache(getLoginUserId(), singleton(CommonState.ENABLE));
-        // 获得用户拥有的菜单列表
+        // 获得用户拥有的目录和菜单类型
         List<MenuDO> menuList = permissionService.getRoleMenuListFromCache(roleIds,
-                                                                           Arrays.asList(MenuTypeEnum.DIR, MenuTypeEnum.MENU), // 只要目录和菜单类型
-                    singleton(CommonState.ENABLE)); // 只要开启的
+                                                                           Arrays.asList(MenuTypeEnum.DIR, MenuTypeEnum.MENU),
+                                                                           singleton(CommonState.ENABLE));
         // 转换成 Tree 结构返回
-        return success(AuthConvert.INSTANCE.buildMenuTree(menuList));
+        return CommonResult.success(AuthConvert.INSTANCE.buildMenuTree(menuList));
     }
 
     // ========== 短信登录相关 ==========
@@ -135,7 +129,7 @@ public class AuthController {
 //    })
 //    public CommonResult<String> socialLogin(@RequestParam("type") Integer type,
 //                                                    @RequestParam("redirectUri") String redirectUri) {
-//        return success(socialUserService.getAuthorizeUrl(type, redirectUri));
+//        return CommonResult.success(socialUserService.getAuthorizeUrl(type, redirectUri));
 //    }
 
     @PostMapping("/social-login")
@@ -143,7 +137,7 @@ public class AuthController {
     @Operation(summary = "社交快捷登录，使用 code 授权码", description = "适合未登录的用户，但是社交账号已绑定用户")
     @OperateLog(enable = false) // 避免 Post 请求被记录操作日志
     public CommonResult<AuthLoginRespVO> socialQuickLogin(@RequestBody @Valid AuthSocialLoginReqVO reqVO) {
-        return success(authService.socialLogin(reqVO));
+        return CommonResult.success(authService.socialLogin(reqVO));
     }
 
 }

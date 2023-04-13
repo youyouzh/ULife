@@ -1,12 +1,12 @@
 package com.uusama.common.util;
 
-import com.uusama.common.io.CharsetUtil;
 import com.uusama.common.text.StrFormatter;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -95,7 +95,7 @@ public class StrUtil extends StringUtils {
      * @return 字符串
      */
     public static String utf8Str(Object obj) {
-        return str(obj, CharsetUtil.CHARSET_UTF_8);
+        return str(obj, StandardCharsets.UTF_8);
     }
 
     /**
@@ -155,7 +155,7 @@ public class StrUtil extends StringUtils {
      * @return 字符串
      */
     public static String str(byte[] bytes, String charset) {
-        return str(bytes, CharsetUtil.charset(charset));
+        return str(bytes, Charset.forName(charset));
     }
 
     /**
@@ -184,7 +184,7 @@ public class StrUtil extends StringUtils {
      * @return 字符串
      */
     public static String str(Byte[] bytes, String charset) {
-        return str(bytes, CharsetUtil.charset(charset));
+        return str(bytes, Charset.forName(charset));
     }
 
     /**
@@ -221,7 +221,7 @@ public class StrUtil extends StringUtils {
             return null;
         }
 
-        return str(data, CharsetUtil.charset(charset));
+        return str(data, Charset.forName(charset));
     }
 
     public static boolean notEqual(CharSequence cs1, CharSequence cs2) {

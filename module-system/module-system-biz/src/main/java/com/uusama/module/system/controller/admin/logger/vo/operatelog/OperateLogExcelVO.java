@@ -1,7 +1,7 @@
 package com.uusama.module.system.controller.admin.logger.vo.operatelog;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.uusama.framework.tool.annotations.DictFormat;
+import com.uusama.framework.tool.annotation.DictFormat;
 import com.uusama.framework.tool.convert.DictConvert;
 import com.uusama.module.system.constant.DictTypeConstants;
 import lombok.Data;

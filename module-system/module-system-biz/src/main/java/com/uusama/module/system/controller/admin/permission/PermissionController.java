@@ -21,8 +21,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.Set;
 
-import static com.uusama.framework.web.pojo.CommonResult.success;
-
 /**
  * 权限 Controller，提供赋予用户、角色的权限的 API 接口
  *
@@ -41,7 +39,7 @@ public class PermissionController {
     @GetMapping("/list-role-resources")
     @PreAuthorize("@ss.hasPermission('system:permission:assign-role-menu')")
     public CommonResult<Set<Long>> listRoleMenus(Long roleId) {
-        return success(permissionService.getRoleMenuIds(roleId));
+        return CommonResult.success(permissionService.getRoleMenuIds(roleId));
     }
 
     @PostMapping("/assign-role-menu")
@@ -50,7 +48,7 @@ public class PermissionController {
     public CommonResult<Boolean> assignRoleMenu(@Validated @RequestBody PermissionAssignRoleMenuReqVO reqVO) {
         // 执行菜单的分配
         permissionService.assignRoleMenu(reqVO.getRoleId(), reqVO.getMenuIds());
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @PostMapping("/assign-role-data-scope")
@@ -58,7 +56,7 @@ public class PermissionController {
     @PreAuthorize("@ss.hasPermission('system:permission:assign-role-data-scope')")
     public CommonResult<Boolean> assignRoleDataScope(@Valid @RequestBody PermissionAssignRoleDataScopeReqVO reqVO) {
         permissionService.assignRoleDataScope(reqVO.getRoleId(), reqVO.getDataScope(), reqVO.getDataScopeDeptIds());
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @Operation(summary = "获得管理员拥有的角色编号列表")
@@ -66,7 +64,7 @@ public class PermissionController {
     @GetMapping("/list-user-roles")
     @PreAuthorize("@ss.hasPermission('system:permission:assign-user-role')")
     public CommonResult<Set<Long>> listAdminRoles(@RequestParam("userId") Long userId) {
-        return success(permissionService.getUserRoleIdListByUserId(userId));
+        return CommonResult.success(permissionService.getUserRoleIdListByUserId(userId));
     }
 
     @Operation(summary = "赋予用户角色")
@@ -74,7 +72,7 @@ public class PermissionController {
     @PreAuthorize("@ss.hasPermission('system:permission:assign-user-role')")
     public CommonResult<Boolean> assignUserRole(@Validated @RequestBody PermissionAssignUserRoleReqVO reqVO) {
         permissionService.assignUserRole(reqVO.getUserId(), reqVO.getRoleIds());
-        return success(true);
+        return CommonResult.success(true);
     }
 
 }

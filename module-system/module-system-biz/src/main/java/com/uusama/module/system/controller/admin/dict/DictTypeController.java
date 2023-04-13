@@ -2,6 +2,7 @@ package com.uusama.module.system.controller.admin.dict;
 
 import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.recorder.annotations.OperateLog;
+import com.uusama.framework.recorder.enums.OperateTypeEnum;
 import com.uusama.framework.tool.util.ExcelUtils;
 import com.uusama.framework.web.pojo.CommonResult;
 import com.uusama.module.system.controller.admin.dict.vo.type.DictTypeCreateReqVO;
@@ -34,9 +35,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
-import static com.uusama.framework.recorder.enums.OperateTypeEnum.EXPORT;
-import static com.uusama.framework.web.pojo.CommonResult.success;
-
 @Tag(name = "管理后台 - 字典类型")
 @RestController
 @RequestMapping("/system/dict-type")
@@ -51,7 +49,7 @@ public class DictTypeController {
     @PreAuthorize("@ss.hasPermission('system:dict:create')")
     public CommonResult<Long> createDictType(@Valid @RequestBody DictTypeCreateReqVO reqVO) {
         Long dictTypeId = dictTypeService.createDictType(reqVO);
-        return success(dictTypeId);
+        return CommonResult.success(dictTypeId);
     }
 
     @PutMapping("/update")
@@ -59,7 +57,7 @@ public class DictTypeController {
     @PreAuthorize("@ss.hasPermission('system:dict:update')")
     public CommonResult<Boolean> updateDictType(@Valid @RequestBody DictTypeUpdateReqVO reqVO) {
         dictTypeService.updateDictType(reqVO);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @DeleteMapping("/delete")
@@ -68,14 +66,14 @@ public class DictTypeController {
     @PreAuthorize("@ss.hasPermission('system:dict:delete')")
     public CommonResult<Boolean> deleteDictType(Long id) {
         dictTypeService.deleteDictType(id);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @Operation(summary = "/获得字典类型的分页列表")
     @GetMapping("/page")
     @PreAuthorize("@ss.hasPermission('system:dict:query')")
     public CommonResult<PageResult<DictTypeRespVO>> pageDictTypes(@Valid DictTypePageReqVO reqVO) {
-        return success(DictTypeConvert.INSTANCE.convertPage(dictTypeService.getDictTypePage(reqVO)));
+        return CommonResult.success(DictTypeConvert.INSTANCE.convertPage(dictTypeService.getDictTypePage(reqVO)));
     }
 
     @Operation(summary = "/查询字典类型详细")
@@ -83,7 +81,7 @@ public class DictTypeController {
     @GetMapping(value = "/get")
     @PreAuthorize("@ss.hasPermission('system:dict:query')")
     public CommonResult<DictTypeRespVO> getDictType(@RequestParam("id") Long id) {
-        return success(DictTypeConvert.INSTANCE.convert(dictTypeService.getDictType(id)));
+        return CommonResult.success(DictTypeConvert.INSTANCE.convert(dictTypeService.getDictType(id)));
     }
 
     @GetMapping("/list-all-simple")
@@ -91,13 +89,13 @@ public class DictTypeController {
     // 无需添加权限认证，因为前端全局都需要
     public CommonResult<List<DictTypeSimpleRespVO>> getSimpleDictTypeList() {
         List<DictTypeDO> list = dictTypeService.getDictTypeList();
-        return success(DictTypeConvert.INSTANCE.convertList(list));
+        return CommonResult.success(DictTypeConvert.INSTANCE.convertList(list));
     }
 
     @Operation(summary = "导出数据类型")
     @GetMapping("/export")
     @PreAuthorize("@ss.hasPermission('system:dict:query')")
-    @OperateLog(type = EXPORT)
+    @OperateLog(type = OperateTypeEnum.EXPORT)
     public void export(HttpServletResponse response, @Valid DictTypeExportReqVO reqVO) throws IOException {
         List<DictTypeDO> list = dictTypeService.getDictTypeList(reqVO);
         List<DictTypeExcelVO> data = DictTypeConvert.INSTANCE.convertList02(list);

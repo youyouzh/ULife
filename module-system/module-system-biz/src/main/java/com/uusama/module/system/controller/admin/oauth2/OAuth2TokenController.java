@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
-import static com.uusama.framework.web.pojo.CommonResult.success;
-
 @Tag(name = "管理后台 - OAuth2.0 令牌")
 @RestController
 @RequestMapping("/system/oauth2-token")
@@ -39,7 +37,7 @@ public class OAuth2TokenController {
     @PreAuthorize("@ss.hasPermission('system:oauth2-token:page')")
     public CommonResult<PageResult<OAuth2AccessTokenRespVO>> getAccessTokenPage(@Valid OAuth2AccessTokenPageReqVO reqVO) {
         PageResult<OAuth2AccessTokenDO> pageResult = oauth2TokenService.getAccessTokenPage(reqVO);
-        return success(OAuth2TokenConvert.INSTANCE.convert(pageResult));
+        return CommonResult.success(OAuth2TokenConvert.INSTANCE.convert(pageResult));
     }
 
     @DeleteMapping("/delete")
@@ -48,7 +46,7 @@ public class OAuth2TokenController {
     @PreAuthorize("@ss.hasPermission('system:oauth2-token:delete')")
     public CommonResult<Boolean> deleteAccessToken(@RequestParam("accessToken") String accessToken) {
         authService.logout(accessToken, LoginLogTypeEnum.LOGOUT_DELETE);
-        return success(true);
+        return CommonResult.success(true);
     }
 
 }

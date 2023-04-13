@@ -1,6 +1,5 @@
 package com.uusama.framework.web.util;
 
-import com.uusama.common.io.IoUtil;
 import com.uusama.common.net.NetUtil;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.ArrayUtils;
@@ -36,13 +35,9 @@ public class ServletUtils {
     public static void writeJSON(HttpServletResponse response, Object object) {
         String content = JsonUtils.toJsonString(object);
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-        Writer writer = null;
-        try {
-            writer = response.getWriter();
+        try (Writer writer = response.getWriter()) {
             writer.write(content);
             writer.flush();
-        } finally {
-            IoUtil.close(writer);
         }
     }
 
@@ -59,7 +54,7 @@ public class ServletUtils {
         response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, StandardCharsets.UTF_8.name()));
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         // 输出附件
-        IoUtil.write(response.getOutputStream(), false, content);
+        response.getOutputStream().write(content);
     }
 
     /**

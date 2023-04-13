@@ -2,6 +2,7 @@ package com.uusama.module.system.controller.admin.dept;
 
 import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.recorder.annotations.OperateLog;
+import com.uusama.framework.recorder.enums.OperateTypeEnum;
 import com.uusama.framework.tool.util.ExcelUtils;
 import com.uusama.framework.web.enums.CommonState;
 import com.uusama.framework.web.pojo.CommonResult;
@@ -37,9 +38,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.uusama.framework.recorder.enums.OperateTypeEnum.EXPORT;
-import static com.uusama.framework.web.pojo.CommonResult.success;
-
 @Tag(name = "管理后台 - 岗位")
 @RestController
 @RequestMapping("/system/post")
@@ -54,7 +52,7 @@ public class PostController {
     @PreAuthorize("@ss.hasPermission('system:post:create')")
     public CommonResult<Long> createPost(@Valid @RequestBody PostCreateReqVO reqVO) {
         Long postId = postService.createPost(reqVO);
-        return success(postId);
+        return CommonResult.success(postId);
     }
 
     @PutMapping("/update")
@@ -62,7 +60,7 @@ public class PostController {
     @PreAuthorize("@ss.hasPermission('system:post:update')")
     public CommonResult<Boolean> updatePost(@Valid @RequestBody PostUpdateReqVO reqVO) {
         postService.updatePost(reqVO);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @DeleteMapping("/delete")
@@ -70,7 +68,7 @@ public class PostController {
     @PreAuthorize("@ss.hasPermission('system:post:delete')")
     public CommonResult<Boolean> deletePost(@RequestParam("id") Long id) {
         postService.deletePost(id);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @GetMapping(value = "/get")
@@ -78,7 +76,7 @@ public class PostController {
     @Parameter(name = "id", description = "岗位编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:post:query')")
     public CommonResult<PostRespVO> getPost(@RequestParam("id") Long id) {
-        return success(PostConvert.INSTANCE.convert(postService.getPost(id)));
+        return CommonResult.success(PostConvert.INSTANCE.convert(postService.getPost(id)));
     }
 
     @GetMapping("/list-all-simple")
@@ -88,20 +86,20 @@ public class PostController {
         List<PostDO> list = postService.getPostList(null, Collections.singleton(CommonState.ENABLE));
         // 排序后，返回给前端
         list.sort(Comparator.comparing(PostDO::getSort));
-        return success(PostConvert.INSTANCE.convertList02(list));
+        return CommonResult.success(PostConvert.INSTANCE.convertList02(list));
     }
 
     @GetMapping("/page")
     @Operation(summary = "获得岗位分页列表")
     @PreAuthorize("@ss.hasPermission('system:post:query')")
     public CommonResult<PageResult<PostRespVO>> getPostPage(@Validated PostPageReqVO reqVO) {
-        return success(PostConvert.INSTANCE.convertPage(postService.getPostPage(reqVO)));
+        return CommonResult.success(PostConvert.INSTANCE.convertPage(postService.getPostPage(reqVO)));
     }
 
     @GetMapping("/export")
     @Operation(summary = "岗位管理")
     @PreAuthorize("@ss.hasPermission('system:post:export')")
-    @OperateLog(type = EXPORT)
+    @OperateLog(type = OperateTypeEnum.EXPORT)
     public void export(HttpServletResponse response, @Validated PostExportReqVO reqVO) throws IOException {
         List<PostDO> posts = postService.getPostList(reqVO);
         List<PostExcelVO> data = PostConvert.INSTANCE.convertList03(posts);

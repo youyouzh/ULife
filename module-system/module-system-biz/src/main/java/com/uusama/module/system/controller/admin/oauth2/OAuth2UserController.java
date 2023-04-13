@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.uusama.framework.web.pojo.CommonResult.success;
 import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
 
 /**
@@ -66,7 +65,7 @@ public class OAuth2UserController {
             List<PostDO> posts = postService.getPostList(user.getPostIds());
             resp.setPosts(OAuth2UserConvert.INSTANCE.convertList(posts));
         }
-        return success(resp);
+        return CommonResult.success(resp);
     }
 
     @PutMapping("/update")
@@ -76,7 +75,7 @@ public class OAuth2UserController {
         // 这里将 UserProfileUpdateReqVO =》UserProfileUpdateReqVO 对象，实现接口的复用。
         // 主要是，AdminUserService 没有自己的 BO 对象，所以复用只能这么做
         userService.updateUserProfile(getLoginUserId(), OAuth2UserConvert.INSTANCE.convert(reqVO));
-        return success(true);
+        return CommonResult.success(true);
     }
 
 }

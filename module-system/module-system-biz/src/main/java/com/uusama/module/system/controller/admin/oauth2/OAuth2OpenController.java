@@ -46,7 +46,6 @@ import java.util.Objects;
 
 import static com.uusama.framework.api.constants.GlobalErrorCodeConstants.BAD_REQUEST;
 import static com.uusama.framework.web.exception.ServiceExceptionUtil.exception0;
-import static com.uusama.framework.web.pojo.CommonResult.success;
 import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
 
 /**
@@ -145,7 +144,7 @@ public class OAuth2OpenController {
                 throw new IllegalArgumentException("未知授权类型：" + grantType);
         }
         Assert.notNull(accessTokenDO, "访问令牌不能为空"); // 防御性检查
-        return success(OAuth2OpenConvert.INSTANCE.convert(accessTokenDO));
+        return CommonResult.success(OAuth2OpenConvert.INSTANCE.convert(accessTokenDO));
     }
 
     @DeleteMapping("/token")
@@ -161,7 +160,7 @@ public class OAuth2OpenController {
                 null, null, null);
 
         // 删除访问令牌
-        return success(oauth2GrantService.revokeToken(client.getClientId(), token));
+        return CommonResult.success(oauth2GrantService.revokeToken(client.getClientId(), token));
     }
 
     /**
@@ -182,7 +181,7 @@ public class OAuth2OpenController {
         // 校验令牌
         OAuth2AccessTokenDO accessTokenDO = oauth2TokenService.checkAccessToken(token);
         Assert.notNull(accessTokenDO, "访问令牌不能为空"); // 防御性检查
-        return success(OAuth2OpenConvert.INSTANCE.convert2(accessTokenDO));
+        return CommonResult.success(OAuth2OpenConvert.INSTANCE.convert2(accessTokenDO));
     }
 
     /**
@@ -199,7 +198,7 @@ public class OAuth2OpenController {
         // 2. 获得用户已经授权的信息
         List<OAuth2ApproveDO> approves = oauth2ApproveService.getApproveList(getLoginUserId(), getUserType(), clientId);
         // 拼接返回
-        return success(OAuth2OpenConvert.INSTANCE.convert(client, approves));
+        return CommonResult.success(OAuth2OpenConvert.INSTANCE.convert(client, approves));
     }
 
     /**
@@ -244,12 +243,12 @@ public class OAuth2OpenController {
         if (Boolean.TRUE.equals(autoApprove)) {
             // 如果无法自动授权通过，则返回空 url，前端不进行跳转
             if (!oauth2ApproveService.checkForPreApproval(getLoginUserId(), getUserType(), clientId, scopes.keySet())) {
-                return success(null);
+                return CommonResult.success(null);
             }
         } else { // 2.2 假设 approved 非 null，说明是场景二
             // 如果计算后不通过，则跳转一个错误链接
             if (!oauth2ApproveService.updateAfterApproval(getLoginUserId(), getUserType(), clientId, scopes)) {
-                return success(OAuth2Utils.buildUnsuccessfulRedirect(redirectUri, responseType, state,
+                return CommonResult.success(OAuth2Utils.buildUnsuccessfulRedirect(redirectUri, responseType, state,
                         "access_denied", "User denied access"));
             }
         }
@@ -257,10 +256,10 @@ public class OAuth2OpenController {
         // 3.1 如果是 code 授权码模式，则发放 code 授权码，并重定向
         List<String> approveScopes = CollUtil.convertList(scopes.entrySet(), Map.Entry::getKey, Map.Entry::getValue);
         if (grantTypeEnum == OAuth2GrantTypeEnum.AUTHORIZATION_CODE) {
-            return success(getAuthorizationCodeRedirect(getLoginUserId(), client, approveScopes, redirectUri, state));
+            return CommonResult.success(getAuthorizationCodeRedirect(getLoginUserId(), client, approveScopes, redirectUri, state));
         }
         // 3.2 如果是 token 则是 implicit 简化模式，则发送 accessToken 访问令牌，并重定向
-        return success(getImplicitGrantRedirect(getLoginUserId(), client, approveScopes, redirectUri, state));
+        return CommonResult.success(getImplicitGrantRedirect(getLoginUserId(), client, approveScopes, redirectUri, state));
     }
 
     private static OAuth2GrantTypeEnum getGrantTypeEnum(String responseType) {

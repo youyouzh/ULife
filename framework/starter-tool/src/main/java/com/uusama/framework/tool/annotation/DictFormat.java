@@ -1,4 +1,4 @@
-package com.uusama.framework.tool.annotations;
+package com.uusama.framework.tool.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

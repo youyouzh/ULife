@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -123,10 +122,8 @@ public class RoleServiceImpl implements RoleService {
         validateRoleForUpdate(id);
 
         // 更新数据范围
-        RoleDO updateObject = new RoleDO();
-        updateObject.setId(id);
-        updateObject.setDataScope(dataScope);
-        updateObject.setDataScopeDeptIds(dataScopeDeptIds);
+        RoleDO updateObject = RoleDO.builder().id(id).dataScope(dataScope)
+            .dataScopeDeptIds(dataScopeDeptIds).build();
         roleMapper.updateById(updateObject);
     }
 

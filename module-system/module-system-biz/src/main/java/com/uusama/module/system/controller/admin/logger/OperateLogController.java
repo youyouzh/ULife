@@ -3,6 +3,7 @@ package com.uusama.module.system.controller.admin.logger;
 import com.uusama.common.util.CollUtil;
 import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.recorder.annotations.OperateLog;
+import com.uusama.framework.recorder.enums.OperateTypeEnum;
 import com.uusama.framework.tool.util.ExcelUtils;
 import com.uusama.framework.web.pojo.CommonResult;
 import com.uusama.module.system.controller.admin.logger.vo.operatelog.OperateLogExcelVO;
@@ -30,9 +31,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import static com.uusama.framework.recorder.enums.OperateTypeEnum.EXPORT;
-import static com.uusama.framework.web.pojo.CommonResult.success;
 
 @Tag(name = "管理后台 - 操作日志")
 @RestController
@@ -65,13 +63,13 @@ public class OperateLogController {
                 return user;
             });
         });
-        return success(new PageResult<>(list, pageResult.getTotal()));
+        return CommonResult.success(new PageResult<>(list, pageResult.getTotal()));
     }
 
     @Operation(summary = "导出操作日志")
     @GetMapping("/export")
     @PreAuthorize("@ss.hasPermission('system:operate-log:export')")
-    @OperateLog(type = EXPORT)
+    @OperateLog(type = OperateTypeEnum.EXPORT)
     public void exportOperateLog(HttpServletResponse response, @Valid OperateLogExportReqVO reqVO) throws IOException {
         List<OperateLogDO> list = operateLogService.getOperateLogList(reqVO);
 

@@ -6,7 +6,7 @@ import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import com.uusama.framework.tool.annotations.DictFormat;
+import com.uusama.framework.tool.annotation.DictFormat;
 import lombok.extern.slf4j.Slf4j;
 
 /**

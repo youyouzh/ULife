@@ -1,10 +1,10 @@
 package com.uusama.common.util;
 
-import com.uusama.common.io.FastByteArrayOutputStream;
 import com.uusama.common.text.CharPool;
 import com.uusama.common.text.StrPool;
 import org.apache.commons.collections4.MapUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.UndeclaredThrowableException;
@@ -203,7 +203,7 @@ public class ExceptionUtil {
      * @return 堆栈转为的字符串
      */
     public static String stacktraceToString(Throwable throwable, int limit, Map<Character, String> replaceCharToStrMap) {
-        final FastByteArrayOutputStream baos = new FastByteArrayOutputStream();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         throwable.printStackTrace(new PrintStream(baos));
 
         final String exceptionStr = baos.toString();

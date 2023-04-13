@@ -2,6 +2,7 @@ package com.uusama.module.system.controller.admin.logger;
 
 import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.recorder.annotations.OperateLog;
+import com.uusama.framework.recorder.enums.OperateTypeEnum;
 import com.uusama.framework.tool.util.ExcelUtils;
 import com.uusama.framework.web.pojo.CommonResult;
 import com.uusama.module.system.controller.admin.logger.vo.loginlog.LoginLogExcelVO;
@@ -25,8 +26,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
-import static com.uusama.framework.recorder.enums.OperateTypeEnum.EXPORT;
-
 @Tag(name = "管理后台 - 登录日志")
 @RestController
 @RequestMapping("/system/login-log")
@@ -47,7 +46,7 @@ public class LoginLogController {
     @GetMapping("/export")
     @Operation(summary = "导出登录日志 Excel")
     @PreAuthorize("@ss.hasPermission('system:login-log:export')")
-    @OperateLog(type = EXPORT)
+    @OperateLog(type = OperateTypeEnum.EXPORT)
     public void exportLoginLog(HttpServletResponse response, @Valid LoginLogExportReqVO reqVO) throws IOException {
         List<LoginLogDO> list = loginLogService.getLoginLogList(reqVO);
         // 拼接数据

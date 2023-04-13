@@ -1,7 +1,7 @@
 package com.uusama.module.system.controller.admin.user.vo.user;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.uusama.framework.tool.annotations.DictFormat;
+import com.uusama.framework.tool.annotation.DictFormat;
 import com.uusama.framework.tool.convert.DictConvert;
 import com.uusama.framework.web.enums.CommonState;
 import com.uusama.module.system.constant.DictTypeConstants;

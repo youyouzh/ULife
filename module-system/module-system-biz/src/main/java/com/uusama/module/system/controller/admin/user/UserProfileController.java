@@ -33,7 +33,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static com.uusama.framework.web.exception.ServiceExceptionUtil.exception;
-import static com.uusama.framework.web.pojo.CommonResult.success;
 import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
 import static com.uusama.module.system.constant.ErrorCodeConstants.FILE_IS_EMPTY;
 
@@ -78,21 +77,21 @@ public class UserProfileController {
         // 获得社交用户信息
 //        List<SocialUserDO> socialUsers = socialService.getSocialUserList(user.getId(), UserTypeEnum.ADMIN.getValue());
 //        resp.setSocialUsers(UserConvert.INSTANCE.convertList03(socialUsers));
-        return success(resp);
+        return CommonResult.success(resp);
     }
 
     @PutMapping("/update")
     @Operation(summary = "修改用户个人信息")
     public CommonResult<Boolean> updateUserProfile(@Valid @RequestBody UserProfileUpdateReqVO reqVO) {
         userService.updateUserProfile(getLoginUserId(), reqVO);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @PutMapping("/update-password")
     @Operation(summary = "修改用户个人密码")
     public CommonResult<Boolean> updateUserProfilePassword(@Valid @RequestBody UserProfileUpdatePasswordReqVO reqVO) {
         userService.updateUserPassword(getLoginUserId(), reqVO);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @RequestMapping(value = "/update-avatar", method = {RequestMethod.POST, RequestMethod.PUT}) // 解决 uni-app 不支持 Put 上传文件的问题
@@ -102,7 +101,7 @@ public class UserProfileController {
             throw exception(FILE_IS_EMPTY);
         }
         String avatar = userService.updateUserAvatar(getLoginUserId(), file.getInputStream());
-        return success(avatar);
+        return CommonResult.success(avatar);
     }
 
 }

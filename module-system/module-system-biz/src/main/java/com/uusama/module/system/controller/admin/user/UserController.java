@@ -3,6 +3,7 @@ package com.uusama.module.system.controller.admin.user;
 import com.uusama.common.util.CollUtil;
 import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.recorder.annotations.OperateLog;
+import com.uusama.framework.recorder.enums.OperateTypeEnum;
 import com.uusama.framework.tool.util.ExcelUtils;
 import com.uusama.framework.web.enums.CommonState;
 import com.uusama.framework.web.pojo.CommonResult;
@@ -49,9 +50,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static com.uusama.framework.recorder.enums.OperateTypeEnum.EXPORT;
-import static com.uusama.framework.web.pojo.CommonResult.success;
-
 @Tag(name = "管理后台 - 用户")
 @RestController
 @RequestMapping("/system/user")
@@ -68,7 +66,7 @@ public class UserController {
     @PreAuthorize("@ss.hasPermission('system:user:create')")
     public CommonResult<Long> createUser(@Valid @RequestBody UserCreateReqVO reqVO) {
         Long id = userService.createUser(reqVO);
-        return success(id);
+        return CommonResult.success(id);
     }
 
     @PutMapping("update")
@@ -76,7 +74,7 @@ public class UserController {
     @PreAuthorize("@ss.hasPermission('system:user:update')")
     public CommonResult<Boolean> updateUser(@Valid @RequestBody UserUpdateReqVO reqVO) {
         userService.updateUser(reqVO);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @DeleteMapping("/delete")
@@ -85,7 +83,7 @@ public class UserController {
     @PreAuthorize("@ss.hasPermission('system:user:delete')")
     public CommonResult<Boolean> deleteUser(@RequestParam("id") Long id) {
         userService.deleteUser(id);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @PutMapping("/update-password")
@@ -93,7 +91,7 @@ public class UserController {
     @PreAuthorize("@ss.hasPermission('system:user:update-password')")
     public CommonResult<Boolean> updateUserPassword(@Valid @RequestBody UserUpdatePasswordReqVO reqVO) {
         userService.updateUserPassword(reqVO.getId(), reqVO.getPassword());
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @PutMapping("/update-status")
@@ -101,7 +99,7 @@ public class UserController {
     @PreAuthorize("@ss.hasPermission('system:user:update')")
     public CommonResult<Boolean> updateUserStatus(@Valid @RequestBody UserUpdateStatusReqVO reqVO) {
         userService.updateUserStatus(reqVO.getId(), reqVO.getState());
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @GetMapping("/page")
@@ -111,7 +109,7 @@ public class UserController {
         // 获得用户分页列表
         PageResult<AdminUserDO> pageResult = userService.getUserPage(reqVO);
         if (CollUtil.isEmpty(pageResult.getList())) {
-            return success(new PageResult<>(pageResult.getTotal())); // 返回空
+            return CommonResult.success(new PageResult<>(pageResult.getTotal())); // 返回空
         }
 
         // 获得拼接需要的数据
@@ -124,7 +122,7 @@ public class UserController {
             respVO.setDept(UserConvert.INSTANCE.convert(deptMap.get(user.getDeptId())));
             userList.add(respVO);
         });
-        return success(new PageResult<>(userList, pageResult.getTotal()));
+        return CommonResult.success(new PageResult<>(userList, pageResult.getTotal()));
     }
 
     @GetMapping("/list-all-simple")
@@ -133,7 +131,7 @@ public class UserController {
         // 获用户列表，只要开启状态的
         List<AdminUserDO> list = userService.getUserListByStatus(CommonState.ENABLE);
         // 排序后，返回给前端
-        return success(UserConvert.INSTANCE.convertList04(list));
+        return CommonResult.success(UserConvert.INSTANCE.convertList04(list));
     }
 
     @GetMapping("/get")
@@ -146,13 +144,13 @@ public class UserController {
         DeptDO dept = deptService.getDept(user.getDeptId());
         UserPageItemRespVO userPageItemRespVO = UserConvert.INSTANCE.convert(user);
         userPageItemRespVO.setDept(UserConvert.INSTANCE.convert(dept));
-        return success(userPageItemRespVO);
+        return CommonResult.success(userPageItemRespVO);
     }
 
     @GetMapping("/export")
     @Operation(summary = "导出用户")
     @PreAuthorize("@ss.hasPermission('system:user:export')")
-    @OperateLog(type = EXPORT)
+    @OperateLog(type = OperateTypeEnum.EXPORT)
     public void exportUserList(@Validated UserExportReqVO reqVO,
                                HttpServletResponse response) throws IOException {
         // 获得用户列表
@@ -209,7 +207,7 @@ public class UserController {
     public CommonResult<UserImportRespVO> importExcel(@RequestParam("file") MultipartFile file,
                                                       @RequestParam(value = "updateSupport", required = false, defaultValue = "false") Boolean updateSupport) throws Exception {
         List<UserImportExcelVO> list = ExcelUtils.read(file, UserImportExcelVO.class);
-        return success(userService.importUserList(list, updateSupport));
+        return CommonResult.success(userService.importUserList(list, updateSupport));
     }
 
 }

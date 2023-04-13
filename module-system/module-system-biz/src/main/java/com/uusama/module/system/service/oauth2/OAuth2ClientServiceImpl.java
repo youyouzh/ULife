@@ -4,7 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.uusama.common.util.CollUtil;
 import com.uusama.common.util.StrUtil;
 import com.uusama.framework.mybatis.pojo.PageResult;
-import com.uusama.framework.web.enums.CommonState;
+import com.uusama.framework.web.util.ParamUtils;
 import com.uusama.module.system.controller.admin.oauth2.vo.client.OAuth2ClientCreateReqVO;
 import com.uusama.module.system.controller.admin.oauth2.vo.client.OAuth2ClientPageReqVO;
 import com.uusama.module.system.controller.admin.oauth2.vo.client.OAuth2ClientUpdateReqVO;
@@ -146,12 +146,8 @@ public class OAuth2ClientServiceImpl implements OAuth2ClientService {
                                                     String authorizedGrantType, Collection<String> scopes, String redirectUri) {
         // 校验客户端存在、且开启
         OAuth2ClientDO client = clientCache.get(clientId);
-        if (client == null) {
-            throw exception(OAUTH2_CLIENT_NOT_EXISTS);
-        }
-        if (client.getState() != CommonState.ENABLE) {
-            throw exception(OAUTH2_CLIENT_DISABLE);
-        }
+        ParamUtils.checkNotNull(client, OAUTH2_CLIENT_NOT_EXISTS);
+        ParamUtils.checkEnable(client.getState(), OAUTH2_CLIENT_DISABLE);
 
         // 校验客户端密钥
         if (StrUtil.isNotEmpty(clientSecret) && !StringUtils.equals(client.getSecret(), clientSecret)) {

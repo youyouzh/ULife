@@ -3,6 +3,7 @@ package com.uusama.module.system.service.dept;
 import com.uusama.common.util.CollUtil;
 import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.web.enums.CommonState;
+import com.uusama.framework.web.util.ParamUtils;
 import com.uusama.module.system.controller.admin.dept.vo.post.PostCreateReqVO;
 import com.uusama.module.system.controller.admin.dept.vo.post.PostExportReqVO;
 import com.uusama.module.system.controller.admin.dept.vo.post.PostPageReqVO;
@@ -10,15 +11,14 @@ import com.uusama.module.system.controller.admin.dept.vo.post.PostUpdateReqVO;
 import com.uusama.module.system.convert.dept.PostConvert;
 import com.uusama.module.system.entity.dept.PostDO;
 import com.uusama.module.system.mapper.dept.PostMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static com.uusama.framework.web.exception.ServiceExceptionUtil.exception;
 import static com.uusama.module.system.constant.ErrorCodeConstants.POST_CODE_DUPLICATE;
 import static com.uusama.module.system.constant.ErrorCodeConstants.POST_NAME_DUPLICATE;
 import static com.uusama.module.system.constant.ErrorCodeConstants.POST_NOT_ENABLE;
@@ -31,10 +31,9 @@ import static com.uusama.module.system.constant.ErrorCodeConstants.POST_NOT_FOUN
  */
 @Service
 @Validated
+@RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
-
-    @Resource
-    private PostMapper postMapper;
+    private final PostMapper postMapper;
 
     @Override
     public Long createPost(PostCreateReqVO reqVO) {
@@ -80,12 +79,8 @@ public class PostServiceImpl implements PostService {
             return;
         }
         // 如果 id 为空，说明不用比较是否为相同 id 的岗位
-        if (id == null) {
-            throw exception(POST_NAME_DUPLICATE);
-        }
-        if (!post.getId().equals(id)) {
-            throw exception(POST_NAME_DUPLICATE);
-        }
+        ParamUtils.checkNotNull(id, POST_NAME_DUPLICATE);
+        ParamUtils.checkMatch(id.equals(post.getId()), POST_NAME_DUPLICATE);
     }
 
     private void validatePostCodeUnique(Long id, String code) {
@@ -94,21 +89,15 @@ public class PostServiceImpl implements PostService {
             return;
         }
         // 如果 id 为空，说明不用比较是否为相同 id 的岗位
-        if (id == null) {
-            throw exception(POST_CODE_DUPLICATE);
-        }
-        if (!post.getId().equals(id)) {
-            throw exception(POST_CODE_DUPLICATE);
-        }
+        ParamUtils.checkNotNull(id, POST_CODE_DUPLICATE);
+        ParamUtils.checkMatch(id.equals(post.getId()), POST_CODE_DUPLICATE);
     }
 
     private void validatePostExists(Long id) {
         if (id == null) {
             return;
         }
-        if (postMapper.selectById(id) == null) {
-            throw exception(POST_NOT_FOUND);
-        }
+        ParamUtils.checkNotNull(postMapper.selectById(id), POST_NOT_FOUND);
     }
 
     @Override
@@ -142,12 +131,8 @@ public class PostServiceImpl implements PostService {
         // 校验
         ids.forEach(id -> {
             PostDO post = postMap.get(id);
-            if (post == null) {
-                throw exception(POST_NOT_FOUND);
-            }
-            if (post.getState().isDisable()) {
-                throw exception(POST_NOT_ENABLE, post.getName());
-            }
+            ParamUtils.checkNotNull(post, POST_NOT_FOUND);
+            ParamUtils.checkEnable(post.getState(), POST_NOT_ENABLE);
         });
     }
 }

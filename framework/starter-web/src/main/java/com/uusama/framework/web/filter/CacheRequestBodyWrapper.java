@@ -1,7 +1,7 @@
 package com.uusama.framework.web.filter;
 
-import com.uusama.common.io.IoUtil;
 import lombok.SneakyThrows;
+import org.springframework.util.StreamUtils;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -27,7 +27,7 @@ public class CacheRequestBodyWrapper extends HttpServletRequestWrapper {
     @SneakyThrows
     public CacheRequestBodyWrapper(HttpServletRequest request) {
         super(request);
-        body = IoUtil.readBytes(request.getInputStream());
+        body = StreamUtils.copyToByteArray(request.getInputStream());
     }
 
     @Override

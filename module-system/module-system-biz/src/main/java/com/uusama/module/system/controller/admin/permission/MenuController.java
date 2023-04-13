@@ -29,8 +29,6 @@ import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.uusama.framework.web.pojo.CommonResult.success;
-
 @Tag(name = "管理后台 - 菜单")
 @RestController
 @RequestMapping("/system/menu")
@@ -45,7 +43,7 @@ public class MenuController {
     @PreAuthorize("@ss.hasPermission('system:menu:create')")
     public CommonResult<Long> createMenu(@Valid @RequestBody MenuCreateReqVO reqVO) {
         Long menuId = menuService.createMenu(reqVO);
-        return success(menuId);
+        return CommonResult.success(menuId);
     }
 
     @PutMapping("/update")
@@ -53,7 +51,7 @@ public class MenuController {
     @PreAuthorize("@ss.hasPermission('system:menu:update')")
     public CommonResult<Boolean> updateMenu(@Valid @RequestBody MenuUpdateReqVO reqVO) {
         menuService.updateMenu(reqVO);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @DeleteMapping("/delete")
@@ -62,7 +60,7 @@ public class MenuController {
     @PreAuthorize("@ss.hasPermission('system:menu:delete')")
     public CommonResult<Boolean> deleteMenu(@RequestParam("id") Long id) {
         menuService.deleteMenu(id);
-        return success(true);
+        return CommonResult.success(true);
     }
 
     @GetMapping("/list")
@@ -71,7 +69,7 @@ public class MenuController {
     public CommonResult<List<MenuRespVO>> getMenuList(MenuListReqVO reqVO) {
         List<MenuDO> list = menuService.getMenuList(reqVO);
         list.sort(Comparator.comparing(MenuDO::getSort));
-        return success(MenuConvert.INSTANCE.convertList(list));
+        return CommonResult.success(MenuConvert.INSTANCE.convertList(list));
     }
 
     @GetMapping("/list-all-simple")
@@ -84,7 +82,7 @@ public class MenuController {
         List<MenuDO> list = menuService.getMenuListByTenant(reqVO);
         // 排序后，返回给前端
         list.sort(Comparator.comparing(MenuDO::getSort));
-        return success(MenuConvert.INSTANCE.convertList02(list));
+        return CommonResult.success(MenuConvert.INSTANCE.convertList02(list));
     }
 
     @GetMapping("/get")
@@ -92,7 +90,7 @@ public class MenuController {
     @PreAuthorize("@ss.hasPermission('system:menu:query')")
     public CommonResult<MenuRespVO> getMenu(Long id) {
         MenuDO menu = menuService.getMenu(id);
-        return success(MenuConvert.INSTANCE.convert(menu));
+        return CommonResult.success(MenuConvert.INSTANCE.convert(menu));
     }
 
 }
