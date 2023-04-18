@@ -19,7 +19,7 @@ public class RoleExportReqVO {
     @Schema(description = "角色标识,模糊匹配", example = "uusama")
     private String code;
 
-    @Schema(description = "展示状态,参见 CommonStatusEnum 枚举类", example = "1")
+    @Schema(description = "展示状态,参见 CommonState 枚举类", example = "1")
     private CommonState state;
 
     @Schema(description = "开始时间", example = "[2022-07-01 00:00:00,2022-07-01 23:59:59]")

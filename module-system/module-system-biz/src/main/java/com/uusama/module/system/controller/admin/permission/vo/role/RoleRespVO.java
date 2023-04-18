@@ -28,7 +28,7 @@ public class RoleRespVO extends RoleBaseVO {
     @Schema(description = "数据范围(指定部门数组)", example = "1")
     private Set<Long> dataScopeDeptIds;
 
-    @Schema(description = "状态,参见 CommonStatusEnum 枚举类", required = true, example = "1")
+    @Schema(description = "状态,参见 CommonState 枚举类", required = true, example = "1")
     private CommonState state;
 
     @Schema(description = "角色类型,参见 RoleTypeEnum 枚举类", required = true, example = "1")

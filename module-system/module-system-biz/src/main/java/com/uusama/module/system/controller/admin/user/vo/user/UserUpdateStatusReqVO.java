@@ -14,7 +14,7 @@ public class UserUpdateStatusReqVO {
     @NotNull(message = "角色编号不能为空")
     private Long id;
 
-    @Schema(description = "状态,见 CommonStatusEnum 枚举", required = true, example = "1")
+    @Schema(description = "状态,见 CommonState 枚举", required = true, example = "1")
     @NotNull(message = "状态不能为空")
     private CommonState state;
 

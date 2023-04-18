@@ -95,7 +95,10 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
     }
 
     public LambdaQueryWrapperX<T> betweenIfPresent(SFunction<T, ?> column, Object[] values) {
-        Assert.isTrue(values != null && values.length >= 2, "between array is invalid.");
+        if (values == null) {
+            return this;
+        }
+        Assert.isTrue(values.length >= 2, "between array is invalid.");
         return betweenIfPresent(column, values[0], values[1]);
     }
 

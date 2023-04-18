@@ -39,7 +39,7 @@ public class OAuth2ClientBaseVO {
     @Schema(description = "应用描述", example = "我是一个应用")
     private String description;
 
-    @Schema(description = "状态,参见 CommonStatusEnum 枚举", required = true, example = "1")
+    @Schema(description = "状态,参见 CommonState 枚举", required = true, example = "1")
     @NotNull(message = "状态不能为空")
     private CommonState state;
 

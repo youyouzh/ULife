@@ -63,6 +63,15 @@ public interface DeptService {
     List<DeptDO> getDeptListByParentIdFromCache(Long parentId, boolean recursive);
 
     /**
+     * 获得所有子部门，从缓存中
+     *
+     * @param parentId 部门编号
+     * @param recursive 是否递归获取所有
+     * @return 子部门列表
+     */
+    // List<DeptDO> getChildDeptList(Long parentId, boolean recursive);
+
+    /**
      * 获得部门信息数组
      *
      * @param ids 部门编号数组

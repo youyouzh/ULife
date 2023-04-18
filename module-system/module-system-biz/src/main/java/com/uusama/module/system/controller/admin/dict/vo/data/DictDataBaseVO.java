@@ -34,7 +34,7 @@ public class DictDataBaseVO {
     @Size(max = 100, message = "字典类型长度不能超过100个字符")
     private String dictType;
 
-    @Schema(description = "状态,见 CommonStatusEnum 枚举", required = true, example = "1")
+    @Schema(description = "状态,见 CommonState 枚举", required = true, example = "1")
     @NotNull(message = "状态不能为空")
     private CommonState state;
 

@@ -16,7 +16,7 @@ public class OAuth2ClientPageReqVO extends PageParam {
     @Schema(description = "应用名,模糊匹配", example = "土豆")
     private String name;
 
-    @Schema(description = "状态,参见 CommonStatusEnum 枚举", example = "1")
+    @Schema(description = "状态,参见 CommonState 枚举", example = "1")
     private CommonState state;
 
 }

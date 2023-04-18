@@ -28,7 +28,7 @@ public class PostBaseVO {
     @NotNull(message = "显示顺序不能为空")
     private Integer sort;
 
-    @Schema(description = "状态,参见 CommonStatusEnum 枚举类", required = true, example = "1")
+    @Schema(description = "状态,参见 CommonState 枚举类", required = true, example = "1")
     private CommonState state;
 
     @Schema(description = "备注", example = "快乐的备注")

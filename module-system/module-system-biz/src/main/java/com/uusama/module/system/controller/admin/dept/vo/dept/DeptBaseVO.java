@@ -39,7 +39,7 @@ public class DeptBaseVO {
     @Size(max = 50, message = "邮箱长度不能超过50个字符")
     private String email;
 
-    @Schema(description = "状态,见 CommonStatusEnum 枚举", required = true, example = "1")
+    @Schema(description = "状态,见 CommonState 枚举", required = true, example = "1")
     @NotNull(message = "状态不能为空")
     private CommonState state;
 

@@ -22,7 +22,7 @@ public class UserProfileRespVO extends UserBaseVO {
     @Schema(description = "用户编号", required = true, example = "1")
     private Long id;
 
-    @Schema(description = "状态,参见 CommonStatusEnum 枚举类", required = true, example = "1")
+    @Schema(description = "状态,参见 CommonState 枚举类", required = true, example = "1")
     private CommonState state;
 
     @Schema(description = "最后登录 IP", required = true, example = "192.168.1.1")

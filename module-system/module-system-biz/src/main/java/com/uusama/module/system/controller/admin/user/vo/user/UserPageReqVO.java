@@ -26,7 +26,7 @@ public class UserPageReqVO extends PageParam {
     @Schema(description = "手机号码,模糊匹配", example = "uusama")
     private String mobile;
 
-    @Schema(description = "展示状态,参见 CommonStatusEnum 枚举类", example = "1")
+    @Schema(description = "展示状态,参见 CommonState 枚举类", example = "1")
     private CommonState state;
 
     @Schema(description = "创建时间", example = "[2022-07-01 00:00:00,2022-07-01 23:59:59]")

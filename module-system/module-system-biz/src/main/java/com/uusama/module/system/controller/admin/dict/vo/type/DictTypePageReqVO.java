@@ -24,7 +24,7 @@ public class DictTypePageReqVO extends PageParam {
     @Size(max = 100, message = "字典类型类型长度不能超过100个字符")
     private String type;
 
-    @Schema(description = "展示状态,参见 CommonStatusEnum 枚举类", example = "1")
+    @Schema(description = "展示状态,参见 CommonState 枚举类", example = "1")
     private CommonState state;
 
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
