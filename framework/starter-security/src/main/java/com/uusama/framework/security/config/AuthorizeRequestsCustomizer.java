@@ -1,12 +1,9 @@
 package com.uusama.framework.security.config;
 
-import com.uusama.framework.web.properties.WebProperties;
 import org.springframework.core.Ordered;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-
-import javax.annotation.Resource;
 
 /**
  * 自定义的 URL 的安全配置
@@ -16,17 +13,6 @@ import javax.annotation.Resource;
  */
 public abstract class AuthorizeRequestsCustomizer
     implements Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry>, Ordered {
-
-    @Resource
-    private WebProperties webProperties;
-
-    protected String buildAdminApi(String url) {
-        return webProperties.getAdminApi().getPrefix() + url;
-    }
-
-    protected String buildAppApi(String url) {
-        return webProperties.getAppApi().getPrefix() + url;
-    }
 
     @Override
     public int getOrder() {

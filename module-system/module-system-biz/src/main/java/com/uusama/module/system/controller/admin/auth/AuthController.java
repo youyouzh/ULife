@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static com.uusama.framework.security.util.SecurityFrameworkUtils.obtainAuthorization;
+import static com.uusama.framework.security.util.SecurityAuthUtils.obtainAuthorization;
 import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
 import static java.util.Collections.singleton;
 

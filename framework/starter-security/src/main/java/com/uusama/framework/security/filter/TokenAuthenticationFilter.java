@@ -3,7 +3,7 @@ package com.uusama.framework.security.filter;
 import com.uusama.framework.security.LoginUser;
 import com.uusama.framework.security.config.SecurityProperties;
 import com.uusama.framework.security.api.UserTokenApi;
-import com.uusama.framework.security.util.SecurityFrameworkUtils;
+import com.uusama.framework.security.util.SecurityAuthUtils;
 import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.framework.web.exception.GlobalExceptionHandler;
 import com.uusama.framework.web.exception.ServiceException;
@@ -32,13 +32,13 @@ import java.util.Optional;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final SecurityProperties securityProperties;
     private final GlobalExceptionHandler globalExceptionHandler;
-    private final UserTokenApi userTokenProvider;
+    private final UserTokenApi userTokenApi;
 
     @Override
     @SuppressWarnings("NullableProblems")
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        Optional<String> token = SecurityFrameworkUtils.obtainAuthorization(request, securityProperties.getTokenHeader());
+        Optional<String> token = SecurityAuthUtils.obtainAuthorization(request, securityProperties.getTokenHeader());
         if (token.isPresent()) {
             UserTypeEnum userType = WebFrameworkUtils.getLoginUserType(request);
             try {
@@ -51,7 +51,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
                 // 2. 设置当前用户
                 if (loginUser != null) {
-                    SecurityFrameworkUtils.setLoginUser(loginUser, request);
+                    SecurityAuthUtils.setLoginUser(loginUser, request);
                 }
             } catch (Throwable ex) {
                 CommonResult<?> result = globalExceptionHandler.allExceptionHandler(request, ex);
@@ -65,9 +65,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private LoginUser buildLoginUserByToken(String token, UserTypeEnum userType) {
-        Assert.notNull(userTokenProvider, "请实现并注册OAuth2TokenApi接口进行登录权限判断");
+        Assert.notNull(userTokenApi, "请实现并注册OAuth2TokenApi接口进行登录权限判断");
         try {
-            LoginUser loginUser = userTokenProvider.checkUserToken(token);
+            LoginUser loginUser = userTokenApi.checkUserToken(token);
             if (loginUser == null) {
                 return null;
             }
@@ -102,8 +102,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         }
         // 构建模拟用户
         Long userId = Long.valueOf(token.substring(securityProperties.getMockSecret().length()));
-        return new LoginUser().setId(userId).setUserType(userType)
-                .setTenantId(WebFrameworkUtils.getTenantId(request));
+        return new LoginUser().setId(userId).setUserType(userType);
     }
 
 }

@@ -2,7 +2,7 @@ package com.uusama.module.system.convert.oauth2;
 
 import com.uusama.common.util.CollUtil;
 import com.uusama.common.util.DateTimeUtil;
-import com.uusama.framework.security.util.SecurityFrameworkUtils;
+import com.uusama.framework.security.util.SecurityAuthUtils;
 import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.module.system.controller.admin.oauth2.vo.open.OAuth2OpenAccessTokenRespVO;
 import com.uusama.module.system.controller.admin.oauth2.vo.open.OAuth2OpenAuthorizeInfoRespVO;
@@ -29,7 +29,7 @@ public interface OAuth2OpenConvert {
 
     default OAuth2OpenAccessTokenRespVO convert(OAuth2AccessTokenDO bean) {
         OAuth2OpenAccessTokenRespVO respVO = convert0(bean);
-        respVO.setTokenType(SecurityFrameworkUtils.AUTHORIZATION_BEARER.toLowerCase());
+        respVO.setTokenType(SecurityAuthUtils.AUTHORIZATION_BEARER.toLowerCase());
         respVO.setExpiresIn(DateTimeUtil.between(LocalDateTime.now(), bean.getExpiresTime(), ChronoUnit.SECONDS));
         respVO.setScope(StringUtils.join(bean.getScopes(), " "));
         return respVO;

@@ -2,12 +2,10 @@ package com.uusama.framework.web.exception;
 
 
 import com.uusama.framework.web.pojo.CommonResult;
-import com.uusama.framework.web.util.WebFrameworkUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -39,8 +37,8 @@ public class GlobalResponseBodyHandler implements ResponseBodyAdvice {
     @SuppressWarnings("NullableProblems") // 避免 IDEA 警告
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType,
                                   ServerHttpRequest request, ServerHttpResponse response) {
-        // 记录 Controller 结果
-        WebFrameworkUtils.setCommonResult(((ServletServerHttpRequest) request).getServletRequest(), (CommonResult<?>) body);
+        // 记录 Controller 结果， 写入 timestamp，requestId
+        // WebFrameworkUtils.setCommonResult(((ServletServerHttpRequest) request).getServletRequest(), (CommonResult<?>) body);
         return body;
     }
 

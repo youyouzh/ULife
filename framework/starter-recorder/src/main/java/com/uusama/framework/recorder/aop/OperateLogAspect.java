@@ -8,12 +8,13 @@ import com.uusama.common.util.StrUtil;
 import com.uusama.framework.recorder.api.OperateLogApi;
 import com.uusama.framework.recorder.enums.OperateTypeEnum;
 import com.uusama.framework.recorder.pojo.OperateLog;
+import com.uusama.framework.security.LoginUser;
+import com.uusama.framework.security.util.SecurityAuthUtils;
 import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.framework.web.pojo.CommonResult;
 import com.uusama.framework.web.util.JsonUtils;
 import com.uusama.framework.web.util.ServletUtils;
 import com.uusama.framework.web.util.TracerUtils;
-import com.uusama.framework.web.util.WebFrameworkUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
@@ -93,8 +95,8 @@ public class OperateLogAspect {
                            com.uusama.framework.recorder.annotations.OperateLog operateLog,
                            Operation operation) throws Throwable {
         // 目前，只有管理员，才记录操作日志！所以非管理员，直接调用，不进行记录
-        UserTypeEnum userType = WebFrameworkUtils.getLoginUserType();
-        if (userType != UserTypeEnum.ADMIN) {
+        Optional<LoginUser> loginUser = SecurityAuthUtils.getLoginUser();
+        if (!loginUser.isPresent() || loginUser.get().getUserType() != UserTypeEnum.ADMIN) {
             return joinPoint.proceed();
         }
 
@@ -169,8 +171,10 @@ public class OperateLogAspect {
     }
 
     private static void fillUserFields(OperateLog operateLogObj) {
-        operateLogObj.setUserId(WebFrameworkUtils.getLoginUserId());
-        operateLogObj.setUserType(WebFrameworkUtils.getLoginUserType());
+        SecurityAuthUtils.getLoginUser().ifPresent(v -> {
+            operateLogObj.setUserId(v.getId());
+            operateLogObj.setUserType(v.getUserType());
+        });
     }
 
     private static void fillModuleFields(OperateLog operateLogObj,

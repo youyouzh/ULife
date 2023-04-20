@@ -2,7 +2,7 @@ package com.uusama.framework.security.handler;
 
 import com.uusama.framework.security.LoginUser;
 import com.uusama.framework.security.api.PermissionApi;
-import com.uusama.framework.security.util.SecurityFrameworkUtils;
+import com.uusama.framework.security.util.SecurityAuthUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.CollectionUtils;
 
@@ -75,7 +75,7 @@ public class SpringSecurityPermissionHandler {
      * @return 是否
      */
     public boolean hasAnyScopes(String... scope) {
-        return SecurityFrameworkUtils.getLoginUser()
+        return SecurityAuthUtils.getLoginUser()
             .map(LoginUser::getScopes)
             .filter(v -> CollectionUtils.containsAny(v, Arrays.asList(scope)))
             .isPresent();

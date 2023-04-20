@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 /**
  * 客户端工具类
@@ -77,6 +78,14 @@ public class ServletUtils {
             return null;
         }
         return ((ServletRequestAttributes) requestAttributes).getRequest();
+    }
+
+    public static Optional<HttpServletRequest> getCurrentRequest() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (!(requestAttributes instanceof ServletRequestAttributes)) {
+            return Optional.empty();
+        }
+        return Optional.of(((ServletRequestAttributes) requestAttributes).getRequest());
     }
 
     public static String getUserAgent() {

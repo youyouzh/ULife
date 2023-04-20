@@ -1,6 +1,6 @@
 package com.uusama.framework.security.handler;
 
-import com.uusama.framework.security.util.SecurityFrameworkUtils;
+import com.uusama.framework.security.util.SecurityAuthUtils;
 import com.uusama.framework.web.pojo.CommonResult;
 import com.uusama.framework.web.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
             throws IOException, ServletException {
         // 打印 warn 的原因是，不定期合并 warn，看看有没恶意破坏
         log.warn("[commence][访问 URL({}) 时，用户({}) 权限不够]", request.getRequestURI(),
-                 SecurityFrameworkUtils.getLoginUserId(), e);
+                 SecurityAuthUtils.getLoginUserId(), e);
         // 返回 403
         ServletUtils.writeJSON(response, CommonResult.error(FORBIDDEN));
     }

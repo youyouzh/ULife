@@ -39,8 +39,8 @@ public class WebAutoConfiguration implements WebMvcConfigurer {
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurePathMatch(configurer, webProperties.getAdminApi());
-        configurePathMatch(configurer, webProperties.getAppApi());
+//        configurePathMatch(configurer, webProperties.getAdminApi());
+//        configurePathMatch(configurer, webProperties.getAppApi());
     }
 
     /**
@@ -52,7 +52,8 @@ public class WebAutoConfiguration implements WebMvcConfigurer {
     private void configurePathMatch(PathMatchConfigurer configurer, WebProperties.Api api) {
         AntPathMatcher antPathMatcher = new AntPathMatcher(".");
         // 仅仅匹配 controller 包
-        configurer.addPathPrefix(api.getPrefix(), clazz -> clazz.isAnnotationPresent(RestController.class) && antPathMatcher.match(api.getController(), clazz.getPackage().getName()));
+        configurer.addPathPrefix(api.getPrefix(), clazz -> clazz.isAnnotationPresent(RestController.class)
+            && antPathMatcher.match(api.getController(), clazz.getPackage().getName()));
     }
 
     @Bean

@@ -1,7 +1,7 @@
 package com.uusama.framework.security.util;
 
 import com.uusama.framework.security.LoginUser;
-import com.uusama.framework.web.util.WebFrameworkUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -18,11 +18,13 @@ import java.util.Optional;
  *
  * @author uusama
  */
-public class SecurityFrameworkUtils {
+@Slf4j
+public class SecurityAuthUtils {
 
     public static final String AUTHORIZATION_BEARER = "Bearer";
+    private static final String REQUEST_ATTRIBUTE_LOGIN_USER = "login_user";
 
-    private SecurityFrameworkUtils() {}
+    private SecurityAuthUtils() {}
 
     /**
      * 从请求中，获得认证 Token
@@ -36,12 +38,12 @@ public class SecurityFrameworkUtils {
         if (!StringUtils.hasText(authorization)) {
             return Optional.empty();
         }
-        int index = authorization.indexOf(AUTHORIZATION_BEARER + " ");
-        if (index == -1) {
-            // 未找到
+        authorization = authorization.trim();
+        if (!StringUtils.startsWithIgnoreCase(authorization, AUTHORIZATION_BEARER)) {
+            log.info("unknown authorization: {}", authorization);
             return Optional.empty();
         }
-        return Optional.of(authorization.substring(index + 7).trim());
+        return Optional.of(authorization.substring(AUTHORIZATION_BEARER.length() + 1));
     }
 
     /**
@@ -61,8 +63,8 @@ public class SecurityFrameworkUtils {
      *
      * @return 用户编号
      */
-    public static Optional<Long> getLoginUserId() {
-        return getLoginUser().map(LoginUser::getId);
+    public static Long getLoginUserId() {
+        return getLoginUser().map(LoginUser::getId).orElse(null);
     }
 
     /**
@@ -78,8 +80,7 @@ public class SecurityFrameworkUtils {
 
         // 额外设置到 request 中，用于 ApiAccessLogFilter 可以获取到用户编号；
         // 原因是，Spring Security 的 Filter 在 ApiAccessLogFilter 后面，在它记录访问日志时，线上上下文已经没有用户编号等信息
-        WebFrameworkUtils.setLoginUserId(request, loginUser.getId());
-        WebFrameworkUtils.setLoginUserType(request, loginUser.getUserType());
+        request.setAttribute(REQUEST_ATTRIBUTE_LOGIN_USER, loginUser);
     }
 
     private static Authentication buildAuthentication(LoginUser loginUser, HttpServletRequest request) {

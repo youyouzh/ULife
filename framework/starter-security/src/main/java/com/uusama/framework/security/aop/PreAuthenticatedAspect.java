@@ -1,7 +1,7 @@
 package com.uusama.framework.security.aop;
 
 import com.uusama.framework.security.annotations.PreAuthenticated;
-import com.uusama.framework.security.util.SecurityFrameworkUtils;
+import com.uusama.framework.security.util.SecurityAuthUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -21,7 +21,7 @@ public class PreAuthenticatedAspect {
 
     @Around("@annotation(preAuthenticated)")
     public Object around(ProceedingJoinPoint joinPoint, PreAuthenticated preAuthenticated) throws Throwable {
-        if (SecurityFrameworkUtils.getLoginUser().isPresent()) {
+        if (SecurityAuthUtils.getLoginUser().isPresent()) {
             throw exception(UNAUTHORIZED);
         }
         return joinPoint.proceed();
