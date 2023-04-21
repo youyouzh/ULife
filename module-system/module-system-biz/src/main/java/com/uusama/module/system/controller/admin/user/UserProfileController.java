@@ -32,8 +32,8 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.uusama.framework.security.util.SecurityAuthUtils.getLoginUserId;
 import static com.uusama.framework.web.exception.ServiceExceptionUtil.exception;
-import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
 import static com.uusama.module.system.constant.ErrorCodeConstants.FILE_IS_EMPTY;
 
 @Tag(name = "管理后台 - 用户个人中心")

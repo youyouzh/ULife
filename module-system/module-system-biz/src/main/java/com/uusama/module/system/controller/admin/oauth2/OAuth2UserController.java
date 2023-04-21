@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
+import static com.uusama.framework.security.util.SecurityAuthUtils.getLoginUserId;
 
 /**
  * 提供给外部应用调用为主

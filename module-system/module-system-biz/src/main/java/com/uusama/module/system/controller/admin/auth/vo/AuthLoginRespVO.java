@@ -1,5 +1,6 @@
 package com.uusama.module.system.controller.admin.auth.vo;
 
+import com.uusama.module.system.entity.user.AdminUserTokenDO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,5 +27,14 @@ public class AuthLoginRespVO {
 
     @Schema(description = "过期时间", required = true)
     private LocalDateTime expiresTime;
+
+    public static AuthLoginRespVO of(AdminUserTokenDO adminUserTokenDO) {
+        return AuthLoginRespVO.builder()
+            .userId(adminUserTokenDO.getUserId())
+            .accessToken(adminUserTokenDO.getAccessToken())
+            .refreshToken(adminUserTokenDO.getRefreshToken())
+            .expiresTime(adminUserTokenDO.getAccessTokenExpireTime())
+            .build();
+    }
 
 }

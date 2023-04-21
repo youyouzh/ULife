@@ -1,15 +1,14 @@
 package com.uusama.framework.security.filter;
 
 import com.uusama.framework.security.LoginUser;
-import com.uusama.framework.security.config.SecurityProperties;
 import com.uusama.framework.security.api.UserTokenApi;
+import com.uusama.framework.security.config.SecurityProperties;
 import com.uusama.framework.security.util.SecurityAuthUtils;
 import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.framework.web.exception.GlobalExceptionHandler;
 import com.uusama.framework.web.exception.ServiceException;
 import com.uusama.framework.web.pojo.CommonResult;
 import com.uusama.framework.web.util.ServletUtils;
-import com.uusama.framework.web.util.WebFrameworkUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.util.Assert;
@@ -20,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -40,7 +40,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         Optional<String> token = SecurityAuthUtils.obtainAuthorization(request, securityProperties.getTokenHeader());
         if (token.isPresent()) {
-            UserTypeEnum userType = WebFrameworkUtils.getLoginUserType(request);
+            UserTypeEnum userType = UserTypeEnum.ADMIN;
             try {
                 // 1.1 基于 token 构建登录用户
                 LoginUser loginUser = buildLoginUserByToken(token.get(), userType);
@@ -96,13 +96,18 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if (!securityProperties.getMockEnable()) {
             return null;
         }
+        // 统一设置默认用户，即使没有token，方便测试
+        if (Objects.nonNull(securityProperties.getUseUserId())) {
+            return LoginUser.builder().id(securityProperties.getUseUserId()).userType(UserTypeEnum.ADMIN).build();
+        }
+
         // 必须以 mockSecret 开头
         if (!token.startsWith(securityProperties.getMockSecret())) {
             return null;
         }
         // 构建模拟用户
         Long userId = Long.valueOf(token.substring(securityProperties.getMockSecret().length()));
-        return new LoginUser().setId(userId).setUserType(userType);
+        return LoginUser.builder().id(userId).userType(userType).build();
     }
 
 }

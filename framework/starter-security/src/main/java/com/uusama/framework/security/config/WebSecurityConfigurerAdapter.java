@@ -1,7 +1,6 @@
 package com.uusama.framework.security.config;
 
 import com.uusama.framework.security.filter.TokenAuthenticationFilter;
-import com.uusama.framework.web.properties.WebProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
@@ -37,7 +36,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfigurerAdapter {
-    private final WebProperties webProperties;
     private final SecurityProperties securityProperties;
 
     /**
@@ -124,12 +122,6 @@ public class WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.DELETE, permitAllUrls.get(HttpMethod.DELETE).toArray(new String[0])).permitAll()
             // 1.3 基于 uusama.security.permit-all-urls 无需认证
             .antMatchers(securityProperties.getPermitAllUrls().toArray(new String[0])).permitAll()
-            // 1.4 设置 App API 无需认证
-            .antMatchers(buildAppApi("/**")).permitAll()
-            // 1.5 验证码captcha 允许匿名访问
-            .antMatchers("/captcha/get", "/captcha/check").permitAll()
-            // 1.6 webSocket 允许匿名访问
-            .antMatchers("/websocket/message").permitAll()
             // ②：每个项目的自定义规则， 下面，循环设置自定义规则
             .and().authorizeRequests(registry -> authorizeRequestsCustomizers.forEach(customizer -> customizer.customize(registry)))
             // ③：兜底规则，必须认证
@@ -141,10 +133,6 @@ public class WebSecurityConfigurerAdapter {
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
-    }
-
-    private String buildAppApi(String url) {
-        return webProperties.getAppApi().getPrefix() + url;
     }
 
     private MultiValuedMap<HttpMethod, String> getPermitAllUrlsFromAnnotations() {

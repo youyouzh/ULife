@@ -78,7 +78,7 @@ public class SecurityAuthUtils {
         Authentication authentication = buildAuthentication(loginUser, request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // 额外设置到 request 中，用于 ApiAccessLogFilter 可以获取到用户编号；
+        // 额外设置到 request 中，用于 ApiAccessLogFilter 可以获取到用户信息
         // 原因是，Spring Security 的 Filter 在 ApiAccessLogFilter 后面，在它记录访问日志时，线上上下文已经没有用户编号等信息
         request.setAttribute(REQUEST_ATTRIBUTE_LOGIN_USER, loginUser);
     }

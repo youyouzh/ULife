@@ -8,7 +8,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
 
-import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
+import static com.uusama.framework.security.util.SecurityAuthUtils.getLoginUserId;
 
 /**
  * @author uusama

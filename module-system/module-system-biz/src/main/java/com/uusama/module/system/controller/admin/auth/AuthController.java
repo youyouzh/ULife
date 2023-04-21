@@ -43,7 +43,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static com.uusama.framework.security.util.SecurityAuthUtils.obtainAuthorization;
-import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
+import static com.uusama.framework.security.util.SecurityAuthUtils.getLoginUserId;
 import static java.util.Collections.singleton;
 
 @Tag(name = "管理后台 - 认证")

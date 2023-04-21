@@ -5,16 +5,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 
 /**
- * web配置
+ * web配置，暂时未使用
  *
  * @author uusama
  */
 @Data
-@ConfigurationProperties(prefix = "uusama.web")
 public class WebProperties {
     private Api appApi = new Api("/app-api", "**.controller.app.**");
     private Api adminApi = new Api("/admin-api", "**.controller.admin.**");
@@ -55,5 +55,12 @@ public class WebProperties {
          */
         private String url;
 
+    }
+
+    public void configurePathMatch(PathMatchConfigurer configurer, WebProperties.Api api) {
+        AntPathMatcher antPathMatcher = new AntPathMatcher(".");
+        // 仅仅匹配 controller 包
+        configurer.addPathPrefix(api.getPrefix(), clazz -> clazz.isAnnotationPresent(RestController.class)
+            && antPathMatcher.match(api.getController(), clazz.getPackage().getName()));
     }
 }

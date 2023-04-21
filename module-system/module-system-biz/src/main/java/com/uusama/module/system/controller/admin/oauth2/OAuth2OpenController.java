@@ -45,8 +45,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.uusama.framework.api.constants.GlobalErrorCodeConstants.BAD_REQUEST;
+import static com.uusama.framework.security.util.SecurityAuthUtils.getLoginUserId;
 import static com.uusama.framework.web.exception.ServiceExceptionUtil.exception0;
-import static com.uusama.framework.web.util.WebFrameworkUtils.getLoginUserId;
 
 /**
  * 提供给外部应用调用为主

@@ -17,17 +17,16 @@ import java.util.List;
 @Data
 public class SecurityProperties {
 
-    /**
-     * HTTP 请求时，访问令牌的请求 Header
-     */
+    /** HTTP 请求时，访问令牌的请求 Header */
     @NotEmpty(message = "Token Header 不能为空")
     private String tokenHeader = "Authorization";
 
-    /**
-     * mock 模式的开关
-     */
+    /** mock 模式的开关 */
     @NotNull(message = "mock 模式的开关不能为空")
     private Boolean mockEnable = false;
+
+    /** 放开所有请求接口，并设置默认用户 */
+    private Long useUserId = 1L;
 
     /**
      * mock 模式的密钥
@@ -37,9 +36,7 @@ public class SecurityProperties {
     @NotEmpty(message = "mock 模式的密钥不能为空")
     private String mockSecret = "test";
 
-    /**
-     * 免登录的 URL 列表
-     */
+    /** 免登录的 URL 列表 */
     private List<String> permitAllUrls = Collections.emptyList();
 
 }

@@ -1,7 +1,6 @@
 package com.uusama.framework.web.exception;
 
 import com.uusama.framework.web.pojo.CommonResult;
-import com.uusama.framework.web.util.WebFrameworkUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
@@ -35,8 +34,6 @@ import static com.uusama.framework.api.constants.GlobalErrorCodeConstants.NOT_FO
 @AllArgsConstructor
 @Slf4j
 public class GlobalExceptionHandler {
-
-    private final String applicationName;
 
     /**
      * 处理所有异常，主要是提供给 Filter 使用
@@ -178,8 +175,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = AccessDeniedException.class)
     public CommonResult<?> accessDeniedExceptionHandler(HttpServletRequest req, AccessDeniedException ex) {
-        log.warn("[accessDeniedExceptionHandler][userId({}) 无法访问 url({})]", WebFrameworkUtils.getLoginUserId(req),
-                 req.getRequestURL(), ex);
+        log.warn("[accessDeniedExceptionHandler][无法访问 url({})]", req.getRequestURL(), ex);
         return CommonResult.error(FORBIDDEN);
     }
 
