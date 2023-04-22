@@ -16,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
+import java.util.List;
 
 /**
  * @author uusama
@@ -24,11 +25,12 @@ import javax.servlet.Filter;
 @EnableConfigurationProperties()
 @RequiredArgsConstructor
 public class WebAutoConfiguration implements WebMvcConfigurer {
+    private final List<PathMatchCustomizer> pathMatchCustomizers;
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        // webProperties.configurePathMatch(configurer, property);
         // 自定义路径匹配，用于统一设置前缀等
+        pathMatchCustomizers.forEach(v -> v.pathMatcher(configurer));
     }
 
     @Bean

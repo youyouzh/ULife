@@ -17,6 +17,8 @@ public interface ErrorCodeConstants {
     // ========== AUTH 模块 1002000000 ==========
     ErrorCode AUTH_LOGIN_BAD_CREDENTIALS = new ErrorCode(1002000000, "登录失败，账号密码不正确");
     ErrorCode AUTH_LOGIN_USER_DISABLED = new ErrorCode(1002000001, "登录失败，账号被禁用");
+    ErrorCode AUTH_REFRESH_TOKEN_NOT_EXIST = new ErrorCode(1002000002, "刷新令牌不存在");
+    ErrorCode AUTH_REFRESH_TOKEN_EXPIRE = new ErrorCode(1002000003, "刷新令牌已过期，请重新登录");
     ErrorCode AUTH_LOGIN_CAPTCHA_CODE_ERROR = new ErrorCode(1002000004, "验证码不正确，原因：{}");
     ErrorCode AUTH_THIRD_LOGIN_NOT_BIND = new ErrorCode(1002000005, "未绑定账号，需要进行绑定");
     ErrorCode AUTH_TOKEN_EXPIRED = new ErrorCode(1002000006, "Token 已经过期");

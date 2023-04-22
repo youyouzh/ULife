@@ -158,4 +158,8 @@ public class DateTimeUtil {
         LocalDateTime now = LocalDateTime.now();
         return now.isAfter(time);
     }
+
+    public static boolean isNotExpired(LocalDateTime time) {
+        return !isExpired(time);
+    }
 }

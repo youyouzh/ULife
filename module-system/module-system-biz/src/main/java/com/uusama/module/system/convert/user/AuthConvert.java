@@ -1,18 +1,13 @@
 package com.uusama.module.system.convert.user;
 
 import com.uusama.common.util.CollUtil;
-import com.uusama.module.system.api.sms.dto.code.SmsCodeSendReqDTO;
-import com.uusama.module.system.api.sms.dto.code.SmsCodeUseReqDTO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthLoginRespVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthMenuRespVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthPermissionInfoRespVO;
-import com.uusama.module.system.controller.admin.auth.vo.AuthSmsLoginReqVO;
-import com.uusama.module.system.controller.admin.auth.vo.AuthSmsSendReqVO;
 import com.uusama.module.system.entity.oauth2.OAuth2AccessTokenDO;
 import com.uusama.module.system.entity.permission.MenuDO;
 import com.uusama.module.system.entity.permission.RoleDO;
 import com.uusama.module.system.entity.user.AdminUserDO;
-import com.uusama.module.system.enums.SmsSceneEnum;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.LoggerFactory;
@@ -73,16 +68,4 @@ public interface AuthConvert {
         // 获得到所有的根节点
         return CollUtil.filterList(treeNodeMap.values(), node -> ID_ROOT.equals(node.getParentId()));
     }
-
-    SmsCodeSendReqDTO convert(AuthSmsSendReqVO reqVO);
-
-    default SmsCodeUseReqDTO convert(AuthSmsLoginReqVO reqVO, SmsSceneEnum scene, String usedIp) {
-        return SmsCodeUseReqDTO.builder()
-            .mobile(reqVO.getMobile())
-            .code(reqVO.getCode())
-            .scene(scene)
-            .usedIp(usedIp)
-            .build();
-    }
-
 }

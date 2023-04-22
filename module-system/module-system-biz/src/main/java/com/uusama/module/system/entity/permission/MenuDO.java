@@ -16,10 +16,10 @@ import lombok.experimental.SuperBuilder;
 /**
  * 菜单 DO
  *
- * @author ruoyi
+ * @author uusama
  */
 @TableName("system_menu")
-@KeySequence("system_menu_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_menu_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -28,14 +28,10 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 public class MenuDO extends BaseConfigDO {
 
-    /**
-     * 菜单编号 - 根节点
-     */
+    /** 菜单编号 - 根节点 */
     public static final Long ID_ROOT = 0L;
 
-    /**
-     * 菜单名称
-     */
+    /** 菜单名称 */
     private String name;
     /**
      * 权限标识
@@ -48,18 +44,12 @@ public class MenuDO extends BaseConfigDO {
      * - 对于前端，配合前端标签，配置按钮是否展示，避免用户没有该权限时，结果可以看到该操作。
      */
     private String permission;
-    /**
-     * 菜单类型
-     */
+    /** 菜单类型 */
     @EnumValue
     private MenuTypeEnum type;
-    /**
-     * 显示顺序
-     */
+    /** 显示顺序 */
     private Integer sort;
-    /**
-     * 父菜单ID
-     */
+    /** 父菜单ID */
     private Long parentId;
     /**
      * 路由地址
@@ -67,21 +57,13 @@ public class MenuDO extends BaseConfigDO {
      * 如果 path 为 http(s) 时，则它是外链
      */
     private String path;
-    /**
-     * 菜单图标
-     */
+    /** 菜单图标 */
     private String icon;
-    /**
-     * 组件路径
-     */
+    /** 组件路径 */
     private String component;
-    /**
-     * 组件名
-     */
+    /** 组件名 */
     private String componentName;
-    /**
-     * 状态
-     */
+    /** 状态 */
     @EnumValue
     private CommonState state;
     /**

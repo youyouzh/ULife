@@ -24,7 +24,7 @@ import java.util.List;
  * @author uusama
  */
 @TableName(value = "system_oauth2_access_token", autoResultMap = true)
-@KeySequence("system_oauth2_access_token_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_oauth2_access_token_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -33,13 +33,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class OAuth2AccessTokenDO extends BaseUserDO {
 
-    /**
-     * 访问令牌
-     */
+    /** 访问令牌 */
     private String accessToken;
-    /**
-     * 刷新令牌
-     */
+    /** 刷新令牌 */
     private String refreshToken;
     /**
      * 客户端编号
@@ -47,14 +43,10 @@ public class OAuth2AccessTokenDO extends BaseUserDO {
      * 关联 {@link OAuth2ClientDO#getId()}
      */
     private String clientId;
-    /**
-     * 授权范围
-     */
+    /** 授权范围 */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> scopes;
-    /**
-     * 过期时间
-     */
+    /** 过期时间 */
     private LocalDateTime expiresTime;
 
 }

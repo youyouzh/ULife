@@ -7,4 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AdminUserTokenMapper extends BaseMapperX<AdminUserTokenDO> {
 
+    default AdminUserTokenDO selectByRefreshTokenAndClientId(String refreshToken, String clientId) {
+        return selectOne(AdminUserTokenDO::getRefreshToken, refreshToken, AdminUserTokenDO::getClientId, clientId);
+    }
+
 }

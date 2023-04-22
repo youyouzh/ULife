@@ -21,10 +21,10 @@ import java.util.Set;
 /**
  * 角色 DO
  *
- * @author ruoyi
+ * @author uusama
  */
 @TableName(value = "system_role", autoResultMap = true)
-@KeySequence("system_role_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_role_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -33,9 +33,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class RoleDO extends BaseConfigDO {
 
-    /**
-     * 角色名称
-     */
+    /** 角色名称 */
     private String name;
     /**
      * 角色标识
@@ -43,28 +41,18 @@ public class RoleDO extends BaseConfigDO {
      * 枚举
      */
     private String code;
-    /**
-     * 角色排序
-     */
+    /** 角色排序 */
     private Integer sort;
-    /**
-     * 角色状态
-     */
+    /** 角色状态 */
     @EnumValue
     private CommonState state;
-    /**
-     * 角色类型
-     */
+    /** 角色类型 */
     @EnumValue
     private RoleTypeEnum type;
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
 
-    /**
-     * 数据范围
-     */
+    /** 数据范围 */
     @EnumValue
     private DataScopeEnum dataScope;
     /**

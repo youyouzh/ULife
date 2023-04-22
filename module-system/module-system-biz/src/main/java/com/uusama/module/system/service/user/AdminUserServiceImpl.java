@@ -61,7 +61,7 @@ import static com.uusama.module.system.constant.ErrorCodeConstants.USER_USERNAME
 @RequiredArgsConstructor
 public class AdminUserServiceImpl implements AdminUserService {
 
-    @Value("${sys.user.init-password:uusama}")
+    @Value("${sys.user.init-password:123456}")
     private String userInitPassword;
 
     private final AdminUserMapper userMapper;
@@ -148,6 +148,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         AdminUserDO updateObj = AdminUserDO.builder().id(id).build();
         updateObj.setPassword(encodePassword(reqVO.getNewPassword())); // 加密密码
         userMapper.updateById(updateObj);
+        // 重置token
     }
 
     @Override
@@ -418,7 +419,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             }
             // 如果存在，判断是否允许更新
             if (!isUpdateSupport) {
-                respVO.getFailureUsernames().put(importUser.getUsername(), USER_USERNAME_EXISTS.getMsg());
+                respVO.getFailureUsernames().put(importUser.getUsername(), USER_USERNAME_EXISTS.getMessage());
                 return;
             }
             AdminUserDO updateUser = UserConvert.INSTANCE.convert(importUser);

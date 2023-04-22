@@ -21,7 +21,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import java.util.List;
 import java.util.Map;
@@ -38,32 +37,15 @@ import java.util.Set;
 public class WebSecurityConfigurerAdapter {
     private final SecurityProperties securityProperties;
 
-    /**
-     * 认证失败处理类 Bean
-     */
-    @Resource
-    private AuthenticationEntryPoint authenticationEntryPoint;
-    /**
-     * 权限不够处理器 Bean
-     */
-    @Resource
-    private AccessDeniedHandler accessDeniedHandler;
-    /**
-     * Token 认证过滤器 Bean
-     */
-    @Resource
-    private TokenAuthenticationFilter authenticationTokenFilter;
-
-    /**
-     * 自定义的权限映射 Bean 列表
-     *
-     * @see HttpSecurity
-     */
-    @Resource
-    private List<AuthorizeRequestsCustomizer> authorizeRequestsCustomizers;
-
-    @Resource
-    private ApplicationContext applicationContext;
+    /** 认证失败处理类 Bean */
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+    /** 权限不够处理器 Bean */
+    private final AccessDeniedHandler accessDeniedHandler;
+    /** Token 认证过滤器 Bean */
+    private final TokenAuthenticationFilter authenticationTokenFilter;
+    /** 自定义的权限映射 Bean 列表 */
+    private final List<AuthorizeRequestsCustomizer> authorizeRequestsCustomizers;
+    private final ApplicationContext applicationContext;
 
     /**
      * 由于 Spring Security 创建 AuthenticationManager 对象时，没声明 @Bean 注解，导致无法被注入

@@ -22,13 +22,9 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseUserDO extends BaseDO {
-    /**
-     * 用户编号
-     */
+    /** 用户编号 */
     private Long userId;
-    /**
-     * 用户类型
-     */
+    /** 用户类型 */
     @EnumValue
     private UserTypeEnum userType;
 }

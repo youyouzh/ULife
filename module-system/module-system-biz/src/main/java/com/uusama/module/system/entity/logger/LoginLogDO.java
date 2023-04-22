@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
  * @author uusama
  */
 @TableName("system_login_log")
-@KeySequence("system_login_log_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_login_log_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -29,32 +29,22 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class LoginLogDO extends BaseUserDO {
-    /**
-     * 日志类型
-     */
+    /** 日志类型 */
     @EnumValue
     private LoginLogTypeEnum logType;
-    /**
-     * 链路追踪编号
-     */
+    /** 链路追踪编号 */
     private String traceId;
     /**
      * 用户账号
      * 冗余，因为账号可以变更
      */
     private String username;
-    /**
-     * 登录结果
-     */
+    /** 登录结果 */
     @EnumValue
     private LoginResultEnum result;
-    /**
-     * 用户 IP
-     */
+    /** 用户 IP */
     private String userIp;
-    /**
-     * 浏览器 UA
-     */
+    /** 浏览器 UA */
     private String userAgent;
 
 }

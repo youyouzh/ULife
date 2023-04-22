@@ -13,10 +13,10 @@ import lombok.experimental.SuperBuilder;
 /**
  * 角色和菜单关联
  *
- * @author ruoyi
+ * @author uusama
  */
 @TableName("system_role_menu")
-@KeySequence("system_role_menu_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_role_menu_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -24,13 +24,9 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class RoleMenuDO extends BaseConfigDO {
-    /**
-     * 角色ID
-     */
+    /** 角色ID */
     private Long roleId;
-    /**
-     * 菜单ID
-     */
+    /** 菜单ID */
     private Long menuId;
 
 }

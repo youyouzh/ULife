@@ -10,7 +10,6 @@ import com.uusama.module.system.controller.admin.auth.vo.AuthLoginReqVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthLoginRespVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthMenuRespVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthPermissionInfoRespVO;
-import com.uusama.module.system.controller.admin.auth.vo.AuthSocialLoginReqVO;
 import com.uusama.module.system.convert.user.AuthConvert;
 import com.uusama.module.system.entity.permission.MenuDO;
 import com.uusama.module.system.entity.permission.RoleDO;
@@ -42,8 +41,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static com.uusama.framework.security.util.SecurityAuthUtils.obtainAuthorization;
 import static com.uusama.framework.security.util.SecurityAuthUtils.getLoginUserId;
+import static com.uusama.framework.security.util.SecurityAuthUtils.obtainAuthorization;
 import static java.util.Collections.singleton;
 
 @Tag(name = "管理后台 - 认证")
@@ -115,29 +114,4 @@ public class AuthController {
         // 转换成 Tree 结构返回
         return CommonResult.success(AuthConvert.INSTANCE.buildMenuTree(menuList));
     }
-
-    // ========== 短信登录相关 ==========
-
-    // ========== 社交登录相关 ==========
-//
-//    @GetMapping("/social-auth-redirect")
-//    @PermitAll
-//    @Operation(summary = "社交授权的跳转")
-//    @Parameters({
-//            @Parameter(name = "type", description = "社交类型", required = true),
-//            @Parameter(name = "redirectUri", description = "回调路径")
-//    })
-//    public CommonResult<String> socialLogin(@RequestParam("type") Integer type,
-//                                                    @RequestParam("redirectUri") String redirectUri) {
-//        return CommonResult.success(socialUserService.getAuthorizeUrl(type, redirectUri));
-//    }
-
-    @PostMapping("/social-login")
-    @PermitAll
-    @Operation(summary = "社交快捷登录，使用 code 授权码", description = "适合未登录的用户，但是社交账号已绑定用户")
-    @OperateLog(enable = false) // 避免 Post 请求被记录操作日志
-    public CommonResult<AuthLoginRespVO> socialQuickLogin(@RequestBody @Valid AuthSocialLoginReqVO reqVO) {
-        return CommonResult.success(authService.socialLogin(reqVO));
-    }
-
 }

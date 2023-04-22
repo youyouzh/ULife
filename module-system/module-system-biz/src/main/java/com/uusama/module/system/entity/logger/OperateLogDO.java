@@ -24,7 +24,7 @@ import java.util.Map;
  * @author uusama
  */
 @TableName(value = "system_operate_log", autoResultMap = true)
-@KeySequence("system_operate_log_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_operate_log_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -33,14 +33,10 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 public class OperateLogDO extends BaseUserDO {
 
-    /**
-     * {@link #javaMethodArgs} 的最大长度
-     */
+    /** {@link #javaMethodArgs} 的最大长度 */
     public static final Integer JAVA_METHOD_ARGS_MAX_LENGTH = 8000;
 
-    /**
-     * {@link #resultData} 的最大长度
-     */
+    /** {@link #resultData} 的最大长度 */
     public static final Integer RESULT_MAX_LENGTH = 4000;
 
     /**
@@ -48,17 +44,11 @@ public class OperateLogDO extends BaseUserDO {
      * 一般来说，通过链路追踪编号，可以将访问日志，错误日志，链路追踪日志，logger 打印日志等，结合在一起，从而进行排错。
      */
     private String traceId;
-    /**
-     * 操作模块
-     */
+    /** 操作模块 */
     private String module;
-    /**
-     * 操作名
-     */
+    /** 操作名 */
     private String name;
-    /**
-     * 操作分类
-     */
+    /** 操作分类 */
     @EnumValue
     private OperateTypeEnum type;
     /**
@@ -73,26 +63,16 @@ public class OperateLogDO extends BaseUserDO {
     @TableField(typeHandler = JacksonTypeHandler.class)
     private Map<String, Object> exts;
 
-    /**
-     * 请求方法名
-     */
+    /** 请求方法名 */
     private String requestMethod;
-    /**
-     * 请求地址
-     */
+    /** 请求地址 */
     private String requestUrl;
-    /**
-     * 用户 IP
-     */
+    /** 用户 IP */
     private String userIp;
-    /**
-     * 浏览器 UA
-     */
+    /** 浏览器 UA */
     private String userAgent;
 
-    /**
-     * Java 方法名
-     */
+    /** Java 方法名 */
     private String javaMethod;
     /**
      * Java 方法的参数
@@ -102,13 +82,9 @@ public class OperateLogDO extends BaseUserDO {
      *     其中，key 为参数名，value 为参数值
      */
     private String javaMethodArgs;
-    /**
-     * 开始时间
-     */
+    /** 开始时间 */
     private LocalDateTime startTime;
-    /**
-     * 执行时长，单位：毫秒
-     */
+    /** 执行时长，单位：毫秒 */
     private Integer duration;
     /**
      * 结果码

@@ -6,7 +6,6 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.media.IntegerSchema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
@@ -44,8 +43,6 @@ import java.util.Optional;
 @EnableConfigurationProperties(SwaggerProperties.class)
 @ConditionalOnProperty(prefix = "springdoc.api-docs", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class SwaggerAutoConfiguration {
-    public static final String HEADER_TENANT_ID = "tenant-id";
-
     @Bean
     public OpenAPI createApi(SwaggerProperties properties) {
         Map<String, SecurityScheme> securitySchemas = buildSecuritySchemes();
@@ -116,22 +113,8 @@ public class SwaggerAutoConfiguration {
             .group(group)
             .pathsToMatch("/admin-api/" + path + "/**", "/app-api/" + path + "/**")
             .addOperationCustomizer((operation, handlerMethod) -> operation
-                .addParametersItem(buildTenantHeaderParameter())
                 .addParametersItem(buildSecurityHeaderParameter()))
             .build();
-    }
-
-    /**
-     * 构建 Tenant 租户编号请求头参数
-     *
-     * @return 多租户参数
-     */
-    private static Parameter buildTenantHeaderParameter() {
-        return new Parameter()
-            .name(HEADER_TENANT_ID)
-            .description("租户编号")
-            .in(String.valueOf(SecurityScheme.In.HEADER))
-            .schema(new IntegerSchema()._default(1L).name(HEADER_TENANT_ID).description("租户编号"));
     }
 
     /**
@@ -145,6 +128,6 @@ public class SwaggerAutoConfiguration {
             .name(HttpHeaders.AUTHORIZATION)
             .description("认证 Token")
             .in(String.valueOf(SecurityScheme.In.HEADER))
-            .schema(new StringSchema()._default("Bearer test1").name(HEADER_TENANT_ID).description("认证 Token"));
+            .schema(new StringSchema()._default("Bearer test1").description("认证 Token"));
     }
 }

@@ -44,12 +44,12 @@ public class ServiceExceptionUtil {
     // ========== 和 ServiceException 的集成 ==========
 
     public static ServiceException exception(ErrorCode errorCode) {
-        String messagePattern = MESSAGES.getOrDefault(errorCode.getCode(), errorCode.getMsg());
+        String messagePattern = MESSAGES.getOrDefault(errorCode.getCode(), errorCode.getMessage());
         return exception0(errorCode.getCode(), messagePattern);
     }
 
     public static ServiceException exception(ErrorCode errorCode, Object... params) {
-        String messagePattern = MESSAGES.getOrDefault(errorCode.getCode(), errorCode.getMsg());
+        String messagePattern = MESSAGES.getOrDefault(errorCode.getCode(), errorCode.getMessage());
         return exception0(errorCode.getCode(), messagePattern, params);
     }
 
@@ -76,6 +76,7 @@ public class ServiceExceptionUtil {
 
     public static ServiceException exception0(Integer code, String messagePattern, Object... params) {
         String message = doFormat(code, messagePattern, params);
+        log.warn("ServiceException. code: {}, message: {}", code, message);
         return new ServiceException(code, message);
     }
 

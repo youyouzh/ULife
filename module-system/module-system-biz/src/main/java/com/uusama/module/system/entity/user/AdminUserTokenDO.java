@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
  * 管理后台的用户token记录表
  * @author uusama
  */
-@TableName(value = "system_users", autoResultMap = true)
-@KeySequence("system_user_seq")
+@TableName(value = "system_user_token", autoResultMap = true)
+@KeySequence("system_user_token_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor

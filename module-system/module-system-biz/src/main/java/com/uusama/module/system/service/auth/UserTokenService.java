@@ -2,6 +2,8 @@ package com.uusama.module.system.service.auth;
 
 import com.uusama.module.system.controller.admin.auth.vo.AuthLoginRespVO;
 
+import java.util.Optional;
+
 /**
  * OAuth2.0 Token Service 接口
  *
@@ -61,5 +63,11 @@ public interface UserTokenService {
      * @param accessToken 刷新令牌
      * @return 访问令牌的信息
      */
-    AuthLoginRespVO removeAccessToken(String accessToken);
+    Optional<AuthLoginRespVO> removeAccessToken(String accessToken);
+
+    /**
+     * 重置token，用于用户密码变更等，所有登录设备的token都需要失效
+     * @param userId 用户id
+     */
+    void resetToken(Long userId);
 }

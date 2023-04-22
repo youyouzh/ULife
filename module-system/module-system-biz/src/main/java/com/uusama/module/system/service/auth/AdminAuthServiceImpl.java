@@ -1,27 +1,18 @@
 package com.uusama.module.system.service.auth;
 
-import com.uusama.framework.web.enums.CommonState;
 import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.framework.web.util.ServletUtils;
 import com.uusama.framework.web.util.TracerUtils;
-import com.uusama.module.system.api.sms.SmsCodeApi;
-import com.uusama.module.system.api.sms.SmsSendApi;
 import com.uusama.module.system.constant.OAuth2ClientConstants;
 import com.uusama.module.system.controller.admin.auth.vo.AuthLoginReqVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthLoginRespVO;
-import com.uusama.module.system.controller.admin.auth.vo.AuthSmsLoginReqVO;
-import com.uusama.module.system.controller.admin.auth.vo.AuthSmsSendReqVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthSocialLoginReqVO;
-import com.uusama.module.system.convert.user.AuthConvert;
 import com.uusama.module.system.entity.logger.LoginLogDO;
-import com.uusama.module.system.entity.oauth2.OAuth2AccessTokenDO;
 import com.uusama.module.system.entity.user.AdminUserDO;
-import com.uusama.module.system.enums.SmsSceneEnum;
 import com.uusama.module.system.logger.LoginLogTypeEnum;
 import com.uusama.module.system.logger.LoginResultEnum;
 import com.uusama.module.system.mapper.logger.LoginLogMapper;
 import com.uusama.module.system.mapper.user.AdminUserMapper;
-import com.uusama.module.system.service.oauth2.OAuth2TokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,8 +27,6 @@ import static com.uusama.framework.web.exception.ServiceExceptionUtil.exception;
 import static com.uusama.framework.web.util.ServletUtils.getClientIP;
 import static com.uusama.module.system.constant.ErrorCodeConstants.AUTH_LOGIN_BAD_CREDENTIALS;
 import static com.uusama.module.system.constant.ErrorCodeConstants.AUTH_LOGIN_USER_DISABLED;
-import static com.uusama.module.system.constant.ErrorCodeConstants.AUTH_MOBILE_NOT_EXISTS;
-import static com.uusama.module.system.constant.ErrorCodeConstants.AUTH_THIRD_LOGIN_NOT_BIND;
 import static com.uusama.module.system.constant.ErrorCodeConstants.USER_NOT_EXISTS;
 
 /**
@@ -52,8 +41,7 @@ public class AdminAuthServiceImpl implements AdminAuthService {
     private final AdminUserMapper adminUserMapper;
     private final LoginLogMapper loginLogMapper;
     private final PasswordEncoder passwordEncoder;
-    private final OAuth2TokenService oauth2TokenService;
-    private final SmsCodeApi smsCodeApi;
+    private final AdminUserTokenServiceImpl adminUserTokenService;
 
     /**
      * 验证账号 + 密码。如果通过，则返回用户
@@ -104,40 +92,6 @@ public class AdminAuthServiceImpl implements AdminAuthService {
         return createTokenAfterLoginSuccess(user.getId(), reqVO.getUsername(), LoginLogTypeEnum.LOGIN_USERNAME);
     }
 
-    /**
-     * 短信验证码发送
-     *
-     * @param reqVO 发送请求
-     */
-    public void sendSmsCode(AuthSmsSendReqVO reqVO) {
-        // 登录场景，验证是否存在
-        if (adminUserMapper.selectByMobile(reqVO.getMobile()) == null) {
-            throw exception(AUTH_MOBILE_NOT_EXISTS);
-        }
-        // 发送验证码
-        smsCodeApi.sendSmsCode(AuthConvert.INSTANCE.convert(reqVO).setCreateIp(getClientIP()));
-    }
-
-    /**
-     * 短信登录
-     *
-     * @param reqVO 登录信息
-     * @return 登录结果
-     */
-    public AuthLoginRespVO smsLogin(AuthSmsLoginReqVO reqVO) {
-        // 校验验证码
-        smsCodeApi.useSmsCode(AuthConvert.INSTANCE.convert(reqVO, SmsSceneEnum.ADMIN_MEMBER_LOGIN, getClientIP()));
-
-        // 获得用户信息
-        AdminUserDO user = adminUserMapper.selectByMobile(reqVO.getMobile());
-        if (user == null) {
-            throw exception(USER_NOT_EXISTS);
-        }
-
-        // 创建 Token 令牌，记录登录日志
-        return createTokenAfterLoginSuccess(user.getId(), reqVO.getMobile(), LoginLogTypeEnum.LOGIN_MOBILE);
-    }
-
     private void createLoginLog(Long userId, String username,
                                 LoginLogTypeEnum logTypeEnum, LoginResultEnum loginResult) {
         // 插入登录日志
@@ -158,39 +112,11 @@ public class AdminAuthServiceImpl implements AdminAuthService {
         }
     }
 
-    /**
-     * 社交快捷登录，使用 code 授权码
-     *
-     * @param reqVO 登录信息
-     * @return 登录结果
-     */
-    public AuthLoginRespVO socialLogin(@javax.validation.Valid AuthSocialLoginReqVO reqVO) {
-        // 使用 code 授权码，进行登录。然后，获得到绑定的用户编号
-//        Long userId = socialUserService.getBindUserId(UserTypeEnum.ADMIN.getValue(), reqVO.getType(),
-//                                                      reqVO.getCode(), reqVO.getState());
-//        if (userId == null) {
-//            throw exception(AUTH_THIRD_LOGIN_NOT_BIND);
-//        }
-        Long userId = 0L;
-
-            // 获得用户
-        AdminUserDO user = adminUserMapper.selectById(userId);
-        if (user == null) {
-            throw exception(USER_NOT_EXISTS);
-        }
-
-        // 创建 Token 令牌，记录登录日志
-        return createTokenAfterLoginSuccess(user.getId(), user.getUsername(), LoginLogTypeEnum.LOGIN_SOCIAL);
-    }
-
     private AuthLoginRespVO createTokenAfterLoginSuccess(Long userId, String username, LoginLogTypeEnum logType) {
         // 插入登陆日志
         createLoginLog(userId, username, logType, LoginResultEnum.SUCCESS);
         // 创建访问令牌
-        OAuth2AccessTokenDO accessTokenDO = oauth2TokenService.createAccessToken(userId, getUserType(),
-                                                                                 OAuth2ClientConstants.CLIENT_ID_DEFAULT, null);
-        // 构建返回结果
-        return AuthConvert.INSTANCE.convert(accessTokenDO);
+        return adminUserTokenService.createAccessToken(userId, OAuth2ClientConstants.CLIENT_ID_DEFAULT);
     }
 
     /**
@@ -200,8 +126,7 @@ public class AdminAuthServiceImpl implements AdminAuthService {
      * @return 登录结果
      */
     public AuthLoginRespVO refreshToken(String refreshToken) {
-        OAuth2AccessTokenDO accessTokenDO = oauth2TokenService.refreshAccessToken(refreshToken, OAuth2ClientConstants.CLIENT_ID_DEFAULT);
-        return AuthConvert.INSTANCE.convert(accessTokenDO);
+        return adminUserTokenService.refreshAccessToken(refreshToken, OAuth2ClientConstants.CLIENT_ID_DEFAULT);
     }
 
     /**
@@ -212,12 +137,9 @@ public class AdminAuthServiceImpl implements AdminAuthService {
      */
     public void logout(String token, LoginLogTypeEnum logType) {
         // 删除访问令牌
-        OAuth2AccessTokenDO accessTokenDO = oauth2TokenService.removeAccessToken(token);
-        if (accessTokenDO == null) {
-            return;
-        }
+        Optional<AuthLoginRespVO> authLoginRespVO = adminUserTokenService.removeAccessToken(token);
         // 删除成功，则记录登出日志
-        createLogoutLog(accessTokenDO.getUserId(), accessTokenDO.getUserType(), logType);
+        authLoginRespVO.ifPresent(v -> createLogoutLog(v.getUserId(), getUserType(), logType));
     }
 
     private void createLogoutLog(Long userId, UserTypeEnum userType, LoginLogTypeEnum logType) {

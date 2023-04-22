@@ -24,11 +24,15 @@ public class ErrorCode {
     /**
      * 错误提示
      */
-    private final String msg;
+    private String message;
 
     public ErrorCode(Integer code, String message) {
         this.code = code;
-        this.msg = message;
+        this.message = message;
     }
 
+    public ErrorCode withMessage(String message) {
+        this.message = message;
+        return this;
+    }
 }

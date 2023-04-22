@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
  * @author uusama
  */
 @TableName(value = "system_oauth2_approve", autoResultMap = true)
-@KeySequence("system_oauth2_approve_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_oauth2_approve_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -35,9 +35,7 @@ public class OAuth2ApproveDO extends BaseUserDO {
      * 关联 {@link OAuth2ClientDO#getId()}
      */
     private String clientId;
-    /**
-     * 授权范围
-     */
+    /** 授权范围 */
     private String scope;
     /**
      * 是否接受
@@ -46,9 +44,7 @@ public class OAuth2ApproveDO extends BaseUserDO {
      * false - 拒绝
      */
     private Boolean approved;
-    /**
-     * 过期时间
-     */
+    /** 过期时间 */
     private LocalDateTime expiresTime;
 
 }

@@ -23,7 +23,7 @@ public class DeptBaseVO {
     @Schema(description = "父菜单 ID", example = "1024")
     private Long parentId;
 
-    @Schema(description = "显示顺序不能为空", required = true, example = "1024")
+    @Schema(description = "显示顺序不能为空", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
     @NotNull(message = "显示顺序不能为空")
     private Integer sort;
 

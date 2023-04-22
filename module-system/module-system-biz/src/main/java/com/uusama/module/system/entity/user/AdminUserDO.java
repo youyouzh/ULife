@@ -27,7 +27,7 @@ import java.util.Set;
  * @author uusama
  */
 @TableName(value = "system_users", autoResultMap = true)
-@KeySequence("system_user_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_user_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -36,70 +36,40 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class AdminUserDO extends BaseConfigDO {
-
-    /**
-     * 用户账号
-     */
+    /** 用户账号 */
     private String username;
     /**
      * 加密后的密码
-     *
-     * 因为目前使用 {@link BCryptPasswordEncoder} 加密器，所以无需自己处理 salt 盐
+     * 使用 {@link BCryptPasswordEncoder} 加密器，所以无需自己处理 salt 盐
      */
     private String password;
-    /**
-     * 用户昵称
-     */
+    /** 用户昵称 */
     private String nickname;
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String remark;
-    /**
-     * 部门 ID
-     */
+    /** 部门 ID */
     private Long deptId;
-    /**
-     * 岗位编号数组
-     */
+    /** 岗位编号数组 */
     @TableField(typeHandler = JsonLongSetTypeHandler.class)
     private Set<Long> postIds;
-    /**
-     * 用户邮箱
-     */
+    /** 用户邮箱 */
     private String email;
-    /**
-     * 手机号码
-     */
+    /** 手机号码 */
     private String mobile;
-    /**
-     * 用户性别
-     */
+    /** 用户性别 */
     @EnumValue
     private SexEnum sex;
-    /**
-     * 用户头像
-     */
+    /** 用户头像 */
     private String avatar;
-    /**
-     * 帐号状态
-     */
+    /** 帐号状态 */
     @EnumValue
     private CommonState state;
-    /**
-     * 最后登录IP
-     */
+    /** 最后登录IP */
     private String loginIp;
-    /**
-     * 最后登录时间
-     */
+    /** 最后登录时间 */
     private LocalDateTime loginDate;
 
-    /**
-     * 性别的枚举值
-     *
-     * @author uusama
-     */
+    /** 性别的枚举值 */
     @Getter
     @AllArgsConstructor
     public enum SexEnum {
@@ -111,9 +81,7 @@ public class AdminUserDO extends BaseConfigDO {
         /* 未知 */
         UNKNOWN(3);
 
-        /**
-         * 性别
-         */
+        /** 性别 */
         private final Integer sex;
 //        private final String label;
     }

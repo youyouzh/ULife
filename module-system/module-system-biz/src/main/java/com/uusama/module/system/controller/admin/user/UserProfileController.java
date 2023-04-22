@@ -17,6 +17,7 @@ import com.uusama.module.system.service.permission.RoleService;
 import com.uusama.module.system.service.user.AdminUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -41,22 +41,16 @@ import static com.uusama.module.system.constant.ErrorCodeConstants.FILE_IS_EMPTY
 @RequestMapping("/system/user/profile")
 @Validated
 @Slf4j
+@RequiredArgsConstructor
 public class UserProfileController {
-
-    @Resource
-    private AdminUserService userService;
-    @Resource
-    private DeptService deptService;
-    @Resource
-    private PostService postService;
-    @Resource
-    private PermissionService permissionService;
-    @Resource
-    private RoleService roleService;
+    private final AdminUserService userService;
+    private final DeptService deptService;
+    private final PostService postService;
+    private final PermissionService permissionService;
+    private final RoleService roleService;
 
     @GetMapping("/get")
     @Operation(summary = "获得登录用户信息")
-    // @DataPermission(enable = false) // 关闭数据权限，避免只查看自己时，查询不到部门。
     public CommonResult<UserProfileRespVO> profile() {
         // 获得用户基本信息
         AdminUserDO user = userService.getUser(getLoginUserId());
@@ -74,9 +68,6 @@ public class UserProfileController {
             List<PostDO> posts = postService.getPostList(user.getPostIds());
             resp.setPosts(UserConvert.INSTANCE.convertList02(posts));
         }
-        // 获得社交用户信息
-//        List<SocialUserDO> socialUsers = socialService.getSocialUserList(user.getId(), UserTypeEnum.ADMIN.getValue());
-//        resp.setSocialUsers(UserConvert.INSTANCE.convertList03(socialUsers));
         return CommonResult.success(resp);
     }
 

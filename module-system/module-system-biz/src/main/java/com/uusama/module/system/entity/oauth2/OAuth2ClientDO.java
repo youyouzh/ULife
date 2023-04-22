@@ -23,7 +23,7 @@ import java.util.List;
  * @author uusama
  */
 @TableName(value = "system_oauth2_client", autoResultMap = true)
-@KeySequence("system_oauth2_client_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_oauth2_client_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -32,42 +32,24 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class OAuth2ClientDO extends BaseDO {
 
-    /**
-     * 客户端编号
-     */
+    /** 客户端编号 */
     private String clientId;
-    /**
-     * 客户端密钥
-     */
+    /** 客户端密钥 */
     private String secret;
-    /**
-     * 应用名
-     */
+    /** 应用名 */
     private String name;
-    /**
-     * 应用图标
-     */
+    /** 应用图标 */
     private String logo;
-    /**
-     * 应用描述
-     */
+    /** 应用描述 */
     private String description;
-    /**
-     * 状态
-     */
+    /** 状态 */
     @EnumValue
     private CommonState state;
-    /**
-     * 访问令牌的有效期
-     */
+    /** 访问令牌的有效期 */
     private Integer accessTokenValiditySeconds;
-    /**
-     * 刷新令牌的有效期
-     */
+    /** 刷新令牌的有效期 */
     private Integer refreshTokenValiditySeconds;
-    /**
-     * 可重定向的 URI 地址
-     */
+    /** 可重定向的 URI 地址 */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> redirectUris;
     /**
@@ -77,9 +59,7 @@ public class OAuth2ClientDO extends BaseDO {
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> authorizedGrantTypes;
-    /**
-     * 授权范围
-     */
+    /** 授权范围 */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> scopes;
     /**
@@ -89,19 +69,13 @@ public class OAuth2ClientDO extends BaseDO {
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> autoApproveScopes;
-    /**
-     * 权限
-     */
+    /** 权限 */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> authorities;
-    /**
-     * 资源
-     */
+    /** 资源 */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> resourceIds;
-    /**
-     * 附加信息，JSON 格式
-     */
+    /** 附加信息，JSON 格式 */
     private String additionalInformation;
 
 }

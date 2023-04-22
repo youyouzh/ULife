@@ -15,12 +15,12 @@ import lombok.experimental.SuperBuilder;
 
 /**
  * 部门表
+ *  `@KeySequence("system_dept_seq")`用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
  *
- * @author ruoyi
  * @author uusama
  */
 @TableName("system_dept")
-@KeySequence("system_dept_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_dept_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -30,35 +30,25 @@ import lombok.experimental.SuperBuilder;
 public class DeptDO extends BaseDO {
     public static final long ROOT_ID = 0;
 
-    /**
-     * 部门名称
-     */
+    /** 部门名称 */
     private String name;
     /**
      * 父部门ID
      * 关联 {@link #id}
      */
     private Long parentId;
-    /**
-     * 显示顺序
-     */
+    /** 显示顺序 */
     private Integer sort;
     /**
      * 负责人
      * 关联 {@link AdminUserDO#getId()}
      */
     private Long leaderUserId;
-    /**
-     * 联系电话
-     */
+    /** 联系电话 */
     private String phone;
-    /**
-     * 邮箱
-     */
+    /** 邮箱 */
     private String email;
-    /**
-     * 部门状态
-     */
+    /** 部门状态 */
     @EnumValue
     private CommonState state;
 

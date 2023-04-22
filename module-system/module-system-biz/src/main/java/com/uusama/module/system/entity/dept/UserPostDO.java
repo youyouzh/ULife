@@ -14,10 +14,10 @@ import lombok.experimental.SuperBuilder;
 /**
  * 用户和岗位关联
  *
- * @author ruoyi
+ * @author uusama
  */
 @TableName("system_user_post")
-@KeySequence("system_user_post_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@KeySequence("system_user_post_seq")
 @Data
 @SuperBuilder
 @NoArgsConstructor
