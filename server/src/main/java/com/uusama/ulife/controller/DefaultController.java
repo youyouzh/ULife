@@ -1,6 +1,6 @@
 package com.uusama.ulife.controller;
 
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

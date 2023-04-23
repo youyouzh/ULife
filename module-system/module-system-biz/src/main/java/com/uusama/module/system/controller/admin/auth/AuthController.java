@@ -3,7 +3,7 @@ package com.uusama.module.system.controller.admin.auth;
 import com.uusama.framework.recorder.annotations.OperateLog;
 import com.uusama.framework.security.config.SecurityProperties;
 import com.uusama.framework.web.enums.CommonState;
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import com.uusama.framework.web.util.ParamUtils;
 import com.uusama.module.system.constant.ErrorCodeConstants;
 import com.uusama.module.system.controller.admin.auth.vo.AuthLoginReqVO;

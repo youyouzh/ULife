@@ -1,7 +1,7 @@
 package com.uusama.module.system.controller.admin.permission;
 
 import com.uusama.framework.web.enums.CommonState;
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import com.uusama.module.system.controller.admin.permission.vo.menu.MenuCreateReqVO;
 import com.uusama.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
 import com.uusama.module.system.controller.admin.permission.vo.menu.MenuRespVO;

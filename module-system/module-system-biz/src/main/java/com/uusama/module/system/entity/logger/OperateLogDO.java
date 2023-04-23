@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.uusama.framework.recorder.enums.OperateTypeEnum;
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import com.uusama.module.system.entity.user.BaseUserDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;

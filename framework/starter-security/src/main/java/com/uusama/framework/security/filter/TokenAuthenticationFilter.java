@@ -7,7 +7,7 @@ import com.uusama.framework.security.util.SecurityAuthUtils;
 import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.framework.web.exception.GlobalExceptionHandler;
 import com.uusama.framework.web.exception.ServiceException;
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import com.uusama.framework.web.util.ServletUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;

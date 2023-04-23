@@ -1,5 +1,8 @@
 package com.uusama.module.system.service.auth;
 
+import com.uusama.framework.security.LoginUser;
+import com.uusama.framework.security.api.UserTokenApi;
+import com.uusama.framework.web.enums.UserTypeEnum;
 import com.uusama.module.system.controller.admin.auth.vo.AuthLoginRespVO;
 
 import java.util.Optional;
@@ -11,7 +14,7 @@ import java.util.Optional;
  *
  * @author uusama
  */
-public interface UserTokenService {
+public interface UserTokenService extends UserTokenApi {
 
     /**
      * 创建访问令牌
@@ -70,4 +73,14 @@ public interface UserTokenService {
      * @param userId 用户id
      */
     void resetToken(Long userId);
+
+    /**
+     * 默认实现token检查，暂时没用缓存
+     * @param accessToken 访问令牌
+     * @return LoginUser
+     */
+    default LoginUser checkUserToken(String accessToken) {
+        AuthLoginRespVO authLoginRespVO = checkAccessToken(accessToken);
+        return LoginUser.builder().id(authLoginRespVO.getUserId()).userType(UserTypeEnum.ADMIN).build();
+    }
 }

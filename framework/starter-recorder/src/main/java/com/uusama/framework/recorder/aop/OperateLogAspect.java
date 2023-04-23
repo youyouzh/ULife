@@ -11,7 +11,7 @@ import com.uusama.framework.recorder.pojo.OperateLog;
 import com.uusama.framework.security.LoginUser;
 import com.uusama.framework.security.util.SecurityAuthUtils;
 import com.uusama.framework.web.enums.UserTypeEnum;
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import com.uusama.framework.web.util.JsonUtils;
 import com.uusama.framework.web.util.ServletUtils;
 import com.uusama.framework.web.util.TracerUtils;

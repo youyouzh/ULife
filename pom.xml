@@ -15,6 +15,7 @@
         <module>common</module>
         <module>module-system</module>
         <module>module-infra</module>
+        <module>module-monitor</module>
     </modules>
 
     <name>${project.artifactId}</name>

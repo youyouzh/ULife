@@ -1,7 +1,7 @@
 package com.uusama.module.system.controller.admin.dept;
 
 import com.uusama.framework.web.enums.CommonState;
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import com.uusama.module.system.controller.admin.dept.vo.dept.DeptCreateReqVO;
 import com.uusama.module.system.controller.admin.dept.vo.dept.DeptRespVO;
 import com.uusama.module.system.controller.admin.dept.vo.dept.DeptUpdateReqVO;

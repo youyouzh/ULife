@@ -17,6 +17,7 @@
 
         <!-- SpringBoot统一依赖管理 -->
         <spring.boot.version>2.7.8</spring.boot.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
 
         <!-- DB 相关 -->
         <druid.version>1.2.15</druid.version>
@@ -120,6 +121,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- SpringCloud统一依赖管理 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

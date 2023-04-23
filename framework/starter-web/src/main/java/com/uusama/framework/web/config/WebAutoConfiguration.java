@@ -1,5 +1,6 @@
 package com.uusama.framework.web.config;
 
+import com.uusama.framework.web.customizer.PathMatchCustomizer;
 import com.uusama.framework.web.enums.WebFilterOrderEnum;
 import com.uusama.framework.web.exception.GlobalExceptionHandler;
 import com.uusama.framework.web.exception.GlobalResponseBodyHandler;

@@ -1,10 +1,8 @@
 package com.uusama.module.system.convert.user;
 
 import com.uusama.common.util.CollUtil;
-import com.uusama.module.system.controller.admin.auth.vo.AuthLoginRespVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthMenuRespVO;
 import com.uusama.module.system.controller.admin.auth.vo.AuthPermissionInfoRespVO;
-import com.uusama.module.system.entity.oauth2.OAuth2AccessTokenDO;
 import com.uusama.module.system.entity.permission.MenuDO;
 import com.uusama.module.system.entity.permission.RoleDO;
 import com.uusama.module.system.entity.user.AdminUserDO;
@@ -24,8 +22,6 @@ import static com.uusama.module.system.entity.permission.MenuDO.ID_ROOT;
 public interface AuthConvert {
 
     AuthConvert INSTANCE = Mappers.getMapper(AuthConvert.class);
-
-    AuthLoginRespVO convert(OAuth2AccessTokenDO bean);
 
     default AuthPermissionInfoRespVO convert(AdminUserDO user, List<RoleDO> roleList, List<MenuDO> menuList) {
         return AuthPermissionInfoRespVO.builder()

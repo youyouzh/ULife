@@ -4,7 +4,7 @@ import com.uusama.framework.mybatis.pojo.PageResult;
 import com.uusama.framework.recorder.annotations.OperateLog;
 import com.uusama.framework.recorder.enums.OperateTypeEnum;
 import com.uusama.framework.tool.util.ExcelUtils;
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import com.uusama.module.system.controller.admin.logger.vo.loginlog.LoginLogPageReqVO;
 import com.uusama.module.system.controller.admin.logger.vo.loginlog.LoginLogExcelVO;
 import com.uusama.module.system.controller.admin.logger.vo.loginlog.LoginLogExportReqVO;

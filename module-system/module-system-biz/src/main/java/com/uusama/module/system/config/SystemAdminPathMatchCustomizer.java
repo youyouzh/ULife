@@ -1,7 +1,7 @@
 package com.uusama.module.system.config;
 
-import com.uusama.framework.web.config.PathMatchCustomizer;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
+import com.uusama.framework.web.customizer.PathMatchCustomizer;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
  *
  * @author uusama
  */
-@AutoConfiguration
+@Component
 public class SystemAdminPathMatchCustomizer implements PathMatchCustomizer {
 
     @Override

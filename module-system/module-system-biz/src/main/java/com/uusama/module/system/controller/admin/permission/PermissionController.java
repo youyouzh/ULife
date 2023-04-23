@@ -1,6 +1,6 @@
 package com.uusama.module.system.controller.admin.permission;
 
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import com.uusama.module.system.controller.admin.permission.vo.permission.PermissionAssignRoleDataScopeReqVO;
 import com.uusama.module.system.controller.admin.permission.vo.permission.PermissionAssignRoleMenuReqVO;
 import com.uusama.module.system.controller.admin.permission.vo.permission.PermissionAssignUserRoleReqVO;

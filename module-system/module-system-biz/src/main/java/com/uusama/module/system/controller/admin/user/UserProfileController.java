@@ -1,7 +1,7 @@
 package com.uusama.module.system.controller.admin.user;
 
 import com.uusama.common.util.CollUtil;
-import com.uusama.framework.web.pojo.CommonResult;
+import com.uusama.framework.api.pojo.CommonResult;
 import com.uusama.module.system.controller.admin.user.vo.profile.UserProfileRespVO;
 import com.uusama.module.system.controller.admin.user.vo.profile.UserProfileUpdatePasswordReqVO;
 import com.uusama.module.system.controller.admin.user.vo.profile.UserProfileUpdateReqVO;

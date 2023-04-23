@@ -11,6 +11,7 @@ import java.time.OffsetTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.chrono.Era;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
@@ -33,6 +34,9 @@ public class DateTimeUtil {
     public static final long SECOND_MILLIS = 1000;
 
     public static final String FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static final String FORMAT_HOUR_MINUTE_SECOND = "HH:mm:ss";
 
@@ -161,5 +165,9 @@ public class DateTimeUtil {
 
     public static boolean isNotExpired(LocalDateTime time) {
         return !isExpired(time);
+    }
+
+    public static String formatToDate(LocalDateTime time) {
+        return DATE_FORMATTER.format(time);
     }
 }

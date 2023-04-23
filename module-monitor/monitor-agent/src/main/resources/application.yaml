@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active:dev
+  application:
+    name:monitor-agent
+  main:
+    # spring banner logo
+    banner-mode:off
+
+server:
+  port: 9666
+  servlet:
+    encoding:
+      force:true
+      charset:UTF-8
+      enabled:true
+  tomcat:
+    uri-encoding:UTF-8
+
+eureka:
+  instance:
+    # eureka获取服务时提供ip地址而不是host名称
+    prefer-ip-address:true
+
+# 日志配置
+logging:
+  level:
+    # eureka服务发现日志关闭: Resolving eureka endpoints via configuration
+    com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver: WARN
+
+

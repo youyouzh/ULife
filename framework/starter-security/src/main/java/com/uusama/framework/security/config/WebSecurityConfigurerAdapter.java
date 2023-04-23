@@ -1,5 +1,6 @@
 package com.uusama.framework.security.config;
 
+import com.uusama.framework.security.customizer.AuthorizeRequestsCustomizer;
 import com.uusama.framework.security.filter.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.MultiValuedMap;

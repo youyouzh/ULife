@@ -2,4 +2,4 @@ com.github.xiaoymin.knife4j.spring.configuration.Knife4jAutoConfiguration
 com.uusama.framework.web.config.JacksonAutoConfiguration
 com.uusama.framework.web.config.SwaggerAutoConfiguration
 com.uusama.framework.web.config.WebAutoConfiguration
-com.uusama.framework.web.config.DefaultPathMatchCustomizer
+com.uusama.framework.web.customizer.DefaultPathMatchCustomizer
